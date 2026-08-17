@@ -1,13 +1,98 @@
 import React, { Suspense, lazy } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles, Code2, Layers, Cpu } from 'lucide-react';
+import { ArrowRight, Sparkles, Code2, Layers, Cpu, Github, Linkedin } from 'lucide-react';
 import { getTranslated } from '@/lib/i18n-helper';
 
 const ThreeCanvas = lazy(() => import('./ThreeCanvas'));
 
 interface HeroSectionProps {
     heroData: any;
+}
+
+// Profile Photo with animated glow rings - replaces the 3D canvas object
+function ProfilePhoto({ src }: { src?: string | null }) {
+    const photoSrc = src ? `/storage/${src}` : '/images/profile-hero.jpg';
+
+    return (
+        <div className="relative flex items-center justify-center w-full select-none">
+            {/* Ambient background glow layers */}
+            <div className="absolute inset-0 rounded-full bg-purple-600/20 blur-[80px] scale-110" />
+            <div className="absolute inset-0 rounded-full bg-cyan-400/15 blur-[60px] scale-90 animate-pulse" style={{ animationDuration: '4s' }} />
+
+            {/* Outermost rotating orbit ring */}
+            <div className="absolute w-[360px] h-[360px] sm:w-[420px] sm:h-[420px] rounded-full border border-purple-500/20"
+                style={{ animation: 'spin 20s linear infinite' }}>
+                {/* Small diamond accent on the ring */}
+                <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-sm bg-amber-400 rotate-45 shadow-md shadow-amber-400/50" />
+            </div>
+
+            {/* Middle orbit ring */}
+            <div className="absolute w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] rounded-full border border-cyan-400/25"
+                style={{ animation: 'spin 14s linear infinite reverse' }}>
+                <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-md shadow-cyan-400/60" />
+            </div>
+
+            {/* Inner glow ring */}
+            <div className="absolute w-[240px] h-[240px] sm:w-[280px] sm:h-[280px] rounded-full border border-purple-400/30"
+                style={{ animation: 'spin 9s linear infinite' }} />
+
+            {/* The profile photo frame */}
+            <div className="relative z-10 w-[200px] h-[200px] sm:w-[240px] sm:h-[240px] rounded-full p-[3px]"
+                style={{ background: 'linear-gradient(135deg, #8B5CF6, #22D3EE, #F59E0B, #8B5CF6)', backgroundSize: '300% 300%', animation: 'gradientShift 6s ease infinite' }}>
+                <div className="w-full h-full rounded-full overflow-hidden border-2 border-background/50 shadow-2xl">
+                    <img
+                        src={photoSrc}
+                        alt="Profile"
+                        className="w-full h-full object-cover object-top"
+                        onError={(e) => {
+                            // fallback if image fails
+                            (e.target as HTMLImageElement).style.display = 'none';
+                        }}
+                    />
+                </div>
+                {/* Inner glow overlay on photo */}
+                <div className="absolute inset-0 rounded-full"
+                    style={{ background: 'radial-gradient(circle at 30% 30%, rgba(139,92,246,0.15), transparent 60%)' }} />
+            </div>
+
+            {/* Floating badge: Stack */}
+            <motion.div
+                animate={{ y: [-6, 6, -6] }}
+                transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+                className="absolute -right-4 sm:-right-8 top-8 px-3 py-2 rounded-xl border border-border bg-card/90 backdrop-blur-xl shadow-xl text-[11px] font-semibold text-foreground flex items-center gap-2"
+            >
+                <Code2 className="w-4 h-4 text-purple-400" />
+                <div>
+                    <div className="text-[10px] text-muted-foreground font-normal">Tech</div>
+                    <span>Fullstack</span>
+                </div>
+            </motion.div>
+
+            {/* Floating badge: 3D */}
+            <motion.div
+                animate={{ y: [8, -8, 8] }}
+                transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut', delay: 0.5 }}
+                className="absolute -left-4 sm:-left-8 top-16 px-3 py-2 rounded-xl border border-border bg-card/90 backdrop-blur-xl shadow-xl text-[11px] font-semibold text-foreground flex items-center gap-2"
+            >
+                <Layers className="w-4 h-4 text-cyan-400" />
+                <div>
+                    <div className="text-[10px] text-muted-foreground font-normal">Spesialis</div>
+                    <span>3D / WebGL</span>
+                </div>
+            </motion.div>
+
+            {/* Floating badge: Open to work */}
+            <motion.div
+                animate={{ y: [-5, 5, -5] }}
+                transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut', delay: 1 }}
+                className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-3 py-2 rounded-xl border border-emerald-500/30 bg-card/90 backdrop-blur-xl shadow-xl text-[11px] font-semibold text-emerald-400 flex items-center gap-2"
+            >
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Open to Work</span>
+            </motion.div>
+        </div>
+    );
 }
 
 export default function HeroSection({ heroData }: HeroSectionProps) {
@@ -22,12 +107,23 @@ export default function HeroSection({ heroData }: HeroSectionProps) {
         'Passionate Software Engineer specializing in modern reactive architectures, Three.js 3D visuals, and high-performance web systems.'
     );
 
+    // Use photo from heroData if available, else fallback to public asset
+    const heroImage: string | null = heroData?.image ?? null;
+
     return (
         <section className="relative min-h-screen pt-28 pb-20 flex items-center justify-center overflow-hidden">
             {/* Background Ambient Glows */}
             <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-purple-600/15 rounded-full blur-[140px] pointer-events-none -z-10" />
             <div className="absolute top-1/3 right-10 w-[400px] h-[400px] bg-cyan-400/10 rounded-full blur-[120px] pointer-events-none -z-10" />
             <div className="absolute bottom-10 left-10 w-[350px] h-[350px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none -z-10" />
+
+            {/* Keyframes for ring animations */}
+            <style>{`
+                @keyframes gradientShift {
+                    0%, 100% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                }
+            `}</style>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -105,23 +201,14 @@ export default function HeroSection({ heroData }: HeroSectionProps) {
                         </div>
                     </motion.div>
 
-                    {/* Right Column: Interactive 3D Canvas */}
+                    {/* Right Column: Profile Photo with 3D Glow Rings */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.85 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
-                        className="lg:col-span-5 flex items-center justify-center relative"
+                        transition={{ duration: 1, ease: 'easeOut', delay: 0.3 }}
+                        className="lg:col-span-5 flex items-center justify-center relative py-12 lg:py-0"
                     >
-                        <Suspense
-                            fallback={
-                                <div className="w-full h-80 flex flex-col items-center justify-center gap-3">
-                                    <div className="w-12 h-12 rounded-full border-2 border-purple-500 border-t-transparent animate-spin" />
-                                    <span className="text-xs text-muted-foreground">Loading 3D Canvas...</span>
-                                </div>
-                            }
-                        >
-                            <ThreeCanvas />
-                        </Suspense>
+                        <ProfilePhoto src={heroImage} />
                     </motion.div>
                 </div>
             </div>

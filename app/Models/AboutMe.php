@@ -9,6 +9,23 @@ class AboutMe extends Model
 {
     use HasTranslations;
 
-    protected $fillable = ['description', 'projects_completed', 'certifications', 'years_experience'];
+    protected $fillable = [
+        'projects_completed',
+        'certifications',
+        'years_experience',
+        'description',
+        'gallery_images',
+        'skill_stats',
+        'features',
+        'expertise_tabs',
+    ];
+
     public $translatable = ['description'];
+
+    protected $casts = [
+        'gallery_images'  => 'array',
+        'skill_stats'     => 'array',
+        'features'        => 'array',
+        'expertise_tabs'  => 'array',
+    ];
 }

@@ -10,11 +10,17 @@ class Project extends Model
 {
     use HasTranslations;
 
-    protected $fillable = ['name', 'description', 'image', 'demo_url', 'repo_url', 'is_featured'];
+    protected $fillable = [
+        'name', 'description', 'image', 'demo_url', 'repo_url',
+        'is_featured', 'priority_order', 'status', 'highlights', 'gallery', 'category', 'year',
+    ];
     public $translatable = ['name', 'description'];
 
     protected $casts = [
-        'is_featured' => 'boolean',
+        'is_featured'   => 'boolean',
+        'priority_order'=> 'integer',
+        'highlights'    => 'array',
+        'gallery'       => 'array',
     ];
 
     public function technologies(): BelongsToMany

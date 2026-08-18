@@ -17,7 +17,7 @@ export const resources = {
                 admin: 'Admin CMS',
             },
             hero: {
-                badge: '✨ Available for Opportunities',
+                badge: 'Available for Opportunities',
                 viewProjects: 'Explore Projects',
                 contactMe: 'Get In Touch',
                 scrollDown: 'Scroll Down',

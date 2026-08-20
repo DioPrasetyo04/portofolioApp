@@ -10,6 +10,7 @@ use App\Contracts\Repositories\LanguageSkillRepositoryInterface;
 use App\Contracts\Repositories\NewsRepositoryInterface;
 use App\Contracts\Repositories\ProjectRepositoryInterface;
 use App\Contracts\Repositories\TechnologyCategoryRepositoryInterface;
+use App\Contracts\Repositories\SocialMediaRepositoryInterface;
 use App\Contracts\Services\PortfolioServiceInterface;
 
 class PortfolioService implements PortfolioServiceInterface
@@ -22,7 +23,8 @@ class PortfolioService implements PortfolioServiceInterface
         protected LanguageSkillRepositoryInterface $skillRepo,
         protected CertificateRepositoryInterface $certRepo,
         protected NewsRepositoryInterface $newsRepo,
-        protected AnnouncementRepositoryInterface $announcementRepo
+        protected AnnouncementRepositoryInterface $announcementRepo,
+        protected SocialMediaRepositoryInterface $socialMediaRepo
     ) {}
 
     public function getLandingPageData(): array
@@ -36,6 +38,7 @@ class PortfolioService implements PortfolioServiceInterface
             'certificates' => $this->certRepo->getAll(),
             'latestNews' => $this->newsRepo->getLatest(4),
             'announcements' => $this->announcementRepo->getActive(),
+            'socialMedia' => $this->socialMediaRepo->getActive(),
         ];
     }
 }

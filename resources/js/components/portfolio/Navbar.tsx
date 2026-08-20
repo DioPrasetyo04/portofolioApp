@@ -18,7 +18,7 @@ interface NavbarProps {
 }
 
 /* Section IDs yang sesuai dengan id="..." di setiap section komponen */
-const SECTION_IDS = ['about', 'projects', 'skills', 'languages', 'certificates', 'news'];
+const SECTION_IDS = ['about', 'projects', 'skills', 'languages', 'certificates', 'news', 'contact'];
 
 export default function Navbar({ currentSection }: NavbarProps) {
     const { t, i18n } = useTranslation();
@@ -91,6 +91,7 @@ export default function Navbar({ currentSection }: NavbarProps) {
         { href: '#languages',    sectionId: 'languages',    label: t('nav.languages')    },
         { href: '#certificates', sectionId: 'certificates', label: t('nav.certificates') },
         { href: '#news',         sectionId: 'news',         label: t('nav.news')         },
+        { href: '#contact',      sectionId: 'contact',      label: t('nav.contact')      },
     ];
 
     const toggleTheme = () =>

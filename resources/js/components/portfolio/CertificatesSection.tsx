@@ -16,6 +16,8 @@ import {
     Image as ImageIcon,
     Hash,
     Building2,
+    ChevronLeft,
+    ChevronRight,
 } from 'lucide-react';
 import { getTranslated } from '@/lib/i18n-helper';
 
@@ -69,42 +71,66 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* ── Section Header ── */}
-                <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-semibold shadow-sm"
-                    >
-                        <Award className="w-3.5 h-3.5" />
-                        <span>{t('certificates.title')}</span>
-                    </motion.div>
-                    <motion.h2
-                        initial={{ opacity: 0, y: 15 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-tight"
-                    >
-                        {t('certificates.subtitle')}
-                    </motion.h2>
-                    <p className="text-sm text-muted-foreground max-w-xl mx-auto">
-                        Sertifikasi dan akreditasi resmi berstandar industri yang memvalidasi keahlian teknis, arsitektur sistem, dan standar rekayasa tingkat lanjut.
-                    </p>
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
+                    <div className="text-center md:text-left space-y-3 max-w-2xl">
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-semibold shadow-sm"
+                        >
+                            <Award className="w-3.5 h-3.5" />
+                            <span>{t('certificates.title')}</span>
+                        </motion.div>
+                        <motion.h2
+                            initial={{ opacity: 0, y: 15 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.1 }}
+                            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-tight"
+                        >
+                            {t('certificates.subtitle')}
+                        </motion.h2>
+                        <p className="text-sm text-muted-foreground max-w-xl">
+                            Sertifikasi dan akreditasi resmi berstandar industri yang memvalidasi keahlian teknis, arsitektur sistem, dan standar rekayasa tingkat lanjut.
+                        </p>
+                    </div>
+
+                    {/* Navigation Buttons for Carousel */}
+                    <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
+                        <button
+                            type="button"
+                            className="cert-swiper-prev p-3 rounded-2xl border border-border/80 bg-card/80 hover:bg-secondary text-foreground hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm active:scale-95 cursor-pointer"
+                            aria-label="Previous Certificate"
+                        >
+                            <ChevronLeft className="w-5 h-5" />
+                        </button>
+                        <button
+                            type="button"
+                            className="cert-swiper-next p-3 rounded-2xl border border-border/80 bg-card/80 hover:bg-secondary text-foreground hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm active:scale-95 cursor-pointer"
+                            aria-label="Next Certificate"
+                        >
+                            <ChevronRight className="w-5 h-5" />
+                        </button>
+                    </div>
                 </div>
 
                 {/* ── Swiper Carousel of Certificate Cards ── */}
                 <Swiper
-                    modules={[Pagination, Autoplay]}
+                    modules={[Pagination, Autoplay, Navigation]}
                     spaceBetween={24}
                     slidesPerView={1}
                     pagination={{ clickable: true, dynamicBullets: true }}
+                    navigation={{
+                        prevEl: '.cert-swiper-prev',
+                        nextEl: '.cert-swiper-next',
+                    }}
                     autoplay={{ delay: 5000, disableOnInteraction: false }}
                     breakpoints={{
                         640: { slidesPerView: 2, spaceBetween: 20 },
                         1024: { slidesPerView: 3, spaceBetween: 24 },
                     }}
-                    className="pb-16"
+                    className="cert-swiper !py-2 !pb-14 !px-1.5"
                 >
                     {certificates.map((cert, idx) => {
                         const name = getTranslated(cert.name, 'Certificate');
@@ -113,21 +139,21 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
                         const issuerIcon = getImageUrl(cert.issuer_icon);
 
                         return (
-                            <SwiperSlide key={cert.id} className="h-auto">
+                            <SwiperSlide key={cert.id} className="h-auto pb-4 pt-1 px-1 flex">
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.4, delay: idx * 0.05 }}
                                     onClick={() => setActiveModalCert(cert)}
-                                    className="group h-full rounded-3xl border border-border/80 bg-card/60 backdrop-blur-2xl shadow-xl hover:shadow-2xl hover:shadow-amber-950/20 hover:border-amber-500/40 flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300 relative"
+                                    className="group w-full h-full rounded-3xl border border-border/80 bg-card/60 backdrop-blur-2xl shadow-xl hover:shadow-2xl hover:shadow-amber-500/10 hover:border-amber-500/40 flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300 relative"
                                 >
                                     {/* Top Border Glow Highlight */}
                                     <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-purple-500 opacity-60 group-hover:opacity-100 transition-opacity z-10" />
 
                                     {/* Certificate Cover Image */}
                                     {certImage ? (
-                                        <div className="relative w-full h-44 bg-secondary/80 border-b border-border/60 overflow-hidden">
+                                        <div className="relative w-full h-44 bg-secondary/80 border-b border-border/60 overflow-hidden flex-shrink-0">
                                             <img
                                                 src={certImage}
                                                 alt={name}
@@ -143,13 +169,13 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
                                             </div>
                                         </div>
                                     ) : (
-                                        <div className="relative w-full h-24 bg-gradient-to-br from-amber-500/10 via-purple-500/10 to-cyan-500/10 border-b border-border/60 flex items-center justify-center">
+                                        <div className="relative w-full h-24 bg-gradient-to-br from-amber-500/10 via-purple-500/10 to-cyan-500/10 border-b border-border/60 flex items-center justify-center flex-shrink-0">
                                             <Award className="w-10 h-10 text-amber-400/60" />
                                         </div>
                                     )}
 
                                     {/* Card Body */}
-                                    <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
+                                    <div className="p-6 flex-1 flex flex-col justify-between gap-4">
                                         <div className="space-y-3">
                                             {/* Header: Issuer Logo / Icon & Badge */}
                                             <div className="flex items-center justify-between gap-3">
@@ -194,14 +220,14 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
                                         </div>
 
                                         {/* Card Footer: Issue Date & Detail Certificate Button */}
-                                        <div className="pt-3 border-t border-border/60 flex items-center justify-between gap-2">
+                                        <div className="pt-3.5 border-t border-border/60 flex items-center justify-between gap-2 mt-auto">
                                             {cert.issued_at && (
                                                 <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-mono">
                                                     <Calendar className="w-3.5 h-3.5 text-purple-400" />
                                                     <span>
                                                         {new Date(cert.issued_at).toLocaleDateString(undefined, {
-                                                            year: 'numeric',
-                                                            month: 'short',
+                                                             year: 'numeric',
+                                                             month: 'short',
                                                         })}
                                                     </span>
                                                 </div>

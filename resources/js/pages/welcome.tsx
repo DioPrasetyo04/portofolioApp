@@ -8,6 +8,7 @@ import TechStackSection from '@/components/portfolio/TechStackSection';
 import LanguageSkillsSection from '@/components/portfolio/LanguageSkillsSection';
 import CertificatesSection from '@/components/portfolio/CertificatesSection';
 import NewsSection from '@/components/portfolio/NewsSection';
+import ContactSection from '@/components/portfolio/ContactSection';
 import AnnouncementModal from '@/components/portfolio/AnnouncementModal';
 import Footer from '@/components/portfolio/Footer';
 
@@ -20,6 +21,7 @@ interface PortfolioData {
     certificates: any[];
     latestNews: any[];
     announcements: any[];
+    socialMedia: any[];
 }
 
 interface WelcomeProps {
@@ -36,6 +38,7 @@ export default function Welcome({ portfolio }: WelcomeProps) {
         certificates = [],
         latestNews = [],
         announcements = [],
+        socialMedia = [],
     } = portfolio || {};
 
     return (
@@ -67,6 +70,9 @@ export default function Welcome({ portfolio }: WelcomeProps) {
 
                     {/* 7. Latest Articles & News */}
                     <NewsSection newsList={latestNews} />
+
+                    {/* 8. Contact Us Section */}
+                    <ContactSection socialMedia={socialMedia} />
                 </main>
 
                 {/* Footer */}

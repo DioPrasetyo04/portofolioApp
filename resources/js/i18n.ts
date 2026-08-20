@@ -65,6 +65,20 @@ export const resources = {
                 dontShowAgain: "Don't show this again",
                 close: 'Got it!',
             },
+            contactUs: {
+                title: 'Contact Me',
+                subtitle: 'Get in touch for collaborations or inquiries.',
+                form: {
+                    name: 'Name',
+                    namePlaceholder: 'Your Name',
+                    email: 'Email',
+                    emailPlaceholder: 'Your Email',
+                    message: 'Message',
+                    messagePlaceholder: 'Your message...',
+                    send: 'Send via WhatsApp',
+                },
+                socialMedia: 'Connect with me',
+            },
             footer: {
                 tagline: 'Crafted with Laravel, Inertia.js, React, Three.js & Tailwind CSS.',
                 rights: 'All rights reserved.',
@@ -133,6 +147,20 @@ export const resources = {
                 dontShowAgain: 'Jangan tampilkan lagi',
                 close: 'Mengerti!',
             },
+            contactUs: {
+                title: 'Hubungi Saya',
+                subtitle: 'Mari terhubung untuk kolaborasi atau pertanyaan.',
+                form: {
+                    name: 'Nama',
+                    namePlaceholder: 'Nama Anda',
+                    email: 'Email',
+                    emailPlaceholder: 'Email Anda',
+                    message: 'Pesan',
+                    messagePlaceholder: 'Pesan Anda...',
+                    send: 'Kirim via WhatsApp',
+                },
+                socialMedia: 'Terhubung dengan saya',
+            },
             footer: {
                 tagline: 'Dibuat dengan Laravel, Inertia.js, React, Three.js & Tailwind CSS.',
                 rights: 'Hak cipta dilindungi.',
@@ -200,6 +228,20 @@ export const resources = {
                 modalTitle: '特别公告',
                 dontShowAgain: '不再提醒',
                 close: '我知道了',
+            },
+            contactUs: {
+                title: '联系我',
+                subtitle: '随时与我联系以进行合作或咨询。',
+                form: {
+                    name: '姓名',
+                    namePlaceholder: '您的姓名',
+                    email: '邮箱',
+                    emailPlaceholder: '您的邮箱',
+                    message: '留言',
+                    messagePlaceholder: '您的留言...',
+                    send: '通过 WhatsApp 发送',
+                },
+                socialMedia: '关注我',
             },
             footer: {
                 tagline: '基于 Laravel、Inertia.js、React、Three.js 与 Tailwind CSS 构建。',

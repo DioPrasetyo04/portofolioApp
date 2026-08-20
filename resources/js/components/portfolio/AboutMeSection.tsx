@@ -103,8 +103,7 @@ function GalleryCarousel({ images }: { images: string[] }) {
         : ['/images/profile-hero.jpg'];
 
     return (
-        <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-purple-900/20"
-             style={{ aspectRatio: '4/5' }}>
+        <div className="relative w-full aspect-[4/3] max-h-[340px] rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-purple-900/20">
             <Swiper
                 modules={[Autoplay, Pagination, EffectFade]}
                 effect="fade"
@@ -251,7 +250,7 @@ function StatsPanel({ aboutData }: { aboutData: any }) {
                 ))}
             </div>
 
-            <div className="p-5">
+            <div className="p-5 min-h-[450px]">
                 <AnimatePresence mode="wait">
                     {/* ─── OVERVIEW TAB ─── */}
                     {tab === 'overview' && (
@@ -348,12 +347,17 @@ function StatsPanel({ aboutData }: { aboutData: any }) {
 
                     {/* ─── BAR CHART TAB ─── */}
                     {tab === 'bar' && (
-                        <motion.div key="bar" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
-                            <p className="text-xs text-muted-foreground mb-3 font-semibold flex items-center gap-1.5">
-                                <BarChart3 className="w-3.5 h-3.5 text-purple-400" />
-                                Projects Completed Per Year
-                            </p>
-                            <ResponsiveContainer width="100%" height={230}>
+                        <motion.div key="bar" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="space-y-3">
+                            <div className="flex items-center justify-between">
+                                <p className="text-xs text-muted-foreground font-semibold flex items-center gap-1.5">
+                                    <BarChart3 className="w-3.5 h-3.5 text-purple-400" />
+                                    Projects Completed Per Year
+                                </p>
+                                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">
+                                    Total: {projectsCount}+ Projects
+                                </span>
+                            </div>
+                            <ResponsiveContainer width="100%" height={260}>
                                 <BarChart data={projectsPerYear} barCategoryGap="35%">
                                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
                                     <XAxis dataKey="year" tick={{ fontSize: 11, fill: '#71717a' }} axisLine={false} tickLine={false} />
@@ -373,12 +377,17 @@ function StatsPanel({ aboutData }: { aboutData: any }) {
 
                     {/* ─── DONUT TAB ─── */}
                     {tab === 'donut' && (
-                        <motion.div key="donut" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
-                            <p className="text-xs text-muted-foreground mb-2 font-semibold flex items-center gap-1.5">
-                                <PieIcon className="w-3.5 h-3.5 text-cyan-400" />
-                                Skill Proficiency Distribution
-                            </p>
-                            <ResponsiveContainer width="100%" height={230}>
+                        <motion.div key="donut" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="space-y-3">
+                            <div className="flex items-center justify-between">
+                                <p className="text-xs text-muted-foreground font-semibold flex items-center gap-1.5">
+                                    <PieIcon className="w-3.5 h-3.5 text-cyan-400" />
+                                    Skill Proficiency Distribution
+                                </p>
+                                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
+                                    Top: {skills[0]?.name}
+                                </span>
+                            </div>
+                            <ResponsiveContainer width="100%" height={260}>
                                 <RPieChart>
                                     <Pie data={skills} dataKey="value" nameKey="name" innerRadius="50%" outerRadius="76%" paddingAngle={4} stroke="none">
                                         {skills.map((s, i) => <Cell key={i} fill={s.color} />)}
@@ -392,12 +401,17 @@ function StatsPanel({ aboutData }: { aboutData: any }) {
 
                     {/* ─── AREA/LINE TAB ─── */}
                     {tab === 'line' && (
-                        <motion.div key="line" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
-                            <p className="text-xs text-muted-foreground mb-3 font-semibold flex items-center gap-1.5">
-                                <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
-                                Skill Growth & Project Trajectory
-                            </p>
-                            <ResponsiveContainer width="100%" height={230}>
+                        <motion.div key="line" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="space-y-3">
+                            <div className="flex items-center justify-between">
+                                <p className="text-xs text-muted-foreground font-semibold flex items-center gap-1.5">
+                                    <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
+                                    Skill Growth & Project Trajectory
+                                </p>
+                                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+                                    Trajectory: Upward ↗
+                                </span>
+                            </div>
+                            <ResponsiveContainer width="100%" height={260}>
                                 <AreaChart data={growth}>
                                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
                                     <XAxis dataKey="period" tick={{ fontSize: 11, fill: '#71717a' }} axisLine={false} tickLine={false} />
@@ -484,54 +498,21 @@ export default function AboutMeSection({ aboutData }: AboutMeSectionProps) {
                     </motion.h2>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div className="space-y-8">
+                    {/* ── Top Row: Gallery + Tech Expertise (Left) & StatsPanel (Right) ── */}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        {/* ── LEFT: Photo Gallery Carousel + Tech Expertise ── */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.65 }}
+                            className="lg:col-span-5 space-y-5 flex flex-col"
+                        >
+                            {/* Photo Gallery */}
+                            <GalleryCarousel images={galleryImages} />
 
-                    {/* ── LEFT: Gallery + Biography + Expertise ── */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.65 }}
-                        className="lg:col-span-7 space-y-5"
-                    >
-                        {/* 1. Photo Gallery Carousel */}
-                        <GalleryCarousel images={galleryImages} />
-
-                        {/* 2. Biography */}
-                        <div className="p-6 rounded-2xl border border-border/60 bg-card/50 backdrop-blur-xl shadow-xl space-y-5">
-                            <div
-                                className="prose prose-sm dark:prose-invert max-w-none text-muted-foreground leading-relaxed [&>p]:mb-3 [&>p:last-child]:mb-0"
-                                dangerouslySetInnerHTML={{ __html: description }}
-                            />
-
-                            {/* Dynamic feature checklist from backend */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-4 border-t border-border/50">
-                                {displayFeatures.map((feat) => (
-                                    <div key={feat.name} className="flex items-center gap-2 group">
-                                        <div className="w-6 h-6 rounded-md bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-500/20 transition-colors">
-                                            <DynIcon name={feat.icon} className="w-3.5 h-3.5 text-emerald-400" />
-                                        </div>
-                                        <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors">{feat.name}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-
-                    </motion.div>
-
-                    {/* ── RIGHT: Stats + Charts ── */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.65, delay: 0.15 }}
-                        className="lg:col-span-5 space-y-5"
-                    >
-                        <div className="lg:sticky lg:top-24 space-y-5">
-                            <StatsPanel aboutData={aboutData} />
-
-                            {/* Tech Expertise — below stats panel */}
+                            {/* Tech Expertise — positioned below photo */}
                             <div className="p-5 rounded-2xl border border-border/60 bg-card/50 backdrop-blur-xl shadow-xl space-y-3">
                                 <div className="flex items-center gap-2 text-xs font-bold text-foreground">
                                     <Cpu className="w-4 h-4 text-purple-400" />
@@ -539,9 +520,47 @@ export default function AboutMeSection({ aboutData }: AboutMeSectionProps) {
                                 </div>
                                 <ExpertiseTabs tabs={displayTabs} />
                             </div>
+                        </motion.div>
+
+                        {/* ── RIGHT: Interactive Stats Panel ── */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.65, delay: 0.15 }}
+                            className="lg:col-span-7"
+                        >
+                            <StatsPanel aboutData={aboutData} />
+                        </motion.div>
+                    </div>
+
+                    {/* ── Bottom Row: Full-Width Biography & Feature Checklist ── */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 25 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.65, delay: 0.2 }}
+                        className="w-full"
+                    >
+                        <div className="p-6 sm:p-8 rounded-3xl border border-border/60 bg-card/50 backdrop-blur-xl shadow-xl space-y-6">
+                            <div
+                                className="prose prose-sm sm:prose-base dark:prose-invert max-w-none text-muted-foreground leading-relaxed [&>p]:mb-3 [&>p:last-child]:mb-0"
+                                dangerouslySetInnerHTML={{ __html: description }}
+                            />
+
+                            {/* Dynamic feature checklist from backend */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-6 border-t border-border/50">
+                                {displayFeatures.map((feat) => (
+                                    <div key={feat.name} className="flex items-center gap-2.5 p-2.5 rounded-xl bg-secondary/30 border border-border/40 group hover:bg-secondary/60 hover:border-emerald-500/30 transition-all">
+                                        <div className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-500/20 transition-colors">
+                                            <DynIcon name={feat.icon} className="w-3.5 h-3.5 text-emerald-400" />
+                                        </div>
+                                        <span className="text-xs font-medium text-foreground/90 group-hover:text-foreground transition-colors leading-snug">{feat.name}</span>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </motion.div>
-
                 </div>
             </div>
         </section>

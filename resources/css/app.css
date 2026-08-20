@@ -162,3 +162,25 @@
     border-radius: 9999px !important;
     background: linear-gradient(90deg, #8B5CF6, #22D3EE) !important;
 }
+
+.cert-swiper {
+    padding-top: 8px !important;
+    padding-bottom: 56px !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+}
+
+.cert-swiper .swiper-pagination {
+    bottom: 8px !important;
+}
+
+.cert-swiper .swiper-pagination-bullet {
+    background: #F59E0B !important;
+    opacity: 0.35;
+}
+
+.cert-swiper .swiper-pagination-bullet-active {
+    background: linear-gradient(90deg, #F59E0B, #8B5CF6) !important;
+    opacity: 1 !important;
+}
+

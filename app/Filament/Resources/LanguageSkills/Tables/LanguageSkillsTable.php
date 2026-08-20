@@ -23,11 +23,31 @@ class LanguageSkillsTable
                     ->searchable()
                     ->sortable()
                     ->weight('bold'),
+                TextColumn::make('percentage')
+                    ->label('Ability Level')
+                    ->formatStateUsing(fn ($state) => ($state ?? 0) . '%')
+                    ->badge()
+                    ->color(fn ($state) => match (true) {
+                        $state >= 90 => 'success',
+                        $state >= 75 => 'info',
+                        $state >= 50 => 'warning',
+                        default => 'gray',
+                    })
+                    ->sortable(),
                 TextColumn::make('description')
-                    ->label('Proficiency Level')
+                    ->label('Proficiency Summary')
                     ->getStateUsing(fn ($record) => is_array($record->description) ? ($record->description['en'] ?? reset($record->description)) : $record->description)
                     ->badge()
-                    ->color('success'),
+                    ->color('primary')
+                    ->limit(35),
+                TextColumn::make('media_count')
+                    ->label('Media Items')
+                    ->getStateUsing(function ($record) {
+                        $count = count($record->media ?? []) + count($record->gallery ?? []) + ($record->video ? 1 : 0);
+                        return $count > 0 ? "{$count} Media" : 'None';
+                    })
+                    ->badge()
+                    ->color(fn ($state) => $state === 'None' ? 'gray' : 'success'),
                 TextColumn::make('updated_at')
                     ->dateTime('d M Y')
                     ->sortable(),

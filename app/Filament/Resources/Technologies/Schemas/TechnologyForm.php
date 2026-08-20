@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Technologies\Schemas;
 
 use App\Models\TechnologyCategory;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -28,10 +29,21 @@ class TechnologyForm
                             ->required()
                             ->searchable()
                             ->preload(),
-                        TextInput::make('name')
-                            ->label('Technology Name')
-                            ->placeholder('e.g. React, TypeScript, Laravel, Three.js')
-                            ->required(),
+                        Grid::make(2)->schema([
+                            TextInput::make('name')
+                                ->label('Technology Name')
+                                ->placeholder('e.g. React, TypeScript, Laravel, Three.js')
+                                ->required(),
+                            TextInput::make('proficiency')
+                                ->label('Skill Proficiency / Ability (%)')
+                                ->numeric()
+                                ->minValue(0)
+                                ->maxValue(100)
+                                ->default(85)
+                                ->suffix('%')
+                                ->helperText('Persentase tingkat keahlian untuk statistik bar chart di Tech Stack (0 - 100%)')
+                                ->required(),
+                        ]),
                         FileUpload::make('logo')
                             ->label('Technology Logo / Icon')
                             ->image()

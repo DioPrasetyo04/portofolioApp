@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Technology extends Model
 {
-    protected $fillable = ['technology_category_id', 'name', 'logo'];
+    protected $fillable = ['technology_category_id', 'name', 'logo', 'proficiency'];
+
+    protected $casts = [
+        'proficiency' => 'integer',
+    ];
 
     public function category(): BelongsTo
     {

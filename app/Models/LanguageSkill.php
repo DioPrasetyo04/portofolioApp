@@ -9,6 +9,23 @@ class LanguageSkill extends Model
 {
     use HasTranslations;
 
-    protected $fillable = ['name', 'description', 'logo', 'photo'];
-    public $translatable = ['description'];
+    protected $fillable = [
+        'name',
+        'description',
+        'detail',
+        'logo',
+        'photo',
+        'percentage',
+        'media',
+        'gallery',
+        'video',
+    ];
+
+    public $translatable = ['description', 'detail'];
+
+    protected $casts = [
+        'percentage' => 'integer',
+        'media' => 'array',
+        'gallery' => 'array',
+    ];
 }

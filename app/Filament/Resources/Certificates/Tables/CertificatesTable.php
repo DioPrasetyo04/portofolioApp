@@ -15,15 +15,19 @@ class CertificatesTable
     {
         return $table
             ->columns([
+                ImageColumn::make('issuer_icon')
+                    ->label('Issuer Icon')
+                    ->circular(),
                 ImageColumn::make('image')
-                    ->label('Preview')
+                    ->label('Cert Image')
                     ->square(),
                 TextColumn::make('name')
                     ->label('Certificate')
                     ->getStateUsing(fn ($record) => is_array($record->name) ? ($record->name['en'] ?? reset($record->name)) : $record->name)
                     ->searchable()
                     ->sortable()
-                    ->weight('bold'),
+                    ->weight('bold')
+                    ->limit(35),
                 TextColumn::make('issuer')
                     ->label('Issuer')
                     ->badge()
@@ -33,10 +37,10 @@ class CertificatesTable
                     ->label('Issued')
                     ->date('M Y')
                     ->sortable(),
-                TextColumn::make('url')
-                    ->label('Verify')
-                    ->url(fn ($record) => $record->url)
-                    ->openUrlInNewTab()
+                TextColumn::make('credential_id')
+                    ->label('Credential ID')
+                    ->badge()
+                    ->color('gray')
                     ->toggleable(),
             ])
             ->recordActions([

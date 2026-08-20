@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Certificates\Schemas;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -16,64 +17,108 @@ class CertificateForm
     {
         return $schema
             ->components([
+                /* ── 1. Certificate Title (Multi-Language) ── */
                 Section::make('Certificate Title (Multi-Language)')
                     ->schema([
                         Grid::make(3)->schema([
                             TextInput::make('name.en')
                                 ->label('Certificate Name (English)')
-                                ->placeholder('e.g. AWS Certified Solutions Architect')
+                                ->placeholder('e.g. AWS Certified Solutions Architect – Associate')
                                 ->required(),
                             TextInput::make('name.id')
                                 ->label('Certificate Name (Indonesia)')
-                                ->placeholder('e.g. Sertifikasi Solusi Arsitek AWS'),
+                                ->placeholder('e.g. Sertifikasi Solusi Arsitek AWS – Rekanan')
+                                ->required(),
                             TextInput::make('name.zh')
                                 ->label('Certificate Name (Chinese)')
-                                ->placeholder('e.g. AWS认证解决方案架构师'),
+                                ->placeholder('e.g. AWS认证解决方案架构师 – 助理级')
+                                ->required(),
                         ]),
                     ]),
 
-                Section::make('Issuer & Verification')
+                /* ── 2. Issuer, Category Icon & Credential Meta ── */
+                Section::make('Issuer Organization & Verification')
+                    ->description('Organisasi penerbit, logo/icon kategori, tanggal dan nomor kredensial')
                     ->schema([
-                        Grid::make(3)->schema([
+                        Grid::make(2)->schema([
                             TextInput::make('issuer')
-                                ->label('Issuing Organization')
-                                ->placeholder('e.g. Amazon Web Services, Google, Coursera')
+                                ->label('Issuing Organization / Authority')
+                                ->placeholder('e.g. Amazon Web Services, Meta & Coursera, Bruno Simon')
                                 ->required(),
+                            FileUpload::make('issuer_icon')
+                                ->label('Issuer / Category Icon (Logo)')
+                                ->image()
+                                ->directory('certificates/issuers')
+                                ->imageEditor()
+                                ->helperText('Logo atau icon kategori organisasi (misal icon AWS, Coursera, Meta, dll)'),
+                        ]),
+                        Grid::make(3)->schema([
                             DatePicker::make('issued_at')
                                 ->label('Issue Date'),
+                            TextInput::make('credential_id')
+                                ->label('Credential / Certificate ID')
+                                ->placeholder('e.g. AWS-PSA-2024-8891'),
                             TextInput::make('url')
-                                ->label('Credential Verification URL')
-                                ->placeholder('https://...')
+                                ->label('Official Verification URL')
+                                ->placeholder('https://www.credly.com/badges/...')
                                 ->url(),
                         ]),
                     ]),
 
-                Section::make('Certificate Description (Multi-Language)')
+                /* ── 3. Short Summary for Card Preview ── */
+                Section::make('Short Summary (Card Preview)')
+                    ->description('Deskripsi ringkas yang tampil di dalam card (dibatasi line-clamp di frontend)')
                     ->schema([
                         Grid::make(3)->schema([
                             Textarea::make('description.en')
-                                ->label('Description (English)')
+                                ->label('Short Summary (English)')
                                 ->rows(3)
-                                ->placeholder('Skills demonstrated and topics covered'),
+                                ->placeholder('Validated expertise in architecting secure, resilient, and high-performance cloud applications.'),
                             Textarea::make('description.id')
-                                ->label('Description (Indonesia)')
+                                ->label('Short Summary (Indonesia)')
                                 ->rows(3)
-                                ->placeholder('Keahlian yang dibuktikan'),
+                                ->placeholder('Keahlian terbukti dalam merancang arsitektur aplikasi cloud yang aman dan berkinerja tinggi.'),
                             Textarea::make('description.zh')
-                                ->label('Description (Chinese)')
+                                ->label('Short Summary (Chinese)')
                                 ->rows(3)
-                                ->placeholder('相关专业技能说明'),
+                                ->placeholder('在构建安全、高可用及高性能云端架构方面经过权威认证的专业能力。'),
                         ]),
                     ]),
 
-                Section::make('Certificate Image')
+                /* ── 4. Comprehensive About & Syllabus (Rich Editor for Popup Modal) ── */
+                Section::make('Comprehensive About & Detail Information (Rich Editor for Popup Modal)')
+                    ->description('Informasi mendalam dan silabus lengkap tentang sertifikat yang akan tampil saat card / tombol "Detail Certificate" diklik')
                     ->schema([
-                        FileUpload::make('image')
-                            ->label('Certificate Badge / Document Image')
-                            ->image()
-                            ->directory('certificates')
-                            ->imageEditor()
-                            ->columnSpanFull(),
+                        RichEditor::make('detail.en')
+                            ->label('Full About & Details (English)')
+                            ->placeholder('Describe the complete curriculum, exam domains, technical competencies verified, practical projects built, and accreditation details...'),
+                        RichEditor::make('detail.id')
+                            ->label('Full About & Details (Indonesia)')
+                            ->placeholder('Jelaskan silabus lengkap, domain ujian yang diuji, kompetensi teknis yang divalidasi, proyek praktis, dan detail akreditasi...'),
+                        RichEditor::make('detail.zh')
+                            ->label('Full About & Details (Chinese)')
+                            ->placeholder('详细说明完整的课程大纲、考核知识领域、经过验证的技术能力、实战项目及认证背景...'),
+                    ]),
+
+                /* ── 5. Certificate Images & Visual Resources ── */
+                Section::make('Certificate Visual Resources')
+                    ->description('Gambar sertifikat resmi, badge digital, atau tangkapan layar verifikasi')
+                    ->schema([
+                        Grid::make(2)->schema([
+                            FileUpload::make('image')
+                                ->label('Primary Certificate Image / Badge')
+                                ->image()
+                                ->directory('certificates/images')
+                                ->imageEditor()
+                                ->helperText('Gambar utama sertifikat yang tampil di dalam card dan header popup'),
+                            FileUpload::make('gallery')
+                                ->label('Supporting Badges / Gallery Images')
+                                ->image()
+                                ->multiple()
+                                ->maxFiles(6)
+                                ->directory('certificates/gallery')
+                                ->reorderable(),
+                        ]),
                     ]),
             ]);
     }

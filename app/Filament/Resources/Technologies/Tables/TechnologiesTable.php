@@ -33,6 +33,17 @@ class TechnologiesTable
                     ->badge()
                     ->color('primary')
                     ->sortable(),
+                TextColumn::make('proficiency')
+                    ->label('Proficiency (%)')
+                    ->formatStateUsing(fn ($state) => ($state ?? 0) . '%')
+                    ->badge()
+                    ->color(fn ($state) => match (true) {
+                        $state >= 90 => 'success',
+                        $state >= 75 => 'info',
+                        $state >= 50 => 'warning',
+                        default => 'gray',
+                    })
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime('d M Y')
                     ->sortable()

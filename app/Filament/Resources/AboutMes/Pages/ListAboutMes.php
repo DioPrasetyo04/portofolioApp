@@ -16,4 +16,12 @@ class ListAboutMes extends ListRecords
             CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\AboutMes\Widgets\AboutMeStatsWidget::class,
+            \App\Filament\Resources\AboutMes\Widgets\AboutMeSkillChart::class,
+        ];
+    }
 }

@@ -35,6 +35,14 @@ class HeroSectionResource extends Resource
         return HeroSectionsTable::configure($table);
     }
 
+    public static function getWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\HeroSections\Widgets\HeroSectionStatsWidget::class,
+            \App\Filament\Resources\HeroSections\Widgets\HeroSectionCompletenessChart::class,
+        ];
+    }
+
     public static function getRelations(): array
     {
         return [];

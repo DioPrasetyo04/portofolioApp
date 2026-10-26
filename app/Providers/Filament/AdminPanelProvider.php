@@ -10,7 +10,7 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets\AccountWidget;
+use App\Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -26,9 +26,9 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin')
+            ->path('dahandio')
             ->login()
-            ->brandName('Portfolio 3D — Admin CMS')
+            ->brandName('DIO STACK — Admin CMS')
             ->sidebarCollapsibleOnDesktop()
             ->colors([
                 'primary' => Color::Violet,
@@ -41,7 +41,11 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 AccountWidget::class,
-                FilamentInfoWidget::class,
+                \App\Filament\Widgets\DashboardStatsOverview::class,
+                \App\Filament\Widgets\DashboardProjectsCategoryChart::class,
+                \App\Filament\Widgets\DashboardTechProficiencyChart::class,
+                \App\Filament\Widgets\DashboardEngagementChart::class,
+                \App\Filament\Widgets\DashboardCertificatesTimelineChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -20,9 +20,15 @@ class Certificate extends Model
         'gallery',
         'credential_id',
         'url',
+        'likes_count',
     ];
 
     public $translatable = ['name', 'description', 'detail'];
+
+    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 
     protected $casts = [
         'issued_at' => 'date',

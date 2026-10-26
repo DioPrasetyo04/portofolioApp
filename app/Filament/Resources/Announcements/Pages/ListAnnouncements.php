@@ -16,4 +16,12 @@ class ListAnnouncements extends ListRecords
             CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\Announcements\Widgets\AnnouncementStatsWidget::class,
+            \App\Filament\Resources\Announcements\Widgets\AnnouncementTimelineChart::class,
+        ];
+    }
 }

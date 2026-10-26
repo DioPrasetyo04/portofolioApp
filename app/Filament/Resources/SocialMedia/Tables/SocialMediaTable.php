@@ -5,6 +5,9 @@ namespace App\Filament\Resources\SocialMedia\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class SocialMediaTable
@@ -13,21 +16,36 @@ class SocialMediaTable
     {
         return $table
             ->columns([
-                \Filament\Tables\Columns\TextColumn::make('name')
+                ImageColumn::make('icon')
+                    ->label('Icon')
+                    ->disk('public')
+                    ->square()
+                    ->getStateUsing(function ($record) {
+                        if (!$record->icon) {
+                            return null;
+                        }
+                        if (str_contains($record->icon, '/') || preg_match('/\.(png|jpe?g|svg|webp)$/i', $record->icon)) {
+                            return $record->icon;
+                        }
+                        return null;
+                    }),
+                TextColumn::make('name')
+                    ->label('Platform')
                     ->searchable()
-                    ->sortable(),
-                \Filament\Tables\Columns\TextColumn::make('url')
+                    ->sortable()
+                    ->weight('bold'),
+                TextColumn::make('url')
+                    ->label('URL')
                     ->searchable()
                     ->limit(50),
-                \Filament\Tables\Columns\TextColumn::make('icon')
-                    ->searchable(),
-                \Filament\Tables\Columns\IconColumn::make('is_active')
+                IconColumn::make('is_active')
+                    ->label('Active')
                     ->boolean(),
-                \Filament\Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                \Filament\Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -45,3 +63,4 @@ class SocialMediaTable
             ]);
     }
 }
+

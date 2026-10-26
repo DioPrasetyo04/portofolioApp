@@ -35,6 +35,14 @@ class CertificateResource extends Resource
         return CertificatesTable::configure($table);
     }
 
+    public static function getWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\Certificates\Widgets\CertificateStatsWidget::class,
+            \App\Filament\Resources\Certificates\Widgets\CertificateIssuerChart::class,
+        ];
+    }
+
     public static function getRelations(): array
     {
         return [];

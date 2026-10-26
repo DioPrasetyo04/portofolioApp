@@ -6,8 +6,13 @@ import {
     ChevronLeft, ChevronRight, Star, Filter, Check,
     Calendar, Tag, Zap, Globe, ArrowUpRight, Eye,
     ChevronDown, CheckSquare, Square, Layers, RefreshCw,
-    SlidersHorizontal, Compass, HelpCircle,
+    SlidersHorizontal, Compass, HelpCircle, LayoutGrid,
+    BarChart3, PieChart as PieIcon, Activity, CheckCircle2,
 } from 'lucide-react';
+import {
+    ResponsiveContainer, PieChart, Pie, Cell,
+    Tooltip as RechartsTooltip, BarChart, Bar, XAxis, YAxis,
+} from 'recharts';
 import { getTranslated } from '@/lib/i18n-helper';
 
 /* ─── Types ──────────────────────────────────────────────── */
@@ -36,19 +41,19 @@ interface ProjectsSectionProps { projects: ProjectItem[] }
 
 /* ─── Constants ──────────────────────────────────────────── */
 const CATEGORY_LABELS: Record<string, string> = {
-    web: '🌐 Web Application',
-    mobile: '📱 Mobile App',
-    api: '⚡ API / Backend',
+    web: '🌐 Web App / SaaS',
+    mobile: '📱 Mobile Client',
+    api: '⚡ Distributed API',
     fullstack: '🔧 Fullstack System',
-    '3d': '✨ 3D / Creative',
-    tool: '🛠️ Dev Tool',
-    other: '🔹 Other Project',
+    '3d': '✨ 3D / WebGL Graphics',
+    tool: '🛠️ Developer Tool',
+    other: '🔹 Other Build',
 };
 
 const STATUS_CONFIG: Record<string, { label: string; color: string; dot: string }> = {
-    completed:   { label: 'Completed',   color: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30', dot: 'bg-emerald-400' },
-    in_progress: { label: 'In Progress', color: 'text-amber-400 bg-amber-500/10 border-amber-500/30',     dot: 'bg-amber-400' },
-    archived:    { label: 'Archived',    color: 'text-zinc-400 bg-zinc-500/10 border-zinc-500/30',         dot: 'bg-zinc-400' },
+    completed:   { label: 'Production Ready', color: 'text-emerald-300 bg-emerald-950/80 border-emerald-500/50 font-medium', dot: 'bg-emerald-400' },
+    in_progress: { label: 'Active Dev',       color: 'text-amber-300 bg-amber-950/80 border-amber-500/50 font-medium',     dot: 'bg-amber-400' },
+    archived:    { label: 'Legacy Archive',   color: 'text-zinc-300 bg-zinc-950/80 border-zinc-500/50 font-medium',         dot: 'bg-zinc-400' },
 };
 
 const PAGE_SIZE_OPTIONS = [5, 10, 20, 50, 100];
@@ -95,7 +100,7 @@ function TechBadge({ tech, size = 'sm' }: { tech: Technology; size?: 'sm' | 'md'
             }`}
         >
             {tech.icon_url ? (
-                <img src={tech.icon_url} alt={tech.name} className="w-3 h-3 object-contain" />
+                <img src={tech.icon_url} alt={tech.name} className="w-3 h-3 object-contain" loading="lazy" decoding="async" />
             ) : (
                 <Code2 className="w-2.5 h-2.5 opacity-60 text-purple-400" />
             )}
@@ -137,7 +142,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
             >
                 {/* Backdrop */}
                 <motion.div
-                    className="absolute inset-0 bg-black/80 backdrop-blur-md"
+                    className="absolute inset-0 bg-black/70 backdrop-blur-sm"
                     onClick={onClose}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -145,7 +150,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
 
                 {/* Modal Panel */}
                 <motion.div
-                    className="relative z-10 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl border border-border/80 bg-card/95 shadow-2xl shadow-purple-950/50 backdrop-blur-2xl"
+                    className="relative z-10 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl border border-border/80 bg-card/95 shadow-2xl shadow-purple-950/50 backdrop-blur-sm"
                     initial={{ opacity: 0, scale: 0.93, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: 10 }}
@@ -154,7 +159,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                     {/* Header cover image */}
                     <div className="relative h-60 sm:h-72 bg-gradient-to-br from-purple-900/40 via-slate-900/50 to-cyan-900/30 overflow-hidden flex-shrink-0">
                         {activeImg ? (
-                            <img src={activeImg} alt={name} className="w-full h-full object-cover" />
+                            <img src={activeImg} alt={name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                         ) : (
                             <div className="flex items-center justify-center h-full">
                                 <Code2 className="w-16 h-16 text-purple-400/40" />
@@ -165,7 +170,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                         {/* Close button */}
                         <button
                             onClick={onClose}
-                            className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/80 hover:text-white hover:bg-black/90 transition-all shadow-lg"
+                            className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/70 border border-white/15 flex items-center justify-center text-white/80 hover:text-white hover:bg-black/90 transition-all shadow-lg"
                         >
                             <X className="w-4 h-4" />
                         </button>
@@ -177,7 +182,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                                     <Star className="w-3 h-3 fill-black" /> Featured Project
                                 </span>
                             )}
-                            <span className={`px-2.5 py-1 rounded-full border text-[10px] font-semibold flex items-center gap-1.5 backdrop-blur-md ${status.color}`}>
+                            <span className={`px-2.5 py-1 rounded-full border text-[10px] font-semibold flex items-center gap-1.5 bg-black/70 ${status.color}`}>
                                 <span className={`w-1.5 h-1.5 rounded-full ${status.dot} animate-pulse`} />
                                 {status.label}
                             </span>
@@ -195,7 +200,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                                         activeImg === url ? 'border-purple-500 ring-2 ring-purple-500/30' : 'border-border hover:border-border/80 opacity-70 hover:opacity-100'
                                     }`}
                                 >
-                                    <img src={url} alt="" className="w-full h-full object-cover" />
+                                    <img src={url} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
                                 </button>
                             ))}
                         </div>
@@ -227,13 +232,13 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                                 {project.demo_url && (
                                     <a href={project.demo_url} target="_blank" rel="noreferrer"
                                        className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white text-xs font-semibold shadow-lg shadow-purple-600/30 hover:opacity-90 hover:scale-[1.02] transition-all">
-                                        <Globe className="w-3.5 h-3.5" /> Live Demo
+                                        <Globe className="w-3.5 h-3.5" /> {t('projects.liveDemo', 'Live Deployment')}
                                     </a>
                                 )}
                                 {project.repo_url && (
                                     <a href={project.repo_url} target="_blank" rel="noreferrer"
                                        className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-border bg-card hover:bg-secondary text-foreground text-xs font-semibold hover:scale-[1.02] transition-all">
-                                        <Github className="w-3.5 h-3.5" /> Source Code
+                                        <Github className="w-3.5 h-3.5" /> {t('projects.sourceCode', 'Source Code')}
                                     </a>
                                 )}
                             </div>
@@ -243,7 +248,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                         {description && (
                             <div className="space-y-2">
                                 <h3 className="text-xs font-bold text-foreground uppercase tracking-wider flex items-center gap-1.5">
-                                    <Compass className="w-3.5 h-3.5 text-purple-400" /> Project Overview
+                                    <Compass className="w-3.5 h-3.5 text-purple-400" /> {t('projects.modalOverview', 'System Architecture & Problem Solved')}
                                 </h3>
                                 <p className="text-sm text-muted-foreground leading-relaxed">
                                     {description}
@@ -255,7 +260,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                         {(project.highlights ?? []).length > 0 && (
                             <div className="space-y-2.5 p-4 rounded-2xl bg-purple-500/5 border border-purple-500/15">
                                 <h3 className="text-xs font-bold text-foreground flex items-center gap-1.5 uppercase tracking-wider">
-                                    <Zap className="w-3.5 h-3.5 text-amber-400" /> Key Highlights & Engineering
+                                    <Zap className="w-3.5 h-3.5 text-amber-400" /> {t('projects.modalHighlights', 'Engineering Decisions & Key Highlights')}
                                 </h3>
                                 <ul className="space-y-2 pt-1">
                                     {project.highlights!.map((h, i) => (
@@ -272,7 +277,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                         {project.technologies?.length > 0 && (
                             <div className="space-y-2.5">
                                 <h3 className="text-xs font-bold text-foreground flex items-center gap-1.5 uppercase tracking-wider">
-                                    <Layers className="w-3.5 h-3.5 text-cyan-400" /> Built With Technologies
+                                    <Layers className="w-3.5 h-3.5 text-cyan-400" /> {t('projects.modalStack', 'Stack & Infrastructure')}
                                 </h3>
                                 <div className="flex flex-wrap gap-2">
                                     {project.technologies.map(tech => (
@@ -352,7 +357,7 @@ function CustomDropdownSelect({
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: -6, scale: 0.98 }}
                             transition={{ duration: 0.15 }}
-                            className="absolute top-full left-0 right-0 mt-1.5 z-40 max-h-56 overflow-y-auto rounded-xl border border-border/80 bg-card/95 p-1.5 shadow-2xl backdrop-blur-2xl space-y-0.5"
+                            className="absolute top-full left-0 right-0 mt-1.5 z-40 max-h-56 overflow-y-auto rounded-xl border border-border/80 bg-card/95 p-1.5 shadow-2xl backdrop-blur-sm space-y-0.5"
                         >
                             {options.map(opt => {
                                 const isSelected = opt.value === value;
@@ -394,9 +399,10 @@ function CustomDropdownSelect({
 export default function ProjectsSection({ projects = [] }: ProjectsSectionProps) {
     const { t } = useTranslation();
 
-    /* ── Search and Filter States ── */
-    const [searchQuery, setSearchQuery]       = useState('');
-    const [activeSearch, setActiveSearch]     = useState('');
+    /* ── View Mode & Filter States ── */
+    const [viewMode, setViewMode]                 = useState<'grid' | 'chart'>('grid');
+    const [searchQuery, setSearchQuery]           = useState('');
+    const [activeSearch, setActiveSearch]         = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string>('');
     const [selectedStatus, setSelectedStatus]     = useState<string>('');
     const [featuredOnly, setFeaturedOnly]         = useState(false);
@@ -413,6 +419,36 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
             return (a.priority_order ?? 99) - (b.priority_order ?? 99);
         });
     }, [projects]);
+
+    /* ── Category Data for Telemetry Chart ── */
+    const categoryChartData = useMemo(() => {
+        const counts: Record<string, number> = {};
+        sortedProjects.forEach(p => {
+            const cat = p.category || 'other';
+            counts[cat] = (counts[cat] || 0) + 1;
+        });
+        const colors = ['#8B5CF6', '#06B6D4', '#10B981', '#F59E0B', '#EC4899', '#6366F1'];
+        return Object.entries(counts).map(([cat, total], idx) => ({
+            key: cat,
+            name: CATEGORY_LABELS[cat] ? CATEGORY_LABELS[cat].replace(/^[^\s]+\s*/, '') : cat,
+            value: total,
+            color: colors[idx % colors.length],
+        }));
+    }, [sortedProjects]);
+
+    /* ── Tech Frequency Data for Telemetry Chart ── */
+    const techFrequencyData = useMemo(() => {
+        const counts: Record<string, number> = {};
+        sortedProjects.forEach(p => {
+            p.technologies?.forEach(tech => {
+                counts[tech.name] = (counts[tech.name] || 0) + 1;
+            });
+        });
+        return Object.entries(counts)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 6)
+            .map(([name, count]) => ({ name, count }));
+    }, [sortedProjects]);
 
     /* ── Dynamic Category options with counts ── */
     const categoryOptions = useMemo(() => {
@@ -501,11 +537,12 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
     const hasActiveFilters = activeSearch || selectedCategory || selectedStatus || featuredOnly;
 
     return (
-        <section id="projects" className="py-28 relative bg-secondary/20">
-            {/* Ambient Background Glows */}
+        <section id="projects" className="py-28 relative overflow-hidden bg-transparent">
+            {/* Ambient Cosmic Background Glows */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-                <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[140px]" />
-                <div className="absolute bottom-10 right-0 w-[450px] h-[450px] bg-cyan-400/10 rounded-full blur-[130px]" />
+                <div className="absolute top-1/3 left-0 w-[600px] h-[600px] bg-purple-400/20 dark:bg-purple-600/15 rounded-full blur-3xl" />
+                <div className="absolute bottom-10 right-0 w-[550px] h-[550px] bg-cyan-300/15 dark:bg-cyan-400/10 rounded-full blur-3xl" />
+                <div className="absolute top-10 right-1/4 w-[450px] h-[450px] bg-amber-200/15 dark:bg-transparent rounded-full blur-3xl" />
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -516,10 +553,10 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-400 text-xs font-semibold shadow-sm"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-purple-500/40 bg-purple-500/15 text-purple-700 dark:text-purple-300 text-xs font-bold dark:font-semibold shadow-sm"
                     >
                         <Sparkles className="w-3.5 h-3.5" />
-                        <span>{t('projects.title')}</span>
+                        <span>{t('projects.badge', 'PROYEK & IMPLEMENTASI TEKNIS')}</span>
                     </motion.div>
                     <motion.h2
                         initial={{ opacity: 0, y: 15 }}
@@ -528,10 +565,10 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
                         transition={{ delay: 0.1 }}
                         className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-tight"
                     >
-                        {t('projects.subtitle')}
+                        {t('projects.subtitle', 'Sistem Produksi, Eksperimen 3D, dan Perangkat Lunak Terbuka')}
                     </motion.h2>
-                    <p className="text-sm text-muted-foreground max-w-xl mx-auto">
-                        Explore my latest full-stack systems, 3D WebGL experiments, and open-source contributions.
+                    <p className="text-sm text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                        {t('projects.description', 'Dokumentasi sistem web yang saya bangun dengan fokus pada skalabilitas backend Laravel, responsivitas antarmuka React, dan optimalisasi grafis real-time 60 FPS pada Three.js.')}
                     </p>
                 </div>
 
@@ -547,13 +584,13 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
                             transition={{ duration: 0.6 }}
                             className="space-y-5"
                         >
-                            <div className="p-6 rounded-3xl border border-border/80 bg-card/70 backdrop-blur-2xl shadow-xl shadow-purple-950/20 space-y-5 max-h-[calc(100vh-7.5rem)] overflow-y-auto">
+                            <div className="p-6 rounded-3xl border border-border/80 bg-card/90 backdrop-blur-sm shadow-xl shadow-purple-950/20 space-y-5 max-h-[calc(100vh-7.5rem)] overflow-y-auto">
                             
                             {/* Card Title */}
                             <div className="flex items-center justify-between pb-3 border-b border-border/60">
                                 <div className="flex items-center gap-2 font-bold text-sm text-foreground">
                                     <SlidersHorizontal className="w-4 h-4 text-purple-400" />
-                                    <span>Filter & Search</span>
+                                    <span>{t('projects.filterTitle', 'Filter & Spesifikasi')}</span>
                                 </div>
                                 {hasActiveFilters && (
                                     <button
@@ -561,7 +598,7 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
                                         onClick={handleResetAllFilters}
                                         className="text-[11px] font-semibold text-purple-400 hover:text-cyan-400 flex items-center gap-1 transition-colors"
                                     >
-                                        <RefreshCw className="w-3 h-3" /> Reset
+                                        <RefreshCw className="w-3 h-3" /> {t('projects.resetFilters', 'Setel Ulang')}
                                     </button>
                                 )}
                             </div>
@@ -570,14 +607,14 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
                             <form onSubmit={handleSearchSubmit} className="space-y-2">
                                 <label className="text-[11px] font-semibold text-muted-foreground flex items-center gap-1.5">
                                     <Search className="w-3 h-3 text-purple-400" />
-                                    Search Query
+                                    {t('projects.searchLabel', 'Pencarian Repositori')}
                                 </label>
                                 <div className="relative">
                                     <input
                                         type="text"
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
-                                        placeholder="Keywords, tech..."
+                                        placeholder={t('projects.searchPlaceholder', 'Cari teknologi, keyword, modul...')}
                                         className="w-full pl-3.5 pr-8 py-2.5 rounded-xl border border-border bg-background/80 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500/60 transition-all"
                                     />
                                     {searchQuery && (
@@ -595,13 +632,13 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
                                     className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white text-xs font-semibold shadow-md shadow-purple-600/25 hover:shadow-purple-600/40 hover:scale-[1.01] active:scale-[0.98] transition-all"
                                 >
                                     <Search className="w-3.5 h-3.5" />
-                                    <span>Search Projects</span>
+                                    <span>{t('projects.searchButton', 'Cari Proyek')}</span>
                                 </button>
                             </form>
 
                             {/* 2. Category Dropdown Menu */}
                             <CustomDropdownSelect
-                                label="Project Category"
+                                label={t('projects.categoryLabel', 'Kategori Proyek')}
                                 icon={<Tag className="w-3 h-3 text-cyan-400" />}
                                 options={categoryOptions}
                                 value={selectedCategory}
@@ -609,12 +646,12 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
                                     setSelectedCategory(val);
                                     setCurrentPage(1);
                                 }}
-                                placeholder="All Categories"
+                                placeholder={t('projects.categoryAll', 'Semua Kategori')}
                             />
 
                             {/* 3. Status Dropdown Menu */}
                             <CustomDropdownSelect
-                                label="Project Status"
+                                label={t('projects.statusLabel', 'Status Produksi')}
                                 icon={<Filter className="w-3 h-3 text-emerald-400" />}
                                 options={statusOptions}
                                 value={selectedStatus}
@@ -622,7 +659,7 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
                                     setSelectedStatus(val);
                                     setCurrentPage(1);
                                 }}
-                                placeholder="All Statuses"
+                                placeholder={t('projects.statusAll', 'Semua Status')}
                             />
 
                             {/* 4. Featured Only Button Toggle */}
@@ -641,17 +678,17 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
                                 >
                                     <div className="flex items-center gap-2">
                                         <Star className={`w-3.5 h-3.5 ${featuredOnly ? 'text-amber-400 fill-amber-400' : 'text-muted-foreground'}`} />
-                                        <span>Featured Only</span>
+                                        <span>{t('projects.featuredToggle', 'Arsitektur Unggulan')}</span>
                                     </div>
                                     <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ${featuredOnly ? 'bg-amber-400 text-black' : 'bg-secondary text-muted-foreground'}`}>
-                                        {featuredOnly ? 'Active' : 'Off'}
+                                        {featuredOnly ? t('projects.activeBadge', 'Aktif') : t('projects.offBadge', 'Semua')}
                                     </span>
                                 </button>
                             </div>
 
                             {/* Results Count & Active Filter Indicator */}
                             <div className="pt-3 border-t border-border/60 flex items-center justify-between text-xs text-muted-foreground">
-                                <span>Results found:</span>
+                                <span>{t('projects.resultsFound', 'Hasil ditemukan:')}</span>
                                 <span className="font-mono font-bold text-foreground px-2 py-0.5 rounded-md bg-secondary border border-border">
                                     {filteredProjects.length}
                                 </span>
@@ -660,9 +697,44 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
                     </motion.div>
                 </div>
 
-                {/* ════════ RIGHT SECTION: Projects Cards Grid & Pagination ════════ */}
-                <div className="lg:col-span-8 xl:col-span-9 space-y-8">
+                {/* ════════ RIGHT SECTION: Projects Cards Grid & Telemetry Chart ════════ */}
+                <div className="lg:col-span-8 xl:col-span-9 space-y-6">
                     
+                    {/* View Mode Toggle Bar (Grid Showcase vs Stack Analytics Chart) */}
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-3 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/80 shadow-md">
+                        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-background/80 border border-border w-full sm:w-auto">
+                            <button
+                                type="button"
+                                onClick={() => setViewMode('grid')}
+                                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
+                                    viewMode === 'grid'
+                                        ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-600/30'
+                                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'
+                                }`}
+                            >
+                                <LayoutGrid className="w-3.5 h-3.5" />
+                                <span>{t('projects.viewGrid', 'Grid Showcase')}</span>
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setViewMode('chart')}
+                                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
+                                    viewMode === 'chart'
+                                        ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-600/30'
+                                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'
+                                }`}
+                            >
+                                <BarChart3 className="w-3.5 h-3.5" />
+                                <span>{t('projects.viewChart', 'Stack Analytics / Distribution Chart')}</span>
+                            </button>
+                        </div>
+
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono self-end sm:self-auto">
+                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                            <span>{filteredProjects.length} {t('projects.pageCountSuffix', 'data')} {hasActiveFilters && `(${t('projects.activeBadge', 'Filtered')})`}</span>
+                        </div>
+                    </div>
+
                     {/* Filter Status Summary Bar (Mobile / Responsive Indicator) */}
                     {hasActiveFilters && (
                         <div className="flex flex-wrap items-center gap-2 p-3 rounded-2xl bg-card/40 border border-border text-xs">
@@ -694,270 +766,392 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
                         </div>
                     )}
 
-                    {/* Projects Grid */}
-                    <AnimatePresence mode="wait">
-                        {paginatedProjects.length === 0 ? (
-                            <motion.div
-                                key="empty-state"
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0 }}
-                                className="flex flex-col items-center justify-center py-20 px-4 rounded-3xl border border-border/80 bg-card/40 backdrop-blur-xl text-center gap-4"
-                            >
-                                <div className="w-16 h-16 rounded-2xl border border-border bg-secondary flex items-center justify-center text-muted-foreground shadow-inner">
-                                    <Search className="w-8 h-8 opacity-60 text-purple-400" />
-                                </div>
+                    {/* Conditional: Chart View vs Grid View */}
+                    {viewMode === 'chart' ? (
+                        <motion.div
+                            key="telemetry-chart-view"
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.3 }}
+                            className="space-y-6"
+                        >
+                            <div className="p-6 rounded-3xl border border-border/80 bg-card/60 backdrop-blur-xl shadow-xl space-y-6">
                                 <div className="space-y-1">
-                                    <h3 className="text-base font-bold text-foreground">No projects matching your criteria</h3>
-                                    <p className="text-xs text-muted-foreground max-w-sm mx-auto">
-                                        Try searching with different keywords, selecting another category, or resetting all filters.
+                                    <div className="flex items-center gap-2 text-purple-400 font-bold text-xs uppercase tracking-wider">
+                                        <BarChart3 className="w-4 h-4" />
+                                        <span>{t('projects.chartHeading', 'Distribusi Domain Rekayasa Perangkat Lunak')}</span>
+                                    </div>
+                                    <p className="text-xs text-muted-foreground">
+                                        {t('projects.chartDescription', 'Rasio alokasi proyek berdasarkan kompleksitas backend, antarmuka interaktif, dan rendering WebGL.')}
                                     </p>
                                 </div>
-                                <button
-                                    type="button"
-                                    onClick={handleResetAllFilters}
-                                    className="px-4 py-2 rounded-xl bg-secondary hover:bg-secondary/80 border border-border text-xs font-semibold text-foreground transition-all"
-                                >
-                                    Reset All Filters
-                                </button>
-                            </motion.div>
-                        ) : (
-                            <motion.div
-                                key={`grid-page-${safeCurrentPage}-${pageSize}-${activeSearch}-${selectedCategory}-${selectedStatus}-${featuredOnly}`}
-                                initial={{ opacity: 0, y: 15 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                transition={{ duration: 0.3 }}
-                                className="grid grid-cols-1 md:grid-cols-2 gap-6"
-                            >
-                                {paginatedProjects.map((project, idx) => {
-                                    const name        = getTranslated(project.name, 'Project');
-                                    const rawDesc     = getTranslated(project.description, '');
-                                    const status      = STATUS_CONFIG[project.status ?? 'completed'] ?? STATUS_CONFIG.completed;
 
-                                    // Apply 150 character limit with ellipsis rule
-                                    const truncatedDesc = truncateText(rawDesc, 150);
-
-                                    return (
-                                        <motion.div
-                                            key={project.id}
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: idx * 0.05 }}
-                                            className="group relative flex flex-col rounded-3xl border border-border/80 bg-card/60 backdrop-blur-xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-purple-950/30 hover:border-purple-500/40 transition-all duration-300"
-                                        >
-                                            {/* Card Cover Image */}
-                                            <div className="relative h-48 sm:h-52 bg-gradient-to-br from-purple-900/30 via-slate-900/40 to-cyan-900/30 overflow-hidden flex-shrink-0">
-                                                {project.image ? (
-                                                    <img
-                                                        src={`/storage/${project.image}`}
-                                                        alt={name}
-                                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                                    />
-                                                ) : (
-                                                    <div className="flex flex-col items-center justify-center gap-2 h-full text-muted-foreground">
-                                                        <div className="w-12 h-12 rounded-2xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400">
-                                                            <Code2 className="w-6 h-6" />
-                                                        </div>
-                                                        <span className="text-xs font-mono">Interactive Build</span>
-                                                    </div>
-                                                )}
-                                                
-                                                {/* Gradient Shadow Overlay */}
-                                                <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-black/20" />
-
-                                                {/* Top Badges */}
-                                                <div className="absolute top-3.5 left-3.5 flex gap-2 flex-wrap items-center">
-                                                    {project.is_featured && (
-                                                        <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500 text-black font-bold text-[10px] uppercase tracking-wider shadow-md">
-                                                            <Star className="w-2.5 h-2.5 fill-black" /> Featured
-                                                        </span>
-                                                    )}
-                                                    <span className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border text-[10px] font-semibold backdrop-blur-md ${status.color}`}>
-                                                        <span className={`w-1.5 h-1.5 rounded-full ${status.dot}`} />
-                                                        {status.label}
-                                                    </span>
-                                                </div>
-
-                                                {/* Year Tag */}
-                                                {project.year && (
-                                                    <span className="absolute top-3.5 right-3.5 px-2 py-0.5 rounded-lg bg-black/60 backdrop-blur-md text-white/80 text-[10px] font-mono border border-white/10">
-                                                        {project.year}
-                                                    </span>
-                                                )}
-
-                                                {/* Hover Overlay "View Details" Button */}
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setSelectedProject(project)}
-                                                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-[2px]"
-                                                >
-                                                    <span className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-background/90 border border-purple-500/40 text-xs font-bold text-foreground shadow-2xl hover:scale-105 transition-transform">
-                                                        <Eye className="w-4 h-4 text-purple-400" /> View Full Details
-                                                    </span>
-                                                </button>
-                                            </div>
-
-                                            {/* Card Content */}
-                                            <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                                                <div className="space-y-2">
-                                                    {project.category && (
-                                                        <div className="text-[10px] font-bold text-purple-400 uppercase tracking-wider">
-                                                            {CATEGORY_LABELS[project.category] ?? project.category}
-                                                        </div>
-                                                    )}
-                                                    <h3 className="text-lg font-bold text-foreground group-hover:text-purple-300 transition-colors leading-tight">
-                                                        {name}
-                                                    </h3>
-                                                    
-                                                    {/* Description with Line Clamp and 150 char ellipsis rule */}
-                                                    <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
-                                                        {truncatedDesc}
-                                                    </p>
-                                                </div>
-
-                                                {/* Tech Stack Chips */}
-                                                {project.technologies?.length > 0 && (
-                                                    <div className="flex flex-wrap gap-1.5 pt-1">
-                                                        {project.technologies.slice(0, 4).map(tech => (
-                                                            <TechBadge key={tech.id} tech={tech} />
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                                    {/* Donut Chart: Category Distribution */}
+                                    <div className="p-4 rounded-2xl bg-secondary/30 border border-border/60 flex flex-col items-center">
+                                        <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-2 self-start flex items-center gap-1.5">
+                                            <PieIcon className="w-3.5 h-3.5 text-cyan-400" /> Domain Breakdown
+                                        </span>
+                                        <div className="w-full h-52">
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <PieChart>
+                                                    <Pie
+                                                        data={categoryChartData}
+                                                        cx="50%"
+                                                        cy="50%"
+                                                        innerRadius={48}
+                                                        outerRadius={75}
+                                                        paddingAngle={4}
+                                                        dataKey="value"
+                                                    >
+                                                        {categoryChartData.map((entry, index) => (
+                                                            <Cell key={`cell-${index}`} fill={entry.color} />
                                                         ))}
-                                                        {project.technologies.length > 4 && (
-                                                            <span className="px-2 py-0.5 rounded-md bg-secondary border border-border text-[10px] text-muted-foreground font-mono">
-                                                                +{project.technologies.length - 4}
+                                                    </Pie>
+                                                    <RechartsTooltip
+                                                        contentStyle={{ backgroundColor: 'rgba(15, 12, 29, 0.95)', border: '1px solid rgba(139, 92, 246, 0.3)', borderRadius: '12px', fontSize: '11px' }}
+                                                    />
+                                                </PieChart>
+                                            </ResponsiveContainer>
+                                        </div>
+                                        <div className="flex flex-wrap justify-center gap-2 mt-2">
+                                            {categoryChartData.map(c => (
+                                                <button
+                                                    key={c.key}
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setSelectedCategory(c.key);
+                                                        setViewMode('grid');
+                                                    }}
+                                                    className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md hover:bg-secondary text-[10px] text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                                                >
+                                                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: c.color }} />
+                                                    {c.name} ({c.value})
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Bar Chart: Top Stack Adoption */}
+                                    <div className="p-4 rounded-2xl bg-secondary/30 border border-border/60 flex flex-col">
+                                        <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                                            <Layers className="w-3.5 h-3.5 text-purple-400" /> Technology Adoption (Top 6)
+                                        </span>
+                                        <div className="w-full h-52">
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <BarChart data={techFrequencyData} layout="vertical" margin={{ top: 5, right: 20, left: 20, bottom: 5 }}>
+                                                    <XAxis type="number" hide />
+                                                    <YAxis dataKey="name" type="category" tick={{ fill: '#94a3b8', fontSize: 10 }} width={80} axisLine={false} tickLine={false} />
+                                                    <RechartsTooltip
+                                                        contentStyle={{ backgroundColor: 'rgba(15, 12, 29, 0.95)', border: '1px solid rgba(139, 92, 246, 0.3)', borderRadius: '12px', fontSize: '11px' }}
+                                                    />
+                                                    <Bar dataKey="count" fill="#8B5CF6" radius={[0, 6, 6, 0]} />
+                                                </BarChart>
+                                            </ResponsiveContainer>
+                                        </div>
+                                        <p className="text-[10px] text-muted-foreground text-center mt-2 font-mono">
+                                            Frekuensi adopsi teknologi pada repositori aktif
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Status Summary Metrics Bento */}
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                                    <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-between">
+                                        <div>
+                                            <div className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Production Ready</div>
+                                            <div className="text-xl font-extrabold text-foreground mt-0.5">{statusOptions.find(s => s.value === 'completed')?.count ?? 0} Proyek</div>
+                                        </div>
+                                        <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                                    </div>
+                                    <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-between">
+                                        <div>
+                                            <div className="text-[10px] font-bold text-amber-400 uppercase tracking-wider">Active Dev</div>
+                                            <div className="text-xl font-extrabold text-foreground mt-0.5">{statusOptions.find(s => s.value === 'in_progress')?.count ?? 0} Proyek</div>
+                                        </div>
+                                        <Activity className="w-5 h-5 text-amber-400" />
+                                    </div>
+                                    <div className="p-3.5 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-between">
+                                        <div>
+                                            <div className="text-[10px] font-bold text-cyan-400 uppercase tracking-wider">Arsitektur Unggulan</div>
+                                            <div className="text-xl font-extrabold text-foreground mt-0.5">{sortedProjects.filter(p => p.is_featured).length} Flagship</div>
+                                        </div>
+                                        <Star className="w-5 h-5 text-cyan-400" />
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    ) : (
+                        <>
+                            {/* Projects Grid */}
+                            <AnimatePresence mode="wait">
+                                {paginatedProjects.length === 0 ? (
+                                    <motion.div
+                                        key="empty-state"
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        className="flex flex-col items-center justify-center py-20 px-4 rounded-3xl border border-border/80 bg-card/90 backdrop-blur-sm text-center gap-4"
+                                    >
+                                        <div className="w-16 h-16 rounded-2xl border border-border bg-secondary flex items-center justify-center text-muted-foreground shadow-inner">
+                                            <Search className="w-8 h-8 opacity-60 text-purple-400" />
+                                        </div>
+                                        <div className="space-y-1">
+                                            <h3 className="text-base font-bold text-foreground">{t('projects.emptyTitle', 'Tidak ada repositori proyek yang sesuai kriteria')}</h3>
+                                            <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+                                                {t('projects.emptyDesc', 'Coba sesuaikan kata kunci pencarian, ganti filter kategori, atau reset parameter filter.')}
+                                            </p>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={handleResetAllFilters}
+                                            className="px-4 py-2 rounded-xl bg-secondary hover:bg-secondary/80 border border-border text-xs font-semibold text-foreground transition-all"
+                                        >
+                                            {t('projects.resetAll', 'Setel Ulang Filter')}
+                                        </button>
+                                    </motion.div>
+                                ) : (
+                                    <motion.div
+                                        key={`grid-page-${safeCurrentPage}-${pageSize}-${activeSearch}-${selectedCategory}-${selectedStatus}-${featuredOnly}`}
+                                        initial={{ opacity: 0, y: 15 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                                    >
+                                        {paginatedProjects.map((project, idx) => {
+                                            const name        = getTranslated(project.name, 'Project');
+                                            const rawDesc     = getTranslated(project.description, '');
+                                            const status      = STATUS_CONFIG[project.status ?? 'completed'] ?? STATUS_CONFIG.completed;
+
+                                            // Apply 150 character limit with ellipsis rule
+                                            const truncatedDesc = truncateText(rawDesc, 150);
+
+                                            return (
+                                                <motion.div
+                                                    key={project.id}
+                                                    initial={{ opacity: 0, y: 20 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ delay: idx * 0.05 }}
+                                                    className="group relative flex flex-col rounded-3xl border border-border/80 bg-card/60 backdrop-blur-xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-purple-950/30 hover:border-purple-500/40 transition-all duration-300"
+                                                >
+                                                    {/* Card Cover Image */}
+                                                    <div className="relative h-48 sm:h-52 bg-gradient-to-br from-purple-900/30 via-slate-900/40 to-cyan-900/30 overflow-hidden flex-shrink-0">
+                                                        {project.image ? (
+                                                            <img
+                                                                src={`/storage/${project.image}`}
+                                                                alt={name}
+                                                                loading="lazy"
+                                                                decoding="async"
+                                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                            />
+                                                        ) : (
+                                                            <div className="flex flex-col items-center justify-center gap-2 h-full text-muted-foreground">
+                                                                <div className="w-12 h-12 rounded-2xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                                                                    <Code2 className="w-6 h-6" />
+                                                                </div>
+                                                                <span className="text-xs font-mono">Architecture Build</span>
+                                                            </div>
+                                                        )}
+                                                        
+                                                        {/* Gradient Shadow Overlay */}
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-black/20" />
+
+                                                        {/* Top Badges */}
+                                                        <div className="absolute top-3.5 left-3.5 flex gap-2 flex-wrap items-center">
+                                                            {project.is_featured && (
+                                                                <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500 text-black font-bold text-[10px] uppercase tracking-wider shadow-md">
+                                                                    <Star className="w-2.5 h-2.5 fill-black" /> {t('projects.featured', 'Unggulan')}
+                                                                </span>
+                                                            )}
+                                                            <span className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border text-[10px] font-semibold backdrop-blur-md ${status.color}`}>
+                                                                <span className={`w-1.5 h-1.5 rounded-full ${status.dot}`} />
+                                                                {status.label}
+                                                            </span>
+                                                        </div>
+
+                                                        {/* Year Tag */}
+                                                        {project.year && (
+                                                            <span className="absolute top-3.5 right-3.5 px-2 py-0.5 rounded-lg bg-black/70 text-white/80 text-[10px] font-mono border border-white/10">
+                                                                {project.year}
                                                             </span>
                                                         )}
-                                                    </div>
-                                                )}
 
-                                                {/* Card Bottom Links & Action */}
-                                                <div className="mt-auto flex items-center justify-between pt-4 border-t border-border/60">
-                                                    <div className="flex items-center gap-3">
-                                                        {project.demo_url && (
-                                                            <a
-                                                                href={project.demo_url}
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                                className="flex items-center gap-1 text-xs font-medium text-purple-400 hover:text-cyan-400 transition-colors"
-                                                                onClick={e => e.stopPropagation()}
-                                                            >
-                                                                <ExternalLink className="w-3.5 h-3.5" /> Demo
-                                                            </a>
-                                                        )}
-                                                        {project.repo_url && (
-                                                            <a
-                                                                href={project.repo_url}
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                                className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
-                                                                onClick={e => e.stopPropagation()}
-                                                            >
-                                                                <Github className="w-3.5 h-3.5" /> Code
-                                                            </a>
-                                                        )}
+                                                        {/* Hover Overlay "View Details" Button */}
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setSelectedProject(project)}
+                                                            className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-[2px]"
+                                                        >
+                                                            <span className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-background/90 border border-purple-500/40 text-xs font-bold text-foreground shadow-2xl hover:scale-105 transition-transform">
+                                                                <Eye className="w-4 h-4 text-purple-400" /> {t('projects.viewDetails', 'Bedah Arsitektur')}
+                                                            </span>
+                                                        </button>
                                                     </div>
 
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => setSelectedProject(project)}
-                                                        className="flex items-center gap-1 text-xs font-semibold text-purple-400 hover:text-cyan-400 transition-colors"
-                                                    >
-                                                        Details <ArrowUpRight className="w-3.5 h-3.5" />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    );
-                                })}
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                                                    {/* Card Content */}
+                                                    <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                                                        <div className="space-y-2">
+                                                            {project.category && (
+                                                                <div className="text-[10px] font-bold text-purple-400 uppercase tracking-wider">
+                                                                    {CATEGORY_LABELS[project.category] ?? project.category}
+                                                                </div>
+                                                            )}
+                                                            <h3 className="text-lg font-bold text-foreground group-hover:text-purple-300 transition-colors leading-tight">
+                                                                {name}
+                                                            </h3>
+                                                            
+                                                            {/* Description with Line Clamp and 150 char ellipsis rule */}
+                                                            <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
+                                                                {truncatedDesc}
+                                                            </p>
+                                                        </div>
 
-                    {/* ════════ PAGINATION BAR (with Items-Per-Page Dropdown) ════════ */}
-                    <div className="p-4 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
-                        
-                        {/* Items Per Page Select Dropdown */}
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                            <span>Tampilkan:</span>
-                            <div className="relative">
-                                <select
-                                    value={pageSize}
-                                    onChange={(e) => {
-                                        setPageSize(Number(e.target.value));
-                                        setCurrentPage(1);
-                                    }}
-                                    className="px-3 py-1.5 rounded-xl border border-border bg-background text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-purple-500/40 cursor-pointer"
-                                >
-                                    {PAGE_SIZE_OPTIONS.map(opt => (
-                                        <option key={opt} value={opt}>
-                                            {opt} data
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                            <span className="hidden md:inline">
-                                ({filteredProjects.length} total data)
-                            </span>
-                        </div>
+                                                        {/* Tech Stack Chips */}
+                                                        {project.technologies?.length > 0 && (
+                                                            <div className="flex flex-wrap gap-1.5 pt-1">
+                                                                {project.technologies.slice(0, 4).map(tech => (
+                                                                    <TechBadge key={tech.id} tech={tech} />
+                                                                ))}
+                                                                {project.technologies.length > 4 && (
+                                                                    <span className="px-2 py-0.5 rounded-md bg-secondary border border-border text-[10px] text-muted-foreground font-mono">
+                                                                        +{project.technologies.length - 4}
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                        )}
 
-                        {/* Numbered Pagination Controls */}
-                        {totalPages > 1 && (
-                            <div className="flex items-center gap-1.5 flex-wrap justify-center">
-                                <button
-                                    type="button"
-                                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                                    disabled={safeCurrentPage === 1}
-                                    className="w-8 h-8 rounded-lg border border-border bg-background flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary disabled:opacity-40 disabled:cursor-not-allowed transition-all"
-                                    aria-label="Previous Page"
-                                >
-                                    <ChevronLeft className="w-4 h-4" />
-                                </button>
+                                                        {/* Card Bottom Links & Action */}
+                                                        <div className="mt-auto flex items-center justify-between pt-4 border-t border-border/60">
+                                                            <div className="flex items-center gap-3">
+                                                                {project.demo_url && (
+                                                                    <a
+                                                                        href={project.demo_url}
+                                                                        target="_blank"
+                                                                        rel="noreferrer"
+                                                                        className="flex items-center gap-1 text-xs font-medium text-purple-400 hover:text-cyan-400 transition-colors"
+                                                                        onClick={e => e.stopPropagation()}
+                                                                    >
+                                                                        <ExternalLink className="w-3.5 h-3.5" /> {t('projects.liveDemo', 'Buka Aplikasi')}
+                                                                    </a>
+                                                                )}
+                                                                {project.repo_url && (
+                                                                    <a
+                                                                        href={project.repo_url}
+                                                                        target="_blank"
+                                                                        rel="noreferrer"
+                                                                        className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+                                                                        onClick={e => e.stopPropagation()}
+                                                                    >
+                                                                        <Github className="w-3.5 h-3.5" /> {t('projects.sourceCode', 'Source Code')}
+                                                                    </a>
+                                                                )}
+                                                            </div>
 
-                                {getPaginationRange(safeCurrentPage, totalPages).map((item, i) => {
-                                    if (item === '...') {
-                                        return (
-                                            <span
-                                                key={`dots-${i}`}
-                                                className="w-8 h-8 flex items-center justify-center text-xs text-muted-foreground font-bold select-none"
-                                            >
-                                                ...
-                                            </span>
-                                        );
-                                    }
-                                    const num = item as number;
-                                    return (
-                                        <button
-                                            key={num}
-                                            type="button"
-                                            onClick={() => setCurrentPage(num)}
-                                            className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${
-                                                num === safeCurrentPage
-                                                    ? 'bg-gradient-to-r from-purple-600 to-cyan-500 text-white shadow-md shadow-purple-600/30'
-                                                    : 'border border-border bg-background text-muted-foreground hover:text-foreground hover:bg-secondary'
-                                            }`}
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => setSelectedProject(project)}
+                                                                className="flex items-center gap-1 text-xs font-semibold text-purple-400 hover:text-cyan-400 transition-colors"
+                                                            >
+                                                                {t('projects.details', 'Spesifikasi')} <ArrowUpRight className="w-3.5 h-3.5" />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </motion.div>
+                                            );
+                                        })}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+
+                            {/* ════════ PAGINATION BAR (with Items-Per-Page Dropdown) ════════ */}
+                            <div className="p-4 rounded-2xl border border-border/80 bg-card/90 backdrop-blur-sm flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
+                                
+                                {/* Items Per Page Select Dropdown */}
+                                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                    <span>{t('projects.displayLabel', 'Tampilkan:')}</span>
+                                    <div className="relative">
+                                        <select
+                                            value={pageSize}
+                                            onChange={(e) => {
+                                                setPageSize(Number(e.target.value));
+                                                setCurrentPage(1);
+                                            }}
+                                            className="px-3 py-1.5 rounded-xl border border-border bg-background text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-purple-500/40 cursor-pointer"
                                         >
-                                            {num}
+                                            {PAGE_SIZE_OPTIONS.map(opt => (
+                                                <option key={opt} value={opt}>
+                                                    {opt} {t('projects.pageCountSuffix', 'data')}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <span className="hidden md:inline">
+                                        ({filteredProjects.length} {t('projects.totalLabel', 'total proyek')})
+                                    </span>
+                                </div>
+
+                                {/* Numbered Pagination Controls */}
+                                {totalPages > 1 && (
+                                    <div className="flex items-center gap-1.5 flex-wrap justify-center">
+                                        <button
+                                            type="button"
+                                            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                            disabled={safeCurrentPage === 1}
+                                            className="w-8 h-8 rounded-lg border border-border bg-background flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                                            aria-label="Previous Page"
+                                        >
+                                            <ChevronLeft className="w-4 h-4" />
                                         </button>
-                                    );
-                                })}
 
-                                <button
-                                    type="button"
-                                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                                    disabled={safeCurrentPage === totalPages}
-                                    className="w-8 h-8 rounded-lg border border-border bg-background flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary disabled:opacity-40 disabled:cursor-not-allowed transition-all"
-                                    aria-label="Next Page"
-                                >
-                                    <ChevronRight className="w-4 h-4" />
-                                </button>
+                                        {getPaginationRange(safeCurrentPage, totalPages).map((item, i) => {
+                                            if (item === '...') {
+                                                return (
+                                                    <span
+                                                        key={`dots-${i}`}
+                                                        className="w-8 h-8 flex items-center justify-center text-xs text-muted-foreground font-bold select-none"
+                                                    >
+                                                        ...
+                                                    </span>
+                                                );
+                                            }
+                                            const num = item as number;
+                                            return (
+                                                <button
+                                                    key={num}
+                                                    type="button"
+                                                    onClick={() => setCurrentPage(num)}
+                                                    className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${
+                                                        num === safeCurrentPage
+                                                            ? 'bg-gradient-to-r from-purple-600 to-cyan-500 text-white shadow-md shadow-purple-600/30'
+                                                            : 'border border-border bg-background text-muted-foreground hover:text-foreground hover:bg-secondary'
+                                                    }`}
+                                                >
+                                                    {num}
+                                                </button>
+                                            );
+                                        })}
+
+                                        <button
+                                            type="button"
+                                            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                                            disabled={safeCurrentPage === totalPages}
+                                            className="w-8 h-8 rounded-lg border border-border bg-background flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                                            aria-label="Next Page"
+                                        >
+                                            <ChevronRight className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                )}
+
+                                {/* Page Indicator */}
+                                <div className="text-xs text-muted-foreground font-mono">
+                                    Halaman <span className="text-foreground font-bold">{safeCurrentPage}</span> dari <span className="text-foreground font-bold">{totalPages}</span>
+                                </div>
                             </div>
-                        )}
-
-                        {/* Page Indicator */}
-                        <div className="text-xs text-muted-foreground font-mono">
-                            Halaman <span className="text-foreground font-bold">{safeCurrentPage}</span> dari <span className="text-foreground font-bold">{totalPages}</span>
-                        </div>
-                    </div>
+                        </>
+                    )}
 
                 </div>
                 </div>

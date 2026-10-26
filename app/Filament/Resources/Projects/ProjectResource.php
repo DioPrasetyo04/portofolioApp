@@ -35,6 +35,14 @@ class ProjectResource extends Resource
         return ProjectsTable::configure($table);
     }
 
+    public static function getWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\Projects\Widgets\ProjectStatsWidget::class,
+            \App\Filament\Resources\Projects\Widgets\ProjectCategoryChart::class,
+        ];
+    }
+
     public static function getRelations(): array
     {
         return [];

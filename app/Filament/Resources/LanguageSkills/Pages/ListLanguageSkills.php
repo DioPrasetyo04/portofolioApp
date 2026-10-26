@@ -16,4 +16,12 @@ class ListLanguageSkills extends ListRecords
             CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\LanguageSkills\Widgets\LanguageSkillStatsWidget::class,
+            \App\Filament\Resources\LanguageSkills\Widgets\LanguageSkillChart::class,
+        ];
+    }
 }

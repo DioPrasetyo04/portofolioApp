@@ -29,8 +29,16 @@ class NewsController extends Controller
         if (!$news) {
             abort(404, 'Article not found');
         }
+        
+        $news->load(['comments' => function ($query) {
+            $query->latest();
+        }])->loadAvg('comments', 'rating');
 
-        $recentNews = $this->newsService->getLatestNews(4);
+        // Note: For recentNews, we ideally want to fetch withAvg as well, 
+        // but $this->newsService->getLatestNews returns a collection. 
+        // We can lazy load it or modify the service. For now, lazy load it here.
+        $recentNews = $this->newsService->getLatestNews(6);
+        $recentNews->loadAvg('comments', 'rating');
 
         return Inertia::render('news/show', [
             'article' => $news,

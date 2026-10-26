@@ -4,11 +4,11 @@ namespace App\Filament\Resources\Certificates\Schemas;
 
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class CertificateForm
@@ -48,6 +48,7 @@ class CertificateForm
                             FileUpload::make('issuer_icon')
                                 ->label('Issuer / Category Icon (Logo)')
                                 ->image()
+                                ->disk('public')
                                 ->directory('certificates/issuers')
                                 ->imageEditor()
                                 ->helperText('Logo atau icon kategori organisasi (misal icon AWS, Coursera, Meta, dll)'),
@@ -108,6 +109,7 @@ class CertificateForm
                             FileUpload::make('image')
                                 ->label('Primary Certificate Image / Badge')
                                 ->image()
+                                ->disk('public')
                                 ->directory('certificates/images')
                                 ->imageEditor()
                                 ->helperText('Gambar utama sertifikat yang tampil di dalam card dan header popup'),
@@ -115,6 +117,7 @@ class CertificateForm
                                 ->label('Supporting Badges / Gallery Images')
                                 ->image()
                                 ->multiple()
+                                ->disk('public')
                                 ->maxFiles(6)
                                 ->directory('certificates/gallery')
                                 ->reorderable(),

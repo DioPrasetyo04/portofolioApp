@@ -16,4 +16,12 @@ class ListNews extends ListRecords
             CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\News\Widgets\NewsStatsWidget::class,
+            \App\Filament\Resources\News\Widgets\NewsEngagementChart::class,
+        ];
+    }
 }

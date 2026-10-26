@@ -16,4 +16,12 @@ class ListProjects extends ListRecords
             CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\Projects\Widgets\ProjectStatsWidget::class,
+            \App\Filament\Resources\Projects\Widgets\ProjectCategoryChart::class,
+        ];
+    }
 }

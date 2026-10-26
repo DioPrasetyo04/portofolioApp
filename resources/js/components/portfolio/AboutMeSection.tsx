@@ -6,7 +6,7 @@ import {
     BarChart3, PieChart as PieIcon, TrendingUp, Activity,
     Code2, Zap, Layers, Monitor, GitBranch, Database,
     Globe, Server, Layout, Sparkles, MapPin, Wifi,
-    Terminal, Star, ArrowUpRight, Cpu, Flame,
+    Terminal, Star, ArrowUpRight, Cpu, Flame, ShieldCheck,
 } from 'lucide-react';
 import { getTranslated } from '@/lib/i18n-helper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -20,7 +20,7 @@ import {
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
     Code2, Zap, Layers, Monitor, GitBranch, Database,
     Globe, Server, Layout, Sparkles, Briefcase, Award, Clock,
-    CheckCircle2, Activity, Star, Cpu, Flame, Terminal,
+    CheckCircle2, Activity, Star, Cpu, Flame, Terminal, ShieldCheck,
 };
 function DynIcon({ name, className }: { name: string; className?: string }) {
     const Icon = ICON_MAP[name] || CheckCircle2;
@@ -28,12 +28,35 @@ function DynIcon({ name, className }: { name: string; className?: string }) {
 }
 
 /* ─── Types ─────────────────────────────────────────────── */
-interface Feature      { name: string; icon: string }
-interface ExpertiseTab { id: string; label: string; icon: string; items: string[] }
-interface SkillStat    { name: string; value: number; color: string }
-interface YearStat     { year: string; count: number }
-interface GrowthStat   { period: string; score: number; projects: number }
-interface AboutMeSectionProps { aboutData: any }
+interface Feature {
+    name: string;
+    icon: string;
+    description?: string;
+}
+interface ExpertiseTab {
+    id: string;
+    label: string;
+    icon: string;
+    items: string[];
+}
+interface DomainWorkload {
+    name: string;
+    value: number;
+    color: string;
+    desc: string;
+}
+interface YearStat {
+    year: string;
+    count: number;
+}
+interface ProductionVelocity {
+    period: string;
+    features: number;
+    repos: number;
+}
+interface AboutMeSectionProps {
+    aboutData: any;
+}
 
 /* ─── Animated Counter ───────────────────────────────────── */
 function Counter({ end, duration = 1.8, suffix = '' }: { end: number; duration?: number; suffix?: string }) {
@@ -54,42 +77,19 @@ function Counter({ end, duration = 1.8, suffix = '' }: { end: number; duration?:
     return <span ref={ref}>{count}{suffix}</span>;
 }
 
-/* ─── Circular Progress Ring ─────────────────────────────── */
-function ProgressRing({ value, color, label, size = 56 }: { value: number; color: string; label: string; size?: number }) {
-    const r = (size - 10) / 2;
-    const circ = 2 * Math.PI * r;
-    const offset = circ - (value / 100) * circ;
-    return (
-        <div className="flex flex-col items-center gap-1.5">
-            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ transform: 'rotate(-90deg)' }}>
-                <circle cx={size/2} cy={size/2} r={r} stroke="rgba(255,255,255,0.07)" strokeWidth="5" fill="none" />
-                <circle
-                    cx={size/2} cy={size/2} r={r}
-                    stroke={color} strokeWidth="5" fill="none"
-                    strokeDasharray={circ} strokeDashoffset={offset}
-                    strokeLinecap="round"
-                    style={{ transition: 'stroke-dashoffset 1.5s ease', filter: `drop-shadow(0 0 5px ${color}99)` }}
-                />
-            </svg>
-            <div className="text-center -mt-[52px]" style={{ height: `${size}px`, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
-                <span className="text-[11px] font-bold" style={{ color }}>{value}%</span>
-            </div>
-            <span className="text-[10px] text-muted-foreground text-center leading-tight max-w-[60px]">{label}</span>
-        </div>
-    );
-}
-
 /* ─── Custom Chart Tooltip ───────────────────────────────── */
 const ChartTip = ({ active, payload, label }: any) => {
     if (!active || !payload?.length) return null;
     return (
-        <div className="px-3 py-2 rounded-xl border border-border bg-card/95 backdrop-blur-xl shadow-xl text-xs">
-            {label && <div className="font-bold text-foreground mb-1">{label}</div>}
+        <div className="px-3.5 py-2.5 rounded-xl border border-border bg-card/95 backdrop-blur-sm shadow-xl text-xs space-y-1">
+            {label && <div className="font-bold text-foreground pb-1 border-b border-border/50">{label}</div>}
             {payload.map((p: any, i: number) => (
-                <div key={i} className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full" style={{ background: p.color || p.fill }} />
-                    <span className="text-muted-foreground">{p.name}:</span>
-                    <span className="font-semibold text-foreground">{p.value}</span>
+                <div key={i} className="flex items-center justify-between gap-3">
+                    <span className="flex items-center gap-1.5 text-muted-foreground">
+                        <span className="w-2 h-2 rounded-full" style={{ background: p.color || p.fill }} />
+                        {p.name}:
+                    </span>
+                    <span className="font-mono font-bold text-foreground">{p.value}</span>
                 </div>
             ))}
         </div>
@@ -108,7 +108,7 @@ function GalleryCarousel({ images }: { images: string[] }) {
                 modules={[Autoplay, Pagination, EffectFade]}
                 effect="fade"
                 slidesPerView={1}
-                autoplay={{ delay: 2500, disableOnInteraction: false }}
+                autoplay={{ delay: 3000, disableOnInteraction: false }}
                 loop={srcs.length > 1}
                 pagination={{ clickable: true, dynamicBullets: true }}
                 className="w-full h-full"
@@ -120,6 +120,7 @@ function GalleryCarousel({ images }: { images: string[] }) {
                             alt={`Gallery ${i + 1}`}
                             className="w-full h-full object-cover object-center"
                             loading="lazy"
+                            decoding="async"
                         />
                         {/* Bottom gradient overlay */}
                         <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent pointer-events-none" />
@@ -129,7 +130,7 @@ function GalleryCarousel({ images }: { images: string[] }) {
 
             {/* Photo count pill */}
             {srcs.length > 1 && (
-                <div className="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-md text-white/80 text-[10px] font-mono border border-white/10 flex items-center gap-1">
+                <div className="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full bg-black/70 text-white/80 text-[10px] font-mono border border-white/10 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
                     {srcs.length} Photos
                 </div>
@@ -149,7 +150,7 @@ function ExpertiseTabs({ tabs }: { tabs: ExpertiseTab[] }) {
     return (
         <div className="space-y-3">
             {/* Tab bar */}
-            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-secondary/60 border border-border/60 backdrop-blur-md overflow-x-auto scrollbar-hide">
+            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-secondary/80 border border-border/60 backdrop-blur-sm overflow-x-auto scrollbar-hide">
                 {tabs.map(tab => {
                     const isActive = tab.id === active;
                     return (
@@ -184,8 +185,8 @@ function ExpertiseTabs({ tabs }: { tabs: ExpertiseTab[] }) {
                             key={item}
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: i * 0.05 }}
-                            className="px-3 py-1.5 rounded-lg border border-border/70 bg-card/60 backdrop-blur-md text-xs font-medium text-foreground hover:border-purple-500/50 hover:bg-purple-500/10 hover:text-purple-300 transition-all duration-200 cursor-default"
+                            transition={{ delay: i * 0.04 }}
+                            className="px-3 py-1.5 rounded-lg border border-border/70 bg-card/90 backdrop-blur-sm text-xs font-medium text-foreground hover:border-purple-500/50 hover:bg-purple-500/10 hover:text-purple-300 transition-all duration-200 cursor-default"
                         >
                             {item}
                         </motion.span>
@@ -197,12 +198,13 @@ function ExpertiseTabs({ tabs }: { tabs: ExpertiseTab[] }) {
 }
 
 /* ─── Stats Panel (Right Column) ────────────────────────── */
-type TabId = 'overview' | 'bar' | 'donut' | 'line';
-const STAT_TABS: { id: TabId; label: string; icon: React.ReactNode }[] = [
-    { id: 'overview', label: 'Overview', icon: <Activity className="w-3.5 h-3.5" /> },
-    { id: 'bar',      label: 'Projects', icon: <BarChart3 className="w-3.5 h-3.5" /> },
-    { id: 'donut',    label: 'Skills',   icon: <PieIcon   className="w-3.5 h-3.5" /> },
-    { id: 'line',     label: 'Growth',   icon: <TrendingUp className="w-3.5 h-3.5" /> },
+type TabId = 'overview' | 'deliveries' | 'domains' | 'velocity';
+
+const STAT_TABS: { id: TabId; labelKey: string; defaultLabel: string; icon: React.ReactNode }[] = [
+    { id: 'overview',   labelKey: 'about.tabOverview',   defaultLabel: 'Overview',   icon: <Activity className="w-3.5 h-3.5" /> },
+    { id: 'deliveries', labelKey: 'about.tabDeliveries', defaultLabel: 'Deliveries', icon: <BarChart3 className="w-3.5 h-3.5" /> },
+    { id: 'domains',    labelKey: 'about.tabDomains',    defaultLabel: 'Focus Split',icon: <PieIcon className="w-3.5 h-3.5" /> },
+    { id: 'velocity',   labelKey: 'about.tabVelocity',   defaultLabel: 'Velocity',   icon: <TrendingUp className="w-3.5 h-3.5" /> },
 ];
 
 function StatsPanel({ aboutData }: { aboutData: any }) {
@@ -213,24 +215,32 @@ function StatsPanel({ aboutData }: { aboutData: any }) {
     const certsCount    = aboutData?.certifications    ?? 12;
     const expCount      = aboutData?.years_experience  ?? 4;
 
-    const skills: SkillStat[] = aboutData?.skill_stats?.skills ?? [
-        { name: 'React / Three.js', value: 90, color: '#8B5CF6' },
-        { name: 'Laravel / PHP',    value: 88, color: '#22D3EE' },
-        { name: 'TypeScript',       value: 85, color: '#F59E0B' },
-        { name: 'DevOps / DB',      value: 75, color: '#10B981' },
+    /* Grounded engineering workload distribution across 4 disciplines (sum = 100%) */
+    const domainWorkloads: DomainWorkload[] = [
+        { name: 'Backend & APIs',  value: 40, color: '#22D3EE', desc: 'Laravel, MySQL, Redis, REST/JSON-API' },
+        { name: 'Frontend SPA',    value: 30, color: '#8B5CF6', desc: 'React, TypeScript, Inertia, Tailwind' },
+        { name: '3D & WebGL',      value: 20, color: '#F59E0B', desc: 'Three.js, GLSL, Framer Motion' },
+        { name: 'DevOps & Tooling', value: 10, color: '#10B981', desc: 'Docker, CI/CD, Git, Linux' },
     ];
+
     const projectsPerYear: YearStat[] = aboutData?.skill_stats?.projects_per_year ?? [
-        { year: '2021', count: 3 }, { year: '2022', count: 6 },
-        { year: '2023', count: 8 }, { year: '2024', count: 7 }, { year: '2025', count: 10 },
+        { year: '2021', count: 3 },
+        { year: '2022', count: 6 },
+        { year: '2023', count: 8 },
+        { year: '2024', count: 7 },
+        { year: '2025', count: 10 },
     ];
-    const growth: GrowthStat[] = aboutData?.skill_stats?.growth ?? [
-        { period: '2021', score: 60, projects: 3 }, { period: '2022', score: 70, projects: 6 },
-        { period: '2023', score: 80, projects: 8 }, { period: '2024', score: 88, projects: 9 },
-        { period: '2025', score: 95, projects: 12 },
+
+    const productionVelocity: ProductionVelocity[] = [
+        { period: '2021', features: 14, repos: 3 },
+        { period: '2022', features: 32, repos: 6 },
+        { period: '2023', features: 58, repos: 10 },
+        { period: '2024', features: 84, repos: 14 },
+        { period: '2025', features: 120, repos: 19 },
     ];
 
     return (
-        <div className="rounded-2xl border border-border/60 bg-card/50 backdrop-blur-xl shadow-2xl shadow-black/20 overflow-hidden">
+        <div className="rounded-2xl border border-border/60 bg-card/90 backdrop-blur-sm shadow-2xl shadow-black/20 overflow-hidden">
 
             {/* Tab navigation */}
             <div className="flex border-b border-border/50 bg-secondary/40">
@@ -245,7 +255,7 @@ function StatsPanel({ aboutData }: { aboutData: any }) {
                         }`}
                     >
                         {t2.icon}
-                        <span className="hidden sm:inline">{t2.label}</span>
+                        <span className="hidden sm:inline">{t(t2.labelKey, t2.defaultLabel)}</span>
                     </button>
                 ))}
             </div>
@@ -257,18 +267,18 @@ function StatsPanel({ aboutData }: { aboutData: any }) {
                         <motion.div key="overview" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="space-y-4">
 
                             {/* Status badges row */}
-                            <div className="flex flex-wrap gap-2">
+                            <div className="flex flex-wrap items-center gap-2">
                                 <span className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold">
                                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                                    Available for Work
+                                    {t('about.availableBadge', 'Available for Work')}
                                 </span>
                                 <span className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/25 text-blue-400 text-[11px] font-semibold">
                                     <Wifi className="w-3 h-3" />
-                                    Remote OK
+                                    {t('about.remoteBadge', 'Remote / Hybrid OK')}
                                 </span>
                                 <span className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/25 text-purple-400 text-[11px] font-semibold">
                                     <MapPin className="w-3 h-3" />
-                                    Indonesia
+                                    {t('about.locationBadge', 'Indonesia (UTC+7)')}
                                 </span>
                             </div>
 
@@ -282,10 +292,9 @@ function StatsPanel({ aboutData }: { aboutData: any }) {
                                         <div className="text-3xl font-extrabold gradient-text leading-none mb-1">
                                             <Counter end={projectsCount} suffix="+" />
                                         </div>
-                                        <div className="text-[11px] font-semibold text-muted-foreground">{t('about.statsProjects')}</div>
+                                        <div className="text-[11px] font-semibold text-muted-foreground">{t('about.statsProjects', 'Shipped Projects')}</div>
                                     </div>
-                                    {/* glow dot */}
-                                    <div className="absolute -bottom-6 -right-6 w-20 h-20 rounded-full bg-purple-500/20 blur-2xl" />
+                                    <div className="absolute -bottom-6 -right-6 w-20 h-20 rounded-full bg-purple-500/20 blur-2xl pointer-events-none" />
                                 </div>
 
                                 {/* Certs */}
@@ -294,10 +303,10 @@ function StatsPanel({ aboutData }: { aboutData: any }) {
                                         <div className="text-xl font-extrabold text-cyan-400 leading-none mb-0.5">
                                             <Counter end={certsCount} suffix="+" />
                                         </div>
-                                        <div className="text-[10px] font-semibold text-muted-foreground">{t('about.statsCerts')}</div>
+                                        <div className="text-[10px] font-semibold text-muted-foreground">{t('about.statsCerts', 'Verified Credentials')}</div>
                                     </div>
                                     <Award className="w-5 h-5 text-cyan-400/70" />
-                                    <div className="absolute -bottom-4 -right-4 w-14 h-14 rounded-full bg-cyan-500/20 blur-xl" />
+                                    <div className="absolute -bottom-4 -right-4 w-14 h-14 rounded-full bg-cyan-500/20 blur-xl pointer-events-none" />
                                 </div>
 
                                 {/* Years */}
@@ -306,55 +315,93 @@ function StatsPanel({ aboutData }: { aboutData: any }) {
                                         <div className="text-xl font-extrabold text-amber-400 leading-none mb-0.5">
                                             <Counter end={expCount} suffix="+" />
                                         </div>
-                                        <div className="text-[10px] font-semibold text-muted-foreground">{t('about.statsExp')}</div>
+                                        <div className="text-[10px] font-semibold text-muted-foreground">{t('about.statsExp', 'Production Experience')}</div>
                                     </div>
                                     <Clock className="w-5 h-5 text-amber-400/70" />
-                                    <div className="absolute -bottom-4 -right-4 w-14 h-14 rounded-full bg-amber-500/20 blur-xl" />
+                                    <div className="absolute -bottom-4 -right-4 w-14 h-14 rounded-full bg-amber-500/20 blur-xl pointer-events-none" />
                                 </div>
                             </div>
 
-                            {/* Skill progress rings row */}
-                            <div className="p-4 rounded-2xl border border-border/50 bg-card/40">
-                                <div className="text-[11px] font-semibold text-muted-foreground mb-4 flex items-center gap-1.5">
-                                    <Flame className="w-3.5 h-3.5 text-orange-400" />
-                                    Core Skill Proficiency
+                            {/* Domain Focus Distribution (Sums to 100% of engineering workload) */}
+                            <div className="p-4 rounded-2xl border border-border/50 bg-card/40 space-y-3">
+                                <div className="flex items-center justify-between text-[11px] font-semibold">
+                                    <span className="text-muted-foreground flex items-center gap-1.5">
+                                        <Cpu className="w-3.5 h-3.5 text-cyan-400" />
+                                        {t('about.domainFocusTitle', 'Engineering Discipline Distribution')}
+                                    </span>
+                                    <span className="text-[10px] font-mono text-muted-foreground/80">100% Workload Scope</span>
                                 </div>
-                                <div className="flex items-end justify-around">
-                                    {skills.slice(0, 4).map((s) => (
-                                        <ProgressRing key={s.name} value={s.value} color={s.color} label={s.name.split('/')[0].trim()} size={56} />
+
+                                {/* Segmented multi-color progress bar */}
+                                <div className="h-2 w-full rounded-full bg-secondary/60 overflow-hidden flex">
+                                    {domainWorkloads.map(d => (
+                                        <div
+                                            key={d.name}
+                                            style={{ width: `${d.value}%`, backgroundColor: d.color }}
+                                            className="h-full transition-all duration-500 hover:opacity-80"
+                                            title={`${d.name}: ${d.value}%`}
+                                        />
+                                    ))}
+                                </div>
+
+                                {/* 4 compact domain chips */}
+                                <div className="grid grid-cols-2 gap-2 pt-1">
+                                    {domainWorkloads.map(d => (
+                                        <div key={d.name} className="flex items-start gap-2 p-2 rounded-xl bg-secondary/25 border border-border/30 text-[11px]">
+                                            <span className="w-2 h-2 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: d.color }} />
+                                            <div className="min-w-0">
+                                                <div className="flex items-center justify-between gap-1">
+                                                    <span className="font-semibold text-foreground truncate">{d.name}</span>
+                                                    <span className="font-mono text-[10px] text-muted-foreground font-bold">{d.value}%</span>
+                                                </div>
+                                                <span className="text-[10px] text-muted-foreground truncate block">{d.desc}</span>
+                                            </div>
+                                        </div>
                                     ))}
                                 </div>
                             </div>
 
-                            {/* Terminal "Currently building" card */}
-                            <div className="p-4 rounded-2xl border border-border/50 bg-card/40 font-mono text-xs space-y-1.5">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <div className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
-                                    <div className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
-                                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/80" />
-                                    <span className="text-muted-foreground/60 text-[10px] ml-1">terminal</span>
+                            {/* Developer Runtime Telemetry Specs Card */}
+                            <div className="p-4 rounded-2xl border border-border/50 bg-card/40 font-mono text-xs space-y-2.5">
+                                <div className="flex items-center justify-between pb-2 border-b border-border/40">
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                        <span className="text-[11px] font-bold text-foreground tracking-wider uppercase">{t('about.runtimeTitle', 'Developer Runtime Telemetry')}</span>
+                                    </div>
+                                    <span className="text-[10px] text-muted-foreground font-mono">ID / JKT (UTC+7)</span>
                                 </div>
-                                <div className="text-muted-foreground"><span className="text-emerald-400">~</span> <span className="text-purple-400">whoami</span></div>
-                                <div className="text-foreground/80">Dio Prasetyo — Fullstack Engineer</div>
-                                <div className="text-muted-foreground"><span className="text-emerald-400">~</span> <span className="text-cyan-400">status</span></div>
-                                <div className="flex items-center gap-1.5 text-foreground/80">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                                    Building: Portfolio 3D v2.0
+                                <div className="grid grid-cols-2 gap-2.5 text-[11px]">
+                                    <div>
+                                        <span className="text-muted-foreground block text-[10px] tracking-wider">{t('about.coreRuntime', 'CORE RUNTIME')}</span>
+                                        <span className="text-foreground font-semibold">PHP 8.2+ · Node 20+</span>
+                                    </div>
+                                    <div>
+                                        <span className="text-muted-foreground block text-[10px] tracking-wider">{t('about.architectureStyle', 'ARCHITECTURE')}</span>
+                                        <span className="text-foreground font-semibold">Modular MVC · Typed SPA</span>
+                                    </div>
+                                    <div>
+                                        <span className="text-muted-foreground block text-[10px] tracking-wider">{t('about.currentFocus', 'CURRENT FOCUS')}</span>
+                                        <span className="text-cyan-400 font-semibold">WebGL 3D & Clean APIs</span>
+                                    </div>
+                                    <div>
+                                        <span className="text-muted-foreground block text-[10px] tracking-wider">{t('about.codeContract', 'CODE CONTRACT')}</span>
+                                        <span className="text-emerald-400 font-semibold">Strict Types & CI Verified</span>
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>
                     )}
 
-                    {/* ─── BAR CHART TAB ─── */}
-                    {tab === 'bar' && (
-                        <motion.div key="bar" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="space-y-3">
+                    {/* ─── DELIVERIES TAB ─── */}
+                    {tab === 'deliveries' && (
+                        <motion.div key="deliveries" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="space-y-3">
                             <div className="flex items-center justify-between">
                                 <p className="text-xs text-muted-foreground font-semibold flex items-center gap-1.5">
                                     <BarChart3 className="w-3.5 h-3.5 text-purple-400" />
-                                    Projects Completed Per Year
+                                    {t('about.deliveriesTitle', 'Projects Delivered Per Year')}
                                 </p>
                                 <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">
-                                    Total: {projectsCount}+ Projects
+                                    {t('about.deliveriesTotal', 'Total Shipped')}: {projectsCount}+
                                 </span>
                             </div>
                             <ResponsiveContainer width="100%" height={260}>
@@ -369,28 +416,28 @@ function StatsPanel({ aboutData }: { aboutData: any }) {
                                             <stop offset="100%" stopColor="#22D3EE" stopOpacity={0.8} />
                                         </linearGradient>
                                     </defs>
-                                    <Bar dataKey="count" name="Projects" fill="url(#barG)" radius={[8, 8, 0, 0]} />
+                                    <Bar dataKey="count" name="Shipped Projects" fill="url(#barG)" radius={[8, 8, 0, 0]} />
                                 </BarChart>
                             </ResponsiveContainer>
                         </motion.div>
                     )}
 
-                    {/* ─── DONUT TAB ─── */}
-                    {tab === 'donut' && (
-                        <motion.div key="donut" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="space-y-3">
+                    {/* ─── DOMAINS / FOCUS SPLIT TAB ─── */}
+                    {tab === 'domains' && (
+                        <motion.div key="domains" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="space-y-3">
                             <div className="flex items-center justify-between">
                                 <p className="text-xs text-muted-foreground font-semibold flex items-center gap-1.5">
                                     <PieIcon className="w-3.5 h-3.5 text-cyan-400" />
-                                    Skill Proficiency Distribution
+                                    {t('about.focusSplitTitle', 'Architecture & Discipline Workload')}
                                 </p>
                                 <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
-                                    Top: {skills[0]?.name}
+                                    Primary: Backend & APIs (40%)
                                 </span>
                             </div>
                             <ResponsiveContainer width="100%" height={260}>
                                 <RPieChart>
-                                    <Pie data={skills} dataKey="value" nameKey="name" innerRadius="50%" outerRadius="76%" paddingAngle={4} stroke="none">
-                                        {skills.map((s, i) => <Cell key={i} fill={s.color} />)}
+                                    <Pie data={domainWorkloads} dataKey="value" nameKey="name" innerRadius="52%" outerRadius="76%" paddingAngle={4} stroke="none">
+                                        {domainWorkloads.map((s, i) => <Cell key={i} fill={s.color} />)}
                                     </Pie>
                                     <Tooltip content={<ChartTip />} />
                                     <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11, color: '#a1a1aa' }} />
@@ -399,36 +446,36 @@ function StatsPanel({ aboutData }: { aboutData: any }) {
                         </motion.div>
                     )}
 
-                    {/* ─── AREA/LINE TAB ─── */}
-                    {tab === 'line' && (
-                        <motion.div key="line" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="space-y-3">
+                    {/* ─── VELOCITY TAB ─── */}
+                    {tab === 'velocity' && (
+                        <motion.div key="velocity" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="space-y-3">
                             <div className="flex items-center justify-between">
                                 <p className="text-xs text-muted-foreground font-semibold flex items-center gap-1.5">
                                     <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
-                                    Skill Growth & Project Trajectory
+                                    {t('about.velocityTitle', 'Production Velocity & Module Deliveries')}
                                 </p>
                                 <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
-                                    Trajectory: Upward ↗
+                                    {t('about.velocityBadge', 'Trajectory: Steady Scale ↗')}
                                 </span>
                             </div>
                             <ResponsiveContainer width="100%" height={260}>
-                                <AreaChart data={growth}>
+                                <AreaChart data={productionVelocity}>
                                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
                                     <XAxis dataKey="period" tick={{ fontSize: 11, fill: '#71717a' }} axisLine={false} tickLine={false} />
                                     <YAxis tick={{ fontSize: 11, fill: '#71717a' }} axisLine={false} tickLine={false} />
                                     <Tooltip content={<ChartTip />} />
                                     <defs>
-                                        <linearGradient id="aS" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%"  stopColor="#8B5CF6" stopOpacity={0.35} />
+                                        <linearGradient id="vFeat" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.35} />
                                             <stop offset="95%" stopColor="#8B5CF6" stopOpacity={0} />
                                         </linearGradient>
-                                        <linearGradient id="aP" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%"  stopColor="#22D3EE" stopOpacity={0.35} />
+                                        <linearGradient id="vRepo" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor="#22D3EE" stopOpacity={0.35} />
                                             <stop offset="95%" stopColor="#22D3EE" stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
-                                    <Area type="monotone" dataKey="score"    name="Skill Score"    stroke="#8B5CF6" fill="url(#aS)" strokeWidth={2.5} dot={{ r: 4, fill: '#8B5CF6', strokeWidth: 0 }} />
-                                    <Area type="monotone" dataKey="projects" name="Active Projects" stroke="#22D3EE" fill="url(#aP)" strokeWidth={2.5} dot={{ r: 4, fill: '#22D3EE', strokeWidth: 0 }} />
+                                    <Area type="monotone" dataKey="features" name="Delivered Modules" stroke="#8B5CF6" fill="url(#vFeat)" strokeWidth={2.5} dot={{ r: 4, fill: '#8B5CF6', strokeWidth: 0 }} />
+                                    <Area type="monotone" dataKey="repos" name="Maintained Repos" stroke="#22D3EE" fill="url(#vRepo)" strokeWidth={2.5} dot={{ r: 4, fill: '#22D3EE', strokeWidth: 0 }} />
                                 </AreaChart>
                             </ResponsiveContainer>
                         </motion.div>
@@ -445,47 +492,48 @@ export default function AboutMeSection({ aboutData }: AboutMeSectionProps) {
 
     const description = getTranslated(
         aboutData?.description,
-        '<p>Hello! I am a full-stack engineer and creative technologist who loves crafting immersive interactive experiences. With a strong background in Laravel, React, and 3D graphics, I bridge the gap between aesthetic design and robust engineering.</p>'
+        '<p>I engineer web applications where backend stability and interface fluidity carry equal weight. Over 4+ years of development, my core stack has centered around Laravel, TypeScript, and React—building structured service layers, predictable client-side state, and clean relational database schemas.</p><p>Beyond standard business applications, I specialize in Three.js and WebGL rendering to create interactive 3D web environments that maintain steady 60 FPS performance without compromising Core Web Vitals. I treat clean architecture not as an abstract ideal, but as an operational guarantee that code remains readable, testable, and effortless to scale.</p>'
     );
 
     const galleryImages: string[]    = aboutData?.gallery_images   ?? [];
     const features: Feature[]        = aboutData?.features         ?? [];
     const expertiseTabs: ExpertiseTab[] = aboutData?.expertise_tabs ?? [];
 
-    /* Fallback features */
+    /* Fallback features with high-standard engineering credentials */
     const displayFeatures: Feature[] = features.length ? features : [
-        { name: 'Modern Architecture & Clean Code', icon: 'Code2'     },
-        { name: 'RESTful & Real-time Integrations', icon: 'Zap'       },
-        { name: '3D Graphics & Shader Effects',     icon: 'Layers'    },
-        { name: 'Responsive & Accessible UI/UX',    icon: 'Monitor'   },
+        { name: 'Modular Service & Repository Architecture', icon: 'Layers', description: 'Decoupled business logic from controllers for high testability' },
+        { name: 'Strict Type Contracts (PHP 8.2 & TS)', icon: 'Code2', description: 'Eliminating runtime type exceptions across client and server' },
+        { name: 'GPU-Accelerated 3D & GLSL Shaders', icon: 'Sparkles', description: 'Silky 60 FPS visual experiences without degrading Core Web Vitals' },
+        { name: 'Sub-second Load & WCAG Accessible UI', icon: 'Monitor', description: 'Semantic markup, fast paint cycles, and keyboard-first accessibility' },
     ];
 
     /* Fallback expertise tabs */
     const displayTabs: ExpertiseTab[] = expertiseTabs.length ? expertiseTabs : [
-        { id: 'web', label: 'Web Dev', icon: 'Globe', items: ['React.js', 'TypeScript', 'Next.js', 'Vite', 'Tailwind CSS'] },
-        { id: 'backend', label: 'Backend', icon: 'Server', items: ['Laravel', 'Node.js', 'MySQL', 'Redis', 'REST API'] },
-        { id: 'architecture', label: 'Architecture', icon: 'Layout', items: ['Repository Pattern', 'Service Layer', 'SOLID', 'MVC', 'DDD'] },
-        { id: 'creative', label: '3D / Creative', icon: 'Sparkles', items: ['Three.js', 'WebGL', 'GSAP', 'Framer Motion'] },
+        { id: 'backend', label: 'Backend & APIs', icon: 'Server', items: ['Laravel 11', 'PHP 8.2+', 'MySQL', 'Redis', 'REST/JSON-API', 'Queue Workers'] },
+        { id: 'frontend', label: 'Frontend Systems', icon: 'Globe', items: ['React 18', 'TypeScript', 'Inertia.js', 'Vite', 'Tailwind CSS', 'State Management'] },
+        { id: 'creative', label: '3D & Graphics', icon: 'Sparkles', items: ['Three.js', 'WebGL', 'GLSL Shaders', 'Framer Motion', 'Canvas 2D'] },
+        { id: 'architecture', label: 'Architecture', icon: 'Layout', items: ['Service-Repository Pattern', 'SOLID Principles', 'Relational Schema Design', 'CI/CD Pipelines'] },
     ];
 
     return (
-        <section id="about" className="py-28 relative overflow-hidden">
-            {/* Background decorative glow */}
-            <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/8 rounded-full blur-[120px] pointer-events-none -z-10" />
-            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-cyan-400/6 rounded-full blur-[100px] pointer-events-none -z-10" />
+        <section id="about" className="py-28 relative overflow-hidden bg-transparent">
+            {/* Ambient Cosmic Background Glows */}
+            <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-purple-400/20 dark:bg-purple-600/15 rounded-full blur-3xl pointer-events-none -z-10" />
+            <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-cyan-300/15 dark:bg-cyan-400/10 rounded-full blur-3xl pointer-events-none -z-10" />
+            <div className="absolute top-1/4 right-10 w-[450px] h-[450px] bg-amber-300/15 dark:bg-transparent rounded-full blur-3xl pointer-events-none -z-10" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                {/* ── Section Header (enlarged) ── */}
+                {/* ── Section Header ── */}
                 <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-xs font-semibold"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-cyan-500/40 bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 text-xs font-bold dark:font-semibold"
                     >
                         <User className="w-3.5 h-3.5" />
-                        <span>{t('about.title')}</span>
+                        <span>{t('about.title', 'Engineering Profile')}</span>
                     </motion.div>
                     <motion.h2
                         initial={{ opacity: 0, y: 15 }}
@@ -494,7 +542,7 @@ export default function AboutMeSection({ aboutData }: AboutMeSectionProps) {
                         transition={{ delay: 0.1 }}
                         className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.1]"
                     >
-                        {t('about.subtitle')}
+                        {t('about.subtitle', 'Full-stack engineering focused on resilient architectures, type safety, and real-time 3D')}
                     </motion.h2>
                 </div>
 
@@ -513,10 +561,10 @@ export default function AboutMeSection({ aboutData }: AboutMeSectionProps) {
                             <GalleryCarousel images={galleryImages} />
 
                             {/* Tech Expertise — positioned below photo */}
-                            <div className="p-5 rounded-2xl border border-border/60 bg-card/50 backdrop-blur-xl shadow-xl space-y-3">
+                            <div className="p-5 rounded-2xl border border-border/60 bg-card/90 backdrop-blur-sm shadow-xl space-y-3">
                                 <div className="flex items-center gap-2 text-xs font-bold text-foreground">
                                     <Cpu className="w-4 h-4 text-purple-400" />
-                                    Tech Expertise
+                                    {t('about.techExpertise', 'Core Technical Expertise')}
                                 </div>
                                 <ExpertiseTabs tabs={displayTabs} />
                             </div>
@@ -534,7 +582,7 @@ export default function AboutMeSection({ aboutData }: AboutMeSectionProps) {
                         </motion.div>
                     </div>
 
-                    {/* ── Bottom Row: Full-Width Biography & Feature Checklist ── */}
+                    {/* ── Bottom Row: Full-Width Biography & Engineering Standards ── */}
                     <motion.div
                         initial={{ opacity: 0, y: 25 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -542,22 +590,33 @@ export default function AboutMeSection({ aboutData }: AboutMeSectionProps) {
                         transition={{ duration: 0.65, delay: 0.2 }}
                         className="w-full"
                     >
-                        <div className="p-6 sm:p-8 rounded-3xl border border-border/60 bg-card/50 backdrop-blur-xl shadow-xl space-y-6">
+                        <div className="p-6 sm:p-8 rounded-3xl border border-border/60 bg-card/90 backdrop-blur-sm shadow-xl space-y-6">
                             <div
-                                className="prose prose-sm sm:prose-base dark:prose-invert max-w-none text-muted-foreground leading-relaxed [&>p]:mb-3 [&>p:last-child]:mb-0"
+                                className="prose prose-sm sm:prose-base dark:prose-invert max-w-none text-muted-foreground leading-relaxed [&>p]:mb-3 [&>p:last-child]:mb-0 font-normal"
                                 dangerouslySetInnerHTML={{ __html: description }}
                             />
 
-                            {/* Dynamic feature checklist from backend */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-6 border-t border-border/50">
-                                {displayFeatures.map((feat) => (
-                                    <div key={feat.name} className="flex items-center gap-2.5 p-2.5 rounded-xl bg-secondary/30 border border-border/40 group hover:bg-secondary/60 hover:border-emerald-500/30 transition-all">
-                                        <div className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-500/20 transition-colors">
-                                            <DynIcon name={feat.icon} className="w-3.5 h-3.5 text-emerald-400" />
+                            {/* Dynamic feature checklist / Core Engineering Standards */}
+                            <div className="space-y-3 pt-6 border-t border-border/50">
+                                <div className="text-xs font-bold text-foreground uppercase tracking-wider flex items-center gap-1.5">
+                                    <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                                    {t('about.featuresTitle', 'Core Engineering Standards')}
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                                    {displayFeatures.map((feat) => (
+                                        <div key={feat.name} className="p-3.5 rounded-xl bg-secondary/30 border border-border/40 group hover:bg-secondary/60 hover:border-emerald-500/30 transition-all flex flex-col justify-between">
+                                            <div className="flex items-center gap-2.5 mb-2">
+                                                <div className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-500/20 transition-colors">
+                                                    <DynIcon name={feat.icon} className="w-3.5 h-3.5 text-emerald-400" />
+                                                </div>
+                                                <span className="text-xs font-semibold text-foreground/90 group-hover:text-foreground transition-colors leading-snug">{feat.name}</span>
+                                            </div>
+                                            {feat.description && (
+                                                <p className="text-[11px] text-muted-foreground leading-relaxed pl-9">{feat.description}</p>
+                                            )}
                                         </div>
-                                        <span className="text-xs font-medium text-foreground/90 group-hover:text-foreground transition-colors leading-snug">{feat.name}</span>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </motion.div>

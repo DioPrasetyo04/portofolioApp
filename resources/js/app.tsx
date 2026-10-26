@@ -16,11 +16,17 @@ import SettingsLayout from '@/layouts/settings/layout';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
+// Initialize dark mode theme before app mounts
+initializeTheme();
+
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
     layout: (name) => {
         switch (true) {
             case name === 'welcome':
+            case name.startsWith('news/'):
+            case name.startsWith('projects/'):
+            case name.startsWith('certificates/'):
                 return null;
             case name.startsWith('auth/'):
                 return AuthLayout;
@@ -43,6 +49,3 @@ createInertiaApp({
         color: '#4B5563',
     },
 });
-
-// This will set light / dark mode on load...
-initializeTheme();

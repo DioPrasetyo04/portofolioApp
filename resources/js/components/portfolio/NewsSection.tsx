@@ -23,11 +23,16 @@ export default function NewsSection({ newsList = [] }: NewsSectionProps) {
     if (!newsList || newsList.length === 0) return null;
 
     return (
-        <section id="news" className="py-24 relative overflow-hidden bg-secondary/30">
+        <section id="news" className="py-24 relative overflow-hidden bg-transparent">
+            {/* Ambient Cosmic Background Glows */}
+            <div className="absolute top-1/2 right-10 w-[500px] h-[500px] bg-purple-400/20 dark:bg-purple-600/15 rounded-full blur-3xl pointer-events-none -z-10" />
+            <div className="absolute bottom-0 left-10 w-[450px] h-[450px] bg-cyan-300/15 dark:bg-cyan-400/10 rounded-full blur-3xl pointer-events-none -z-10" />
+            <div className="absolute top-10 left-1/4 w-[400px] h-[400px] bg-indigo-200/15 dark:bg-transparent rounded-full blur-3xl pointer-events-none -z-10" />
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Section Header */}
                 <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-400 text-xs font-semibold">
+                    <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-purple-500/40 bg-purple-500/15 text-purple-700 dark:text-purple-300 text-xs font-bold dark:font-semibold shadow-sm">
                         <Newspaper className="w-3.5 h-3.5" />
                         <span>{t('news.title')}</span>
                     </div>
@@ -55,6 +60,8 @@ export default function NewsSection({ newsList = [] }: NewsSectionProps) {
                                             <img
                                                 src={`/storage/${article.image}`}
                                                 alt={title}
+                                                loading="lazy"
+                                                decoding="async"
                                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                             />
                                         ) : (
@@ -62,7 +69,7 @@ export default function NewsSection({ newsList = [] }: NewsSectionProps) {
                                                 <Newspaper className="w-6 h-6" />
                                             </div>
                                         )}
-                                        <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-background/80 backdrop-blur-md border border-border text-[10px] font-mono text-muted-foreground flex items-center gap-1">
+                                        <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-background/90 border border-border text-[10px] font-mono text-muted-foreground flex items-center gap-1">
                                             <Calendar className="w-3 h-3 text-purple-400" />
                                             <span>{new Date(article.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
                                         </div>
@@ -79,7 +86,7 @@ export default function NewsSection({ newsList = [] }: NewsSectionProps) {
                                     </div>
                                 </div>
 
-                                <div className="p-6 pt-0 flex items-center gap-1.5 text-xs font-semibold text-purple-400 group-hover:text-cyan-400 transition-colors">
+                                <div className="p-6 pt-0 flex items-center gap-1.5 text-xs font-semibold text-purple-700 dark:text-purple-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                                     <span>{t('news.readMore')}</span>
                                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                                 </div>

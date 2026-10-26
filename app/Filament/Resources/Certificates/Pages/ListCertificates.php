@@ -16,4 +16,12 @@ class ListCertificates extends ListRecords
             CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\Certificates\Widgets\CertificateStatsWidget::class,
+            \App\Filament\Resources\Certificates\Widgets\CertificateIssuerChart::class,
+        ];
+    }
 }

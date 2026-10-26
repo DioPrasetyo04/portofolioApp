@@ -16,4 +16,12 @@ class ListTechnologyCategories extends ListRecords
             CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\TechnologyCategories\Widgets\TechnologyCategoryStatsWidget::class,
+            \App\Filament\Resources\TechnologyCategories\Widgets\TechnologyCategoryChart::class,
+        ];
+    }
 }

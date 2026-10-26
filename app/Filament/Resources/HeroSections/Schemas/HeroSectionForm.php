@@ -3,10 +3,10 @@
 namespace App\Filament\Resources\HeroSections\Schemas;
 
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class HeroSectionForm
@@ -55,6 +55,7 @@ class HeroSectionForm
                         FileUpload::make('image')
                             ->label('Hero Avatar / Profile Photo')
                             ->image()
+                            ->disk('public')
                             ->directory('hero')
                             ->imageEditor()
                             ->columnSpanFull(),

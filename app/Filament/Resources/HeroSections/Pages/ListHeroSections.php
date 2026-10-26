@@ -16,4 +16,12 @@ class ListHeroSections extends ListRecords
             CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\HeroSections\Widgets\HeroSectionStatsWidget::class,
+            \App\Filament\Resources\HeroSections\Widgets\HeroSectionCompletenessChart::class,
+        ];
+    }
 }

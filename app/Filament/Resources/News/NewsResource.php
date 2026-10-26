@@ -35,6 +35,14 @@ class NewsResource extends Resource
         return NewsTable::configure($table);
     }
 
+    public static function getWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\News\Widgets\NewsStatsWidget::class,
+            \App\Filament\Resources\News\Widgets\NewsEngagementChart::class,
+        ];
+    }
+
     public static function getRelations(): array
     {
         return [];

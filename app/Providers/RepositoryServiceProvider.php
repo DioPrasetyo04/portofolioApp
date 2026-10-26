@@ -15,6 +15,7 @@ use App\Contracts\Repositories\CertificateRepositoryInterface;
 use App\Contracts\Repositories\NewsRepositoryInterface;
 use App\Contracts\Repositories\AnnouncementRepositoryInterface;
 use App\Contracts\Repositories\SocialMediaRepositoryInterface;
+use App\Contracts\Repositories\ResumeRepositoryInterface;
 
 use App\Contracts\Services\HeroSectionServiceInterface;
 use App\Contracts\Services\AboutMeServiceInterface;
@@ -27,6 +28,7 @@ use App\Contracts\Services\NewsServiceInterface;
 use App\Contracts\Services\AnnouncementServiceInterface;
 use App\Contracts\Services\PortfolioServiceInterface;
 use App\Contracts\Services\SocialMediaServiceInterface;
+use App\Contracts\Services\ResumeServiceInterface;
 
 // Implementations
 use App\Repositories\HeroSectionRepository;
@@ -39,6 +41,7 @@ use App\Repositories\CertificateRepository;
 use App\Repositories\NewsRepository;
 use App\Repositories\AnnouncementRepository;
 use App\Repositories\SocialMediaRepository;
+use App\Repositories\ResumeRepository;
 
 use App\Services\HeroSectionService;
 use App\Services\AboutMeService;
@@ -51,6 +54,7 @@ use App\Services\NewsService;
 use App\Services\AnnouncementService;
 use App\Services\PortfolioService;
 use App\Services\SocialMediaService;
+use App\Services\ResumeService;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -71,6 +75,7 @@ class RepositoryServiceProvider extends ServiceProvider
         NewsRepositoryInterface::class => NewsRepository::class,
         AnnouncementRepositoryInterface::class => AnnouncementRepository::class,
         SocialMediaRepositoryInterface::class => SocialMediaRepository::class,
+        ResumeRepositoryInterface::class => ResumeRepository::class,
 
         // Services
         HeroSectionServiceInterface::class => HeroSectionService::class,
@@ -84,6 +89,7 @@ class RepositoryServiceProvider extends ServiceProvider
         AnnouncementServiceInterface::class => AnnouncementService::class,
         PortfolioServiceInterface::class => PortfolioService::class,
         SocialMediaServiceInterface::class => SocialMediaService::class,
+        ResumeServiceInterface::class => ResumeService::class,
     ];
 
     /**

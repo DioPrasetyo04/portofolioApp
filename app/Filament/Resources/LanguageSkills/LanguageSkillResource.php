@@ -35,6 +35,14 @@ class LanguageSkillResource extends Resource
         return LanguageSkillsTable::configure($table);
     }
 
+    public static function getWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\LanguageSkills\Widgets\LanguageSkillStatsWidget::class,
+            \App\Filament\Resources\LanguageSkills\Widgets\LanguageSkillChart::class,
+        ];
+    }
+
     public static function getRelations(): array
     {
         return [];

@@ -64,10 +64,11 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
     };
 
     return (
-        <section id="certificates" className="py-28 relative overflow-hidden bg-background">
-            {/* Ambient Background Glows */}
-            <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none -z-10" />
-            <div className="absolute bottom-10 right-1/4 w-[450px] h-[450px] bg-purple-600/10 rounded-full blur-[130px] pointer-events-none -z-10" />
+        <section id="certificates" className="py-28 relative overflow-hidden bg-transparent">
+            {/* Ambient Cosmic Background Glows */}
+            <div className="absolute top-1/3 left-1/3 w-[600px] h-[600px] bg-amber-400/20 dark:bg-amber-500/15 rounded-full blur-3xl pointer-events-none -z-10" />
+            <div className="absolute bottom-10 right-1/4 w-[550px] h-[550px] bg-purple-400/20 dark:bg-purple-600/15 rounded-full blur-3xl pointer-events-none -z-10" />
+            <div className="absolute top-10 right-10 w-[450px] h-[450px] bg-cyan-300/15 dark:bg-cyan-500/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* ── Section Header ── */}
@@ -77,7 +78,7 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-semibold shadow-sm"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-amber-500/40 bg-amber-500/15 text-amber-700 dark:text-amber-400 text-xs font-bold dark:font-semibold shadow-sm"
                         >
                             <Award className="w-3.5 h-3.5" />
                             <span>{t('certificates.title')}</span>
@@ -146,7 +147,7 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.4, delay: idx * 0.05 }}
                                     onClick={() => setActiveModalCert(cert)}
-                                    className="group w-full h-full rounded-3xl border border-border/80 bg-card/60 backdrop-blur-2xl shadow-xl hover:shadow-2xl hover:shadow-amber-500/10 hover:border-amber-500/40 flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300 relative"
+                                    className="group w-full h-full rounded-3xl border border-border/80 bg-card/90 backdrop-blur-sm shadow-xl hover:shadow-2xl hover:shadow-amber-500/10 hover:border-amber-500/40 flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300 relative"
                                 >
                                     {/* Top Border Glow Highlight */}
                                     <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-purple-500 opacity-60 group-hover:opacity-100 transition-opacity z-10" />
@@ -157,11 +158,13 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
                                             <img
                                                 src={certImage}
                                                 alt={name}
+                                                loading="lazy"
+                                                decoding="async"
                                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-3.5">
                                                 {cert.credential_id && (
-                                                    <span className="text-[10px] font-mono text-amber-300/90 flex items-center gap-1 bg-black/60 px-2 py-0.5 rounded-md backdrop-blur-sm border border-amber-500/20">
+                                                    <span className="text-[10px] font-mono text-amber-300/90 flex items-center gap-1 bg-black/70 px-2 py-0.5 rounded-md border border-amber-500/20">
                                                         <ShieldCheck className="w-3 h-3 text-amber-400" />
                                                         {cert.credential_id}
                                                     </span>
@@ -185,6 +188,8 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
                                                             <img
                                                                 src={issuerIcon}
                                                                 alt={cert.issuer || 'Issuer'}
+                                                                loading="lazy"
+                                                                decoding="async"
                                                                 className="w-full h-full object-contain"
                                                             />
                                                         </div>
@@ -200,7 +205,7 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
                                                     )}
                                                 </div>
 
-                                                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-[10px] font-bold text-amber-400 flex items-center gap-1 flex-shrink-0">
+                                                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/40 text-[10px] font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1 flex-shrink-0">
                                                     <CheckCircle2 className="w-3 h-3" />
                                                     Verified
                                                 </span>
@@ -239,10 +244,10 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
                                                     e.stopPropagation();
                                                     setActiveModalCert(cert);
                                                 }}
-                                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 hover:text-white text-xs font-semibold transition-all duration-200 group-hover:border-amber-400 active:scale-95 shadow-sm ml-auto"
+                                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-700 dark:text-amber-300 hover:text-amber-900 dark:hover:text-white text-xs font-semibold transition-all duration-200 group-hover:border-amber-400 active:scale-95 shadow-sm ml-auto"
                                             >
                                                 <span>Detail Certificate</span>
-                                                <ArrowUpRight className="w-3.5 h-3.5 text-amber-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                                                <ArrowUpRight className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                                             </button>
                                         </div>
                                     </div>
@@ -263,7 +268,7 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setActiveModalCert(null)}
-                            className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity"
+                            className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
                         />
 
                         {/* Modal Container */}
@@ -312,6 +317,8 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
                                                         <img
                                                             src={imgUrl}
                                                             alt={getTranslated(activeModalCert.name, 'Certificate')}
+                                                            loading="lazy"
+                                                            decoding="async"
                                                             className="w-full h-full object-cover"
                                                         />
                                                     </SwiperSlide>
@@ -321,6 +328,8 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
                                             <img
                                                 src={images[0]}
                                                 alt={getTranslated(activeModalCert.name, 'Certificate')}
+                                                loading="lazy"
+                                                decoding="async"
                                                 className="w-full h-full object-cover"
                                             />
                                         )}
@@ -338,6 +347,8 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
                                                 <img
                                                     src={getImageUrl(activeModalCert.issuer_icon)!}
                                                     alt={activeModalCert.issuer || 'Issuer'}
+                                                    loading="lazy"
+                                                    decoding="async"
                                                     className="w-full h-full object-contain"
                                                 />
                                             </div>

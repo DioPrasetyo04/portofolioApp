@@ -3,13 +3,13 @@
 namespace App\Filament\Resources\LanguageSkills\Schemas;
 
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class LanguageSkillForm
@@ -40,11 +40,13 @@ class LanguageSkillForm
                             FileUpload::make('logo')
                                 ->label('Flag / Icon (Logo)')
                                 ->image()
+                                ->disk('public')
                                 ->directory('languages/logos')
                                 ->imageEditor(),
                             FileUpload::make('photo')
                                 ->label('Primary Cover Photo (Optional)')
                                 ->image()
+                                ->disk('public')
                                 ->directory('languages/covers')
                                 ->imageEditor(),
                         ]),
@@ -93,6 +95,7 @@ class LanguageSkillForm
                             ->label('Photo Gallery (Multiple Images for Swiper)')
                             ->image()
                             ->multiple()
+                            ->disk('public')
                             ->maxFiles(8)
                             ->directory('languages/gallery')
                             ->reorderable()
@@ -118,6 +121,7 @@ class LanguageSkillForm
 
                                     FileUpload::make('file')
                                         ->label('Upload Media File')
+                                        ->disk('public')
                                         ->directory('languages/media')
                                         ->maxSize(20480),
 

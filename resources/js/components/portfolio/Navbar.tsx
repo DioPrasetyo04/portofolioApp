@@ -1,83 +1,91 @@
-import React, { useState, useEffect, useCallback } from 'react';
+"use client";
+
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Sun,
     Moon,
-    Globe,
-    Menu,
-    X,
     Sparkles,
-    Shield,
     Check,
     ChevronDown,
+    Menu,
+    X,
+    Download,
 } from 'lucide-react';
 import { useAppearance } from '@/hooks/use-appearance';
+import PortfolioLikeButton from '@/components/portfolio/ui/PortfolioLikeButton';
+import FlagIcon from '@/components/ui/FlagIcon';
 
 interface NavbarProps {
     currentSection?: string;
 }
 
-/* Section IDs yang sesuai dengan id="..." di setiap section komponen */
-const SECTION_IDS = ['about', 'projects', 'skills', 'languages', 'certificates', 'news', 'contact'];
+const SECTION_IDS = ['hero', 'about', 'projects', 'skills', 'languages', 'certificates', 'news', 'contact'];
 
 export default function Navbar({ currentSection }: NavbarProps) {
     const { t, i18n } = useTranslation();
-    const { appearance, updateAppearance } = useAppearance();
-    const [isScrolled, setIsScrolled]         = useState(false);
+    const { appearance, resolvedAppearance, updateAppearance } = useAppearance();
+    const isDark = resolvedAppearance === 'dark';
+
+    const [isScrolled, setIsScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [langDropdownOpen, setLangDropdownOpen] = useState(false);
-    const [activeSection, setActiveSection]   = useState<string>('');
+    const [activeSection, setActiveSection] = useState<string>(currentSection || 'hero');
 
-    /* ── Scroll: glassmorphism trigger ── */
     useEffect(() => {
-        const handleScroll = () => setIsScrolled(window.scrollY > 20);
+        let ticking = false;
+
+        const handleScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrollY = window.scrollY;
+                    setIsScrolled(scrollY > 20);
+
+                    const windowHeight = window.innerHeight;
+                    const documentHeight = document.documentElement.scrollHeight;
+
+                    if (scrollY < 120) {
+                        setActiveSection('hero');
+                        ticking = false;
+                        return;
+                    }
+
+                    if (scrollY + windowHeight >= documentHeight - 70) {
+                        setActiveSection('contact');
+                        ticking = false;
+                        return;
+                    }
+
+                    const triggerOffset = 180;
+                    let current = 'hero';
+
+                    for (const id of SECTION_IDS) {
+                        const el = document.getElementById(id);
+                        if (el) {
+                            const rect = el.getBoundingClientRect();
+                            if (rect.top <= triggerOffset) {
+                                current = id;
+                            }
+                        }
+                    }
+
+                    setActiveSection(current);
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
         window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    /* ── Active Section Detection via IntersectionObserver ── */
-    useEffect(() => {
-        const observers: IntersectionObserver[] = [];
-
-        /* Track which sections are currently visible */
-        const visibilityMap: Record<string, number> = {};
-
-        const pickMostVisible = () => {
-            let topSection = '';
-            let topRatio   = 0;
-            for (const [id, ratio] of Object.entries(visibilityMap)) {
-                if (ratio > topRatio) { topRatio = ratio; topSection = id; }
-            }
-            setActiveSection(topSection);
-        };
-
-        SECTION_IDS.forEach((id) => {
-            const el = document.getElementById(id);
-            if (!el) return;
-
-            const obs = new IntersectionObserver(
-                ([entry]) => {
-                    visibilityMap[id] = entry.intersectionRatio;
-                    pickMostVisible();
-                },
-                {
-                    /* rootMargin accounts for the fixed 64px navbar height */
-                    rootMargin: '-64px 0px -35% 0px',
-                    threshold: Array.from({ length: 21 }, (_, i) => i * 0.05),
-                }
-            );
-
-            obs.observe(el);
-            observers.push(obs);
-        });
-
-        return () => observers.forEach((o) => o.disconnect());
-    }, []);
-
     const languages = [
-        { code: 'en', label: 'English',        flag: '🇬🇧' },
-        { code: 'id', label: 'Indonesia',       flag: '🇮🇩' },
-        { code: 'zh', label: '中文 (Chinese)',  flag: '🇨🇳' },
+        { code: 'en', label: 'English' },
+        { code: 'id', label: 'Indonesia' },
+        { code: 'zh', label: '中文 (Chinese)' },
     ];
 
     const currentLang =
@@ -85,53 +93,84 @@ export default function Navbar({ currentSection }: NavbarProps) {
         languages[0];
 
     const navLinks = [
-        { href: '#about',        sectionId: 'about',        label: t('nav.about')        },
-        { href: '#projects',     sectionId: 'projects',     label: t('nav.projects')     },
-        { href: '#skills',       sectionId: 'skills',       label: t('nav.skills')       },
-        { href: '#languages',    sectionId: 'languages',    label: t('nav.languages')    },
+        { href: '#hero', sectionId: 'hero', label: t('nav.home') },
+        { href: '#about', sectionId: 'about', label: t('nav.about') },
+        { href: '#projects', sectionId: 'projects', label: t('nav.projects') },
+        { href: '#skills', sectionId: 'skills', label: t('nav.skills') },
+        { href: '#languages', sectionId: 'languages', label: t('nav.languages') },
         { href: '#certificates', sectionId: 'certificates', label: t('nav.certificates') },
-        { href: '#news',         sectionId: 'news',         label: t('nav.news')         },
-        { href: '#contact',      sectionId: 'contact',      label: t('nav.contact')      },
+        { href: '#news', sectionId: 'news', label: t('nav.news') },
+        { href: '#contact', sectionId: 'contact', label: t('nav.contact') },
     ];
 
     const toggleTheme = () =>
-        updateAppearance(appearance === 'dark' ? 'light' : 'dark');
+        updateAppearance(isDark ? 'light' : 'dark');
 
     const changeLanguage = (code: string) => {
         i18n.changeLanguage(code);
         setLangDropdownOpen(false);
     };
 
-    /* ── Smooth scroll & close mobile menu on link click ── */
     const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
         e.preventDefault();
-        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+        setActiveSection(sectionId);
         setMobileMenuOpen(false);
+
+        if (sectionId === 'hero') {
+            if (document.getElementById('hero')) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                window.location.href = '/#hero';
+            }
+            return;
+        }
+
+        const el = document.getElementById(sectionId);
+        if (el) {
+            const navbarOffset = 76;
+            const elementPosition = el.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({
+                top: Math.max(0, elementPosition - navbarOffset),
+                behavior: 'smooth',
+            });
+        } else {
+            window.location.href = `/#${sectionId}`;
+        }
     };
 
     return (
         <header
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-                isScrolled ? 'glass-nav py-3 shadow-lg shadow-black/5' : 'bg-transparent py-5'
+                isScrolled
+                    ? isDark
+                        ? 'py-3 bg-black/85 backdrop-blur-md border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)]'
+                        : 'py-3 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.06)]'
+                    : isDark
+                        ? 'py-5 bg-gradient-to-b from-black/80 via-black/40 to-transparent'
+                        : 'py-5 bg-gradient-to-b from-white/90 via-white/40 to-transparent'
             }`}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-4">
 
                     {/* ── Brand Logo ── */}
-                    <a href="#" className="flex items-center gap-2 group">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 via-indigo-500 to-cyan-400 p-[2px] shadow-lg shadow-purple-500/20 group-hover:scale-105 transition-transform duration-300">
-                            <div className="w-full h-full bg-background rounded-[10px] flex items-center justify-center">
-                                <Sparkles className="w-5 h-5 text-purple-500 group-hover:rotate-12 transition-transform duration-300" />
+                    <a href="#" className="flex items-center gap-2.5 group select-none flex-shrink-0">
+                        <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-purple-500 via-indigo-500 to-cyan-400 p-[1.5px] shadow-[0_0_20px_rgba(168,85,247,0.35)] group-hover:shadow-[0_0_25px_rgba(34,211,238,0.5)] transition-all duration-300">
+                            <div className={`w-full h-full rounded-[14px] flex items-center justify-center ${isDark ? 'bg-black/90' : 'bg-white/95'}`}>
+                                <Sparkles className="w-5 h-5 text-purple-500 dark:text-cyan-400 group-hover:rotate-12 transition-transform duration-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.6)]" />
                             </div>
                         </div>
-                        <span className="font-bold text-lg tracking-tight gradient-text hidden sm:inline-block">
-                            Portfolio<span className="text-cyan-400">.3D</span>
+                        <span className={`font-extrabold text-lg tracking-tight hidden sm:inline-block ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                            Portfolio<span className="bg-gradient-to-r from-purple-600 to-cyan-500 dark:from-cyan-400 dark:to-purple-400 bg-clip-text text-transparent">.3D</span>
                         </span>
                     </a>
 
-                    {/* ── Desktop Navigation ── */}
-                    <nav className="hidden md:flex items-center gap-0.5 bg-secondary/70 backdrop-blur-md px-2.5 py-1.5 rounded-full border border-border/80 shadow-inner">
+                    {/* ── Desktop Navigation Capsule ── */}
+                    <nav className={`hidden lg:flex items-center gap-1 backdrop-blur-md px-3 py-1.5 rounded-full border shadow-sm ${
+                        isDark 
+                            ? 'bg-black/80 border-white/15 shadow-[0_4px_24px_rgba(0,0,0,0.5)]' 
+                            : 'bg-white/90 border-slate-200/90 shadow-[0_4px_16px_rgba(0,0,0,0.04)]'
+                    }`}>
                         {navLinks.map((link) => {
                             const isActive = activeSection === link.sectionId;
                             return (
@@ -139,125 +178,162 @@ export default function Navbar({ currentSection }: NavbarProps) {
                                     key={link.href}
                                     href={link.href}
                                     onClick={(e) => handleNavClick(e, link.sectionId)}
-                                    className={`relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs transition-all duration-250 select-none ${
+                                    className={`relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 select-none ${
                                         isActive
-                                            ? 'bg-background/90 text-foreground font-bold shadow-sm'
-                                            : 'font-medium text-muted-foreground hover:text-foreground hover:bg-background/60'
+                                            ? isDark
+                                                 ? 'bg-gradient-to-r from-purple-600/50 to-cyan-600/40 text-white font-semibold border border-white/20 shadow-[0_0_15px_rgba(168,85,247,0.3)]'
+                                                : 'bg-gradient-to-r from-purple-100 to-cyan-50 text-purple-900 font-bold border border-purple-200 shadow-sm'
+                                            : isDark
+                                                ? 'text-white/70 hover:text-white hover:bg-white/10'
+                                                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                                     }`}
                                 >
-                                    {/* Active green dot indicator */}
                                     {isActive && (
-                                        <span className="flex-shrink-0 w-[7px] h-[7px] rounded-full bg-emerald-400 shadow-sm shadow-emerald-400/60 animate-pulse" />
+                                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(34,211,238,1)] animate-pulse" />
                                     )}
-
-                                    {/* Label — gradient when active */}
-                                    <span
-                                        className={
-                                            isActive
-                                                ? 'bg-gradient-to-r from-purple-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent'
-                                                : ''
-                                        }
-                                    >
-                                        {link.label}
-                                    </span>
-
-                                    {/* Underline glow bar */}
-                                    {isActive && (
-                                        <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-[2px] rounded-full bg-gradient-to-r from-purple-400 to-cyan-400 opacity-80" />
-                                    )}
+                                    <span>{link.label}</span>
                                 </a>
                             );
                         })}
                     </nav>
 
-                    {/* ── Action Controls ── */}
-                    <div className="hidden sm:flex items-center gap-2">
+                    {/* ── Action Controls Capsule ── */}
+                    <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
+                        
+                        {/* Language & Theme Combined Container */}
+                        <div className={`flex items-center gap-1 backdrop-blur-md p-1 rounded-2xl border ${
+                            isDark 
+                                ? 'bg-black/80 border-white/15 shadow-[0_4px_20px_rgba(0,0,0,0.4)]' 
+                                : 'bg-white/90 border-slate-200/90 shadow-sm'
+                        }`}>
+                            {/* Language Switcher */}
+                            <div className="relative">
+                                <button
+                                    type="button"
+                                    onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+                                    aria-label={`Select language (current: ${currentLang.label})`}
+                                    title={`Language: ${currentLang.label}`}
+                                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all select-none ${
+                                        isDark 
+                                            ? 'hover:bg-white/10 text-white/90' 
+                                            : 'hover:bg-slate-100 text-slate-800'
+                                    }`}
+                                >
+                                    <span className="w-5 h-3.5 rounded-[2px] overflow-hidden border border-black/15 dark:border-white/20 shadow-xs flex-shrink-0 inline-flex items-center justify-center">
+                                        <FlagIcon code={currentLang.code} className="w-full h-full object-cover" />
+                                    </span>
+                                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${langDropdownOpen ? 'rotate-180 opacity-100' : isDark ? 'text-white/60' : 'text-slate-500'}`} />
+                                </button>
 
-                        {/* Language Switcher */}
-                        <div className="relative">
+                                {langDropdownOpen && (
+                                    <div className={`absolute right-0 mt-2 w-44 rounded-2xl border p-1.5 shadow-2xl z-50 backdrop-blur-md ${
+                                        isDark 
+                                            ? 'border-white/15 bg-black/95 text-white' 
+                                            : 'border-slate-200 bg-white/95 text-slate-900'
+                                    }`}>
+                                        {languages.map((lang) => (
+                                            <button
+                                                key={lang.code}
+                                                type="button"
+                                                onClick={() => changeLanguage(lang.code)}
+                                                className={`w-full flex items-center justify-between px-3 py-2 text-xs rounded-xl transition-colors ${
+                                                    lang.code === currentLang.code
+                                                        ? isDark
+                                                            ? 'bg-purple-600/30 text-purple-200 font-bold border border-purple-500/30'
+                                                            : 'bg-purple-50 text-purple-700 font-bold border border-purple-200'
+                                                        : isDark
+                                                            ? 'hover:bg-white/10 text-white/70 hover:text-white'
+                                                            : 'hover:bg-slate-100 text-slate-600 hover:text-slate-900'
+                                                }`}
+                                            >
+                                                <span className="flex items-center gap-2.5">
+                                                    <span className="w-5 h-3.5 rounded-[2px] overflow-hidden border border-black/15 dark:border-white/20 shadow-xs flex-shrink-0 inline-flex items-center justify-center">
+                                                        <FlagIcon code={lang.code} className="w-full h-full object-cover" />
+                                                    </span>
+                                                    <span>{lang.label}</span>
+                                                </span>
+                                                {lang.code === currentLang.code && (
+                                                    <Check className="w-3.5 h-3.5 text-cyan-500" />
+                                                )}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className={`w-[1px] h-4 ${isDark ? 'bg-white/15' : 'bg-slate-200'}`} />
+
+                            {/* Theme Toggle */}
                             <button
-                                onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-card/60 hover:bg-secondary text-xs font-medium transition-colors"
+                                type="button"
+                                onClick={toggleTheme}
+                                aria-label="Toggle theme"
+                                className={`p-1.5 rounded-xl transition-all ${
+                                    isDark ? 'hover:bg-white/10 text-white/80 hover:text-white' : 'hover:bg-slate-100 text-slate-700 hover:text-slate-900'
+                                }`}
                             >
-                                <span>{currentLang.flag}</span>
-                                <span>{currentLang.code.toUpperCase()}</span>
-                                <ChevronDown className="w-3 h-3 text-muted-foreground" />
+                                {isDark ? (
+                                    <Sun className="w-4 h-4 text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
+                                ) : (
+                                    <Moon className="w-4 h-4 text-purple-600 drop-shadow-[0_0_8px_rgba(147,51,234,0.4)]" />
+                                )}
                             </button>
-
-                            {langDropdownOpen && (
-                                <div className="absolute right-0 mt-2 w-44 rounded-xl border border-border bg-card p-1.5 shadow-xl z-50 backdrop-blur-xl">
-                                    {languages.map((lang) => (
-                                        <button
-                                            key={lang.code}
-                                            onClick={() => changeLanguage(lang.code)}
-                                            className={`w-full flex items-center justify-between px-3 py-2 text-xs rounded-lg transition-colors ${
-                                                lang.code === currentLang.code
-                                                    ? 'bg-primary/10 text-primary font-semibold'
-                                                    : 'hover:bg-secondary text-muted-foreground hover:text-foreground'
-                                            }`}
-                                        >
-                                            <span className="flex items-center gap-2">
-                                                <span>{lang.flag}</span>
-                                                <span>{lang.label}</span>
-                                            </span>
-                                            {lang.code === currentLang.code && (
-                                                <Check className="w-3.5 h-3.5 text-primary" />
-                                            )}
-                                        </button>
-                                    ))}
-                                </div>
-                            )}
                         </div>
 
-                        {/* Theme Toggle */}
-                        <button
-                            onClick={toggleTheme}
-                            aria-label="Toggle theme"
-                            className="p-2 rounded-lg border border-border bg-card/60 hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
-                        >
-                            {appearance === 'dark' ? (
-                                <Sun className="w-4 h-4 text-amber-400" />
-                            ) : (
-                                <Moon className="w-4 h-4 text-purple-600" />
-                            )}
-                        </button>
+                        {/* Interactive Like Button */}
+                        <PortfolioLikeButton variant="cosmic" idPrefix="global" />
 
-                        {/* Admin CMS */}
+                        {/* Resume Download Pill Button */}
                         <a
-                            href="/admin"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-medium text-xs shadow-md shadow-purple-500/20 hover:opacity-90 transition-opacity"
+                            id="global-resume-download-btn"
+                            href="/resume/download"
+                            download
+                            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white font-semibold text-xs shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:shadow-[0_0_25px_rgba(34,211,238,0.5)] transition-all duration-200 active:scale-95 group cursor-pointer"
+                            title={t('nav.downloadCv')}
                         >
-                            <Shield className="w-3.5 h-3.5" />
-                            <span>{t('nav.admin')}</span>
+                            <Download className="w-3.5 h-3.5 text-cyan-200 transition-transform duration-200 group-hover:translate-y-0.5" />
+                            <span>{t('nav.resume')}</span>
                         </a>
                     </div>
 
-                    {/* ── Mobile Controls ── */}
+                    {/* ── Mobile Hamburger Controls ── */}
                     <div className="flex items-center gap-2 sm:hidden">
                         <button
+                            type="button"
                             onClick={toggleTheme}
-                            className="p-2 rounded-lg border border-border bg-card/60"
+                            className={`p-2 rounded-xl border ${
+                                isDark 
+                                    ? 'bg-black/60 border-white/15 text-white/90' 
+                                    : 'bg-white/80 border-slate-200 text-slate-800 shadow-sm'
+                            }`}
                         >
-                            {appearance === 'dark' ? (
+                            {isDark ? (
                                 <Sun className="w-4 h-4 text-amber-400" />
                             ) : (
                                 <Moon className="w-4 h-4 text-purple-600" />
                             )}
                         </button>
                         <button
+                            type="button"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="p-2 rounded-lg border border-border bg-card/60 text-foreground"
+                            className={`p-2 rounded-xl border ${
+                                isDark 
+                                    ? 'bg-black/60 border-white/15 text-white' 
+                                    : 'bg-white/80 border-slate-200 text-slate-800 shadow-sm'
+                            }`}
                         >
                             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                         </button>
                     </div>
                 </div>
 
-                {/* ── Mobile Drawer ── */}
+                {/* ── Mobile Menu Dropdown ── */}
                 {mobileMenuOpen && (
-                    <div className="sm:hidden mt-3 p-4 rounded-2xl border border-border bg-card/95 backdrop-blur-2xl shadow-2xl space-y-3">
+                    <div className={`lg:hidden mt-3 p-4 rounded-3xl border backdrop-blur-md shadow-2xl space-y-3 ${
+                        isDark 
+                            ? 'border-white/15 bg-black/95 text-white' 
+                            : 'border-slate-200 bg-white/95 text-slate-900'
+                    }`}>
                         <nav className="flex flex-col space-y-1">
                             {navLinks.map((link) => {
                                 const isActive = activeSection === link.sectionId;
@@ -266,58 +342,68 @@ export default function Navbar({ currentSection }: NavbarProps) {
                                         key={link.href}
                                         href={link.href}
                                         onClick={(e) => handleNavClick(e, link.sectionId)}
-                                        className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition-all duration-200 ${
+                                        className={`flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl text-sm transition-all duration-200 ${
                                             isActive
-                                                ? 'bg-primary/10 border border-primary/20 font-bold'
-                                                : 'text-muted-foreground hover:text-foreground hover:bg-secondary font-medium'
+                                                ? isDark
+                                                    ? 'bg-purple-600/30 border border-purple-500/40 text-white font-bold shadow-md shadow-purple-500/20'
+                                                    : 'bg-purple-100 border border-purple-200 text-purple-900 font-bold'
+                                                : isDark
+                                                    ? 'text-white/70 hover:text-white hover:bg-white/10 font-medium'
+                                                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-medium'
                                         }`}
                                     >
-                                        {/* Active indicator dot */}
                                         <span
-                                            className={`flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 ${
+                                            className={`w-2 h-2 rounded-full transition-all duration-200 ${
                                                 isActive
-                                                    ? 'bg-emerald-400 shadow-sm shadow-emerald-400/60 animate-pulse'
-                                                    : 'bg-border'
+                                                    ? 'bg-cyan-400 shadow-sm shadow-cyan-400/80 animate-pulse'
+                                                    : isDark ? 'bg-white/20' : 'bg-slate-300'
                                             }`}
                                         />
-                                        <span
-                                            className={
-                                                isActive
-                                                    ? 'bg-gradient-to-r from-purple-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent'
-                                                    : ''
-                                            }
-                                        >
-                                            {link.label}
-                                        </span>
+                                        <span>{link.label}</span>
                                     </a>
                                 );
                             })}
                         </nav>
 
-                        <div className="pt-3 border-t border-border flex items-center justify-between gap-2">
-                            <div className="flex gap-1.5">
-                                {languages.map((lang) => (
-                                    <button
-                                        key={lang.code}
-                                        onClick={() => changeLanguage(lang.code)}
-                                        className={`px-2.5 py-1 text-xs rounded-md border ${
-                                            lang.code === currentLang.code
-                                                ? 'bg-primary text-white border-primary'
-                                                : 'border-border text-muted-foreground'
-                                        }`}
-                                    >
-                                        {lang.flag} {lang.code.toUpperCase()}
-                                    </button>
-                                ))}
+                        <div className={`pt-3 border-t flex flex-col gap-2.5 ${isDark ? 'border-white/10' : 'border-slate-200'}`}>
+                            <div className="grid grid-cols-2 gap-2">
+                                <a
+                                    id="mobile-global-resume-download-btn"
+                                    href="/resume/download"
+                                    download
+                                    className="w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white text-xs font-bold shadow-md shadow-purple-500/30 active:scale-95 transition-all cursor-pointer"
+                                >
+                                    <Download className="w-3.5 h-3.5 text-cyan-200" />
+                                    <span>{t('nav.resume')}</span>
+                                </a>
+                                <PortfolioLikeButton variant="cosmic" isMobile idPrefix="mobile-global" />
                             </div>
 
-                            <a
-                                href="/admin"
-                                className="flex items-center gap-1 px-3 py-1 rounded-lg bg-primary text-white text-xs font-medium"
-                            >
-                                <Shield className="w-3 h-3" />
-                                <span>CMS</span>
-                            </a>
+                            <div className="flex items-center justify-between gap-2">
+                                <div className="flex gap-2">
+                                    {languages.map((lang) => (
+                                        <button
+                                            key={lang.code}
+                                            type="button"
+                                            onClick={() => changeLanguage(lang.code)}
+                                            className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded-xl font-semibold border transition-all ${
+                                                lang.code === currentLang.code
+                                                    ? isDark
+                                                        ? 'bg-purple-600/40 text-white border-purple-400 shadow-sm'
+                                                        : 'bg-purple-600 text-white border-purple-600'
+                                                    : isDark
+                                                        ? 'border-white/10 text-white/60 hover:text-white'
+                                                        : 'border-slate-200 text-slate-600 hover:text-slate-900'
+                                            }`}
+                                        >
+                                            <span className="w-4 h-3 rounded-[2px] overflow-hidden border border-black/15 dark:border-white/20 shadow-xs flex-shrink-0 inline-flex items-center justify-center">
+                                                <FlagIcon code={lang.code} className="w-full h-full object-cover" />
+                                            </span>
+                                            <span>{lang.code.toUpperCase()}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 )}

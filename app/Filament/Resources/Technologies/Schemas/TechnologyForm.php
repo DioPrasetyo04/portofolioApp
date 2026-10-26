@@ -4,10 +4,10 @@ namespace App\Filament\Resources\Technologies\Schemas;
 
 use App\Models\TechnologyCategory;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class TechnologyForm
@@ -47,6 +47,7 @@ class TechnologyForm
                         FileUpload::make('logo')
                             ->label('Technology Logo / Icon')
                             ->image()
+                            ->disk('public')
                             ->directory('technologies')
                             ->imageEditor(),
                     ]),

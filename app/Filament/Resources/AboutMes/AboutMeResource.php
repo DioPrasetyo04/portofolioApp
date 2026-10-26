@@ -35,6 +35,14 @@ class AboutMeResource extends Resource
         return AboutMesTable::configure($table);
     }
 
+    public static function getWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\AboutMes\Widgets\AboutMeStatsWidget::class,
+            \App\Filament\Resources\AboutMes\Widgets\AboutMeSkillChart::class,
+        ];
+    }
+
     public static function getRelations(): array
     {
         return [];

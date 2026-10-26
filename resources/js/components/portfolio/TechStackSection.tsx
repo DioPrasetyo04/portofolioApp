@@ -45,36 +45,36 @@ function getProficiencyTheme(score: number = 85) {
     if (score >= 92) {
         return {
             tier: 'Expert / Master',
-            badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
+            badge: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 font-bold dark:font-semibold',
             gradient: 'from-purple-600 via-cyan-500 to-emerald-400',
             glow: 'shadow-[0_0_12px_rgba(52,211,153,0.35)]',
-            dot: 'bg-emerald-400',
+            dot: 'bg-emerald-500 dark:bg-emerald-400',
         };
     }
     if (score >= 85) {
         return {
             tier: 'Advanced Specialist',
-            badge: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
+            badge: 'bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 border-cyan-500/30 font-bold dark:font-semibold',
             gradient: 'from-purple-600 via-indigo-500 to-cyan-400',
             glow: 'shadow-[0_0_12px_rgba(34,211,238,0.35)]',
-            dot: 'bg-cyan-400',
+            dot: 'bg-cyan-500 dark:bg-cyan-400',
         };
     }
     if (score >= 75) {
         return {
             tier: 'Proficient / Working',
-            badge: 'bg-purple-500/10 text-purple-400 border-purple-500/30',
+            badge: 'bg-purple-500/15 text-purple-700 dark:text-purple-400 border-purple-500/30 font-bold dark:font-semibold',
             gradient: 'from-pink-600 via-purple-600 to-indigo-500',
             glow: 'shadow-[0_0_12px_rgba(168,85,247,0.35)]',
-            dot: 'bg-purple-400',
+            dot: 'bg-purple-500 dark:bg-purple-400',
         };
     }
     return {
         tier: 'Intermediate',
-        badge: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
+        badge: 'bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30 font-bold dark:font-semibold',
         gradient: 'from-amber-600 via-orange-500 to-yellow-400',
         glow: 'shadow-[0_0_12px_rgba(251,191,36,0.35)]',
-        dot: 'bg-amber-400',
+        dot: 'bg-amber-500 dark:bg-amber-400',
     };
 }
 
@@ -192,10 +192,11 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
     const endIndex = Math.min(safeCurrentPage * pageSize, filteredTechs.length);
 
     return (
-        <section id="skills" className="py-28 relative overflow-hidden bg-background">
-            {/* Ambient Background Glows */}
-            <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
-            <div className="absolute bottom-10 left-1/4 w-[450px] h-[450px] bg-cyan-400/10 rounded-full blur-[130px] pointer-events-none -z-10" />
+        <section id="skills" className="py-28 relative overflow-hidden bg-transparent">
+            {/* Ambient Cosmic Background Glows */}
+            <div className="absolute top-1/3 right-1/4 w-[600px] h-[600px] bg-purple-400/20 dark:bg-purple-600/15 rounded-full blur-3xl pointer-events-none -z-10" />
+            <div className="absolute bottom-10 left-1/4 w-[550px] h-[550px] bg-cyan-300/15 dark:bg-cyan-400/10 rounded-full blur-3xl pointer-events-none -z-10" />
+            <div className="absolute top-10 left-10 w-[450px] h-[450px] bg-rose-200/15 dark:bg-transparent rounded-full blur-3xl pointer-events-none -z-10" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* ── Section Header ── */}
@@ -204,7 +205,7 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-xs font-semibold shadow-sm"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-cyan-500/40 bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 text-xs font-bold dark:font-semibold shadow-sm"
                     >
                         <Cpu className="w-3.5 h-3.5" />
                         <span>{t('techStack.title')}</span>
@@ -224,7 +225,7 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                 </div>
 
                 {/* ── Top Control & Search Bar ── */}
-                <div className="p-4 sm:p-5 rounded-3xl border border-border/80 bg-card/60 backdrop-blur-2xl shadow-xl shadow-purple-950/10 mb-8 space-y-4">
+                <div className="p-4 sm:p-5 rounded-3xl border border-border/80 bg-card/90 backdrop-blur-sm shadow-xl shadow-purple-950/10 mb-8 space-y-4">
                     
                     {/* Row 1: Search Input & View Mode Switcher */}
                     <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
@@ -339,7 +340,7 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
 
                 {/* ── Summary Stats Overview Pills ── */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                    <div className="p-4 rounded-2xl border border-border/80 bg-card/50 backdrop-blur-xl flex items-center justify-between shadow-sm">
+                    <div className="p-4 rounded-2xl border border-border/80 bg-card/90 backdrop-blur-sm flex items-center justify-between shadow-sm">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
                                 <Layers className="w-5 h-5" />
@@ -351,7 +352,7 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                         </div>
                     </div>
 
-                    <div className="p-4 rounded-2xl border border-border/80 bg-card/50 backdrop-blur-xl flex items-center justify-between shadow-sm">
+                    <div className="p-4 rounded-2xl border border-border/80 bg-card/90 backdrop-blur-sm flex items-center justify-between shadow-sm">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
                                 <TrendingUp className="w-5 h-5" />
@@ -363,7 +364,7 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                         </div>
                     </div>
 
-                    <div className="p-4 rounded-2xl border border-border/80 bg-card/50 backdrop-blur-xl flex items-center justify-between shadow-sm">
+                    <div className="p-4 rounded-2xl border border-border/80 bg-card/90 backdrop-blur-sm flex items-center justify-between shadow-sm">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
                                 <Award className="w-5 h-5" />
@@ -385,7 +386,7 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0 }}
-                            className="flex flex-col items-center justify-center py-16 px-4 rounded-3xl border border-border/80 bg-card/40 backdrop-blur-xl text-center gap-3"
+                            className="flex flex-col items-center justify-center py-16 px-4 rounded-3xl border border-border/80 bg-card/90 backdrop-blur-sm text-center gap-3"
                         >
                             <div className="w-14 h-14 rounded-2xl border border-border bg-secondary flex items-center justify-center text-purple-400 shadow-inner">
                                 <Search className="w-7 h-7 opacity-70" />
@@ -410,7 +411,7 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.3 }}
-                            className="p-6 sm:p-8 rounded-3xl border border-border/80 bg-card/60 backdrop-blur-2xl shadow-xl shadow-purple-950/10 space-y-6"
+                            className="p-6 sm:p-8 rounded-3xl border border-border/80 bg-card/90 backdrop-blur-sm shadow-xl shadow-purple-950/10 space-y-6"
                         >
                             {/* Bar Chart Header Scale */}
                             <div className="hidden sm:flex items-center justify-between text-[11px] font-mono text-muted-foreground pb-3 border-b border-border/60">
@@ -446,6 +447,8 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                                                         <img
                                                             src={`/storage/${tech.logo}`}
                                                             alt={tech.name}
+                                                            loading="lazy"
+                                                            decoding="async"
                                                             className="w-5 h-5 object-contain"
                                                         />
                                                     ) : (
@@ -517,7 +520,7 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                                         initial={{ opacity: 0, scale: 0.95 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         transition={{ delay: idx * 0.03 }}
-                                        className="group relative p-4 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-xl shadow-md hover:shadow-xl hover:shadow-purple-950/20 hover:border-purple-500/40 flex flex-col justify-between transition-all duration-300 overflow-hidden"
+                                        className="group relative p-4 rounded-2xl border border-border/80 bg-card/90 backdrop-blur-sm shadow-md hover:shadow-xl hover:shadow-purple-950/20 hover:border-purple-500/40 flex flex-col justify-between transition-all duration-300 overflow-hidden"
                                     >
                                         <div className="flex flex-col items-center justify-center text-center space-y-2">
                                             {/* Tech Icon */}
@@ -526,6 +529,8 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                                                     <img
                                                         src={`/storage/${tech.logo}`}
                                                         alt={tech.name}
+                                                        loading="lazy"
+                                                        decoding="async"
                                                         className="w-7 h-7 object-contain drop-shadow"
                                                     />
                                                 ) : (
@@ -574,7 +579,7 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
 
                 {/* ════════ FUTURISTIC PAGINATION CONTROLS BAR ════════ */}
                 {filteredTechs.length > 0 && (
-                    <div className="mt-8 p-4 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg shadow-purple-950/10">
+                    <div className="mt-8 p-4 rounded-2xl border border-border/80 bg-card/90 backdrop-blur-sm flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg shadow-purple-950/10">
                         
                         {/* Items Per Page Selector */}
                         <div className="flex items-center gap-2.5 text-xs text-muted-foreground">

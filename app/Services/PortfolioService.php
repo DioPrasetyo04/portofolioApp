@@ -11,6 +11,7 @@ use App\Contracts\Repositories\NewsRepositoryInterface;
 use App\Contracts\Repositories\ProjectRepositoryInterface;
 use App\Contracts\Repositories\TechnologyCategoryRepositoryInterface;
 use App\Contracts\Repositories\SocialMediaRepositoryInterface;
+use App\Contracts\Repositories\ResumeRepositoryInterface;
 use App\Contracts\Services\PortfolioServiceInterface;
 
 class PortfolioService implements PortfolioServiceInterface
@@ -24,7 +25,8 @@ class PortfolioService implements PortfolioServiceInterface
         protected CertificateRepositoryInterface $certRepo,
         protected NewsRepositoryInterface $newsRepo,
         protected AnnouncementRepositoryInterface $announcementRepo,
-        protected SocialMediaRepositoryInterface $socialMediaRepo
+        protected SocialMediaRepositoryInterface $socialMediaRepo,
+        protected ResumeRepositoryInterface $resumeRepo
     ) {}
 
     public function getLandingPageData(): array
@@ -39,6 +41,7 @@ class PortfolioService implements PortfolioServiceInterface
             'latestNews' => $this->newsRepo->getLatest(4),
             'announcements' => $this->announcementRepo->getActive(),
             'socialMedia' => $this->socialMediaRepo->getActive(),
+            'resume' => $this->resumeRepo->getActive(),
         ];
     }
 }

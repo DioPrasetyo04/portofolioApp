@@ -12,9 +12,14 @@ class Project extends Model
 
     protected $fillable = [
         'name', 'description', 'image', 'demo_url', 'repo_url',
-        'is_featured', 'priority_order', 'status', 'highlights', 'gallery', 'category', 'year',
+        'is_featured', 'priority_order', 'status', 'likes_count', 'highlights', 'gallery', 'category', 'year',
     ];
     public $translatable = ['name', 'description'];
+
+    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 
     protected $casts = [
         'is_featured'   => 'boolean',

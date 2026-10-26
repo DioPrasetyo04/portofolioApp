@@ -16,4 +16,12 @@ class ListTechnologies extends ListRecords
             CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\Technologies\Widgets\TechnologyStatsWidget::class,
+            \App\Filament\Resources\Technologies\Widgets\TechnologyProficiencyChart::class,
+        ];
+    }
 }

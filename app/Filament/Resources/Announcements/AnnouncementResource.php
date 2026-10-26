@@ -35,6 +35,14 @@ class AnnouncementResource extends Resource
         return AnnouncementsTable::configure($table);
     }
 
+    public static function getWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\Announcements\Widgets\AnnouncementStatsWidget::class,
+            \App\Filament\Resources\Announcements\Widgets\AnnouncementTimelineChart::class,
+        ];
+    }
+
     public static function getRelations(): array
     {
         return [];

@@ -3,11 +3,11 @@
 namespace App\Filament\Resources\News\Schemas;
 
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
 
@@ -45,6 +45,7 @@ class NewsForm
                         FileUpload::make('image')
                             ->label('Cover Image')
                             ->image()
+                            ->disk('public')
                             ->directory('news')
                             ->imageEditor()
                             ->columnSpanFull(),

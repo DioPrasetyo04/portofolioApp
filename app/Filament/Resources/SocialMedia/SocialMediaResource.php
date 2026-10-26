@@ -20,7 +20,7 @@ class SocialMediaResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $recordTitleAttribute = 'namename';
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
     {
@@ -30,6 +30,14 @@ class SocialMediaResource extends Resource
     public static function table(Table $table): Table
     {
         return SocialMediaTable::configure($table);
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\SocialMedia\Widgets\SocialMediaStatsWidget::class,
+            \App\Filament\Resources\SocialMedia\Widgets\SocialMediaChart::class,
+        ];
     }
 
     public static function getRelations(): array

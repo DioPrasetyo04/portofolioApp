@@ -71,6 +71,8 @@ export default function AnnouncementModal({ announcements = [] }: AnnouncementMo
                         <img
                             src={`/storage/${activeAnnouncement.image}`}
                             alt={title}
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-cover"
                         />
                     </div>

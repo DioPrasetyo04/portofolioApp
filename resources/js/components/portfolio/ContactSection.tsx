@@ -160,35 +160,54 @@ export default function ContactSection({ socialMedia = [] }: ContactSectionProps
         }, 600);
     };
 
-    // Map icon names/classes to Lucide icons
-    const getSocialIcon = (item: SocialMediaItem) => {
-        const name = item.name.toLowerCase();
-        const iconStr = (item.icon || '').toLowerCase();
+// Map icon (uploaded image or classes/names) to render element with graceful fallback
+function SocialMediaIcon({ item }: { item: SocialMediaItem }) {
+    const [imageError, setImageError] = useState(false);
 
-        if (name.includes('whatsapp') || iconStr.includes('whatsapp')) {
-            return <MessageCircle className="w-5 h-5 text-emerald-400" />;
-        }
-        if (name.includes('instagram') || iconStr.includes('instagram')) {
-            return <Instagram className="w-5 h-5 text-pink-400" />;
-        }
-        if (name.includes('twitter') || name.includes('x') || iconStr.includes('twitter')) {
-            return <Twitter className="w-5 h-5 text-cyan-400" />;
-        }
-        if (name.includes('linkedin') || iconStr.includes('linkedin')) {
-            return <Linkedin className="w-5 h-5 text-blue-400" />;
-        }
-        if (name.includes('github') || iconStr.includes('github')) {
-            return <Github className="w-5 h-5 text-purple-400" />;
-        }
-        return <Globe className="w-5 h-5 text-indigo-400" />;
-    };
+    const isImage = Boolean(item.icon && (item.icon.includes('/') || /\.(png|jpe?g|svg|webp|gif)$/i.test(item.icon)));
+
+    if (isImage && !imageError) {
+        const src = item.icon!.startsWith('http') || item.icon!.startsWith('/') ? item.icon! : `/storage/${item.icon}`;
+        return (
+            <img
+                src={src}
+                alt={item.name}
+                loading="lazy"
+                decoding="async"
+                className="w-5 h-5 object-contain rounded"
+                onError={() => setImageError(true)}
+            />
+        );
+    }
+
+    const name = item.name.toLowerCase();
+    const iconStr = (item.icon || '').toLowerCase();
+
+    if (name.includes('whatsapp') || iconStr.includes('whatsapp')) {
+        return <MessageCircle className="w-5 h-5 text-emerald-400" />;
+    }
+    if (name.includes('instagram') || iconStr.includes('instagram')) {
+        return <Instagram className="w-5 h-5 text-pink-400" />;
+    }
+    if (name.includes('twitter') || name.includes('x') || iconStr.includes('twitter')) {
+        return <Twitter className="w-5 h-5 text-cyan-400" />;
+    }
+    if (name.includes('linkedin') || iconStr.includes('linkedin')) {
+        return <Linkedin className="w-5 h-5 text-blue-400" />;
+    }
+    if (name.includes('github') || iconStr.includes('github')) {
+        return <Github className="w-5 h-5 text-purple-400" />;
+    }
+    return <Globe className="w-5 h-5 text-indigo-400" />;
+}
 
     return (
-        <section id="contact" className="py-28 relative bg-secondary/30">
-            {/* Ambient Lighting */}
+        <section id="contact" className="py-28 relative overflow-hidden bg-transparent">
+            {/* Ambient Cosmic Background Glows */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[160px]" />
-                <div className="absolute bottom-10 right-10 w-[400px] h-[400px] bg-cyan-400/10 rounded-full blur-[140px]" />
+                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-purple-400/20 dark:bg-purple-600/15 rounded-full blur-3xl" />
+                <div className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-cyan-300/15 dark:bg-cyan-400/10 rounded-full blur-3xl" />
+                <div className="absolute bottom-20 left-10 w-[450px] h-[450px] bg-amber-300/15 dark:bg-transparent rounded-full blur-3xl" />
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -198,7 +217,7 @@ export default function ContactSection({ socialMedia = [] }: ContactSectionProps
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-400 text-xs font-semibold shadow-sm"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-purple-500/40 bg-purple-500/15 text-purple-700 dark:text-purple-300 text-xs font-bold dark:font-semibold shadow-sm"
                     >
                         <Sparkles className="w-3.5 h-3.5" />
                         <span>{t('contactUs.title')}</span>
@@ -224,7 +243,7 @@ export default function ContactSection({ socialMedia = [] }: ContactSectionProps
                         transition={{ duration: 0.6 }}
                         className="lg:col-span-7"
                     >
-                        <div className="p-6 sm:p-8 rounded-3xl border border-border/80 bg-card/80 backdrop-blur-2xl shadow-xl shadow-purple-950/20 relative overflow-hidden">
+                        <div className="p-6 sm:p-8 rounded-3xl border border-border/80 bg-card/90 backdrop-blur-sm shadow-xl shadow-purple-950/20 relative overflow-hidden">
                             <h3 className="text-xl font-bold text-foreground mb-2 flex items-center gap-2">
                                 <Send className="w-5 h-5 text-purple-400" />
                                 <span>Send a Direct Inquiry</span>
@@ -421,6 +440,8 @@ export default function ContactSection({ socialMedia = [] }: ContactSectionProps
                                             <img
                                                 src={imagePreview}
                                                 alt="Attachment Preview"
+                                                loading="lazy"
+                                                decoding="async"
                                                 className="w-full h-24 object-cover rounded-lg"
                                             />
                                             <button
@@ -455,7 +476,7 @@ export default function ContactSection({ socialMedia = [] }: ContactSectionProps
                         transition={{ duration: 0.6 }}
                         className="lg:col-span-5 space-y-4"
                     >
-                        <div className="p-6 sm:p-8 rounded-3xl border border-border/80 bg-card/80 backdrop-blur-2xl shadow-xl shadow-purple-950/20">
+                        <div className="p-6 sm:p-8 rounded-3xl border border-border/80 bg-card/90 backdrop-blur-sm shadow-xl shadow-purple-950/20">
                             <div className="flex items-center justify-between pb-4 border-b border-border/60 mb-6">
                                 <div className="flex items-center gap-2 font-bold text-base text-foreground">
                                     <Share2 className="w-4 h-4 text-cyan-400" />
@@ -482,7 +503,7 @@ export default function ContactSection({ socialMedia = [] }: ContactSectionProps
                                         >
                                             <div className="flex items-center gap-3">
                                                 <div className="w-10 h-10 rounded-xl bg-secondary/80 border border-border/80 flex items-center justify-center group-hover:scale-110 group-hover:border-purple-500/50 transition-all duration-300">
-                                                    {getSocialIcon(item)}
+                                                    <SocialMediaIcon item={item} />
                                                 </div>
                                                 <div>
                                                     <h4 className="text-xs font-bold text-foreground group-hover:text-purple-400 transition-colors">

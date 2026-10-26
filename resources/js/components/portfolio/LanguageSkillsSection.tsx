@@ -68,13 +68,13 @@ interface AbilityFilterOption {
 const ABILITY_FILTER_OPTIONS: AbilityFilterOption[] = [
     {
         id: 'all',
-        label: 'Semua Ability Level',
-        shortLabel: 'Semua Level',
+        label: 'Semua Tingkat Kemampuan',
+        shortLabel: 'Semua',
         range: '0% - 100%',
         min: 0,
         max: 100,
         badgeColor: 'text-foreground',
-        dotColor: 'bg-purple-400',
+        dotColor: 'bg-purple-500',
     },
     {
         id: 'native',
@@ -83,8 +83,8 @@ const ABILITY_FILTER_OPTIONS: AbilityFilterOption[] = [
         range: '95% - 100%',
         min: 95,
         max: 100,
-        badgeColor: 'text-emerald-400',
-        dotColor: 'bg-emerald-400',
+        badgeColor: 'text-emerald-700 dark:text-emerald-400 font-semibold',
+        dotColor: 'bg-emerald-500 dark:bg-emerald-400',
     },
     {
         id: 'fluent',
@@ -93,8 +93,8 @@ const ABILITY_FILTER_OPTIONS: AbilityFilterOption[] = [
         range: '85% - 94%',
         min: 85,
         max: 94,
-        badgeColor: 'text-cyan-400',
-        dotColor: 'bg-cyan-400',
+        badgeColor: 'text-cyan-700 dark:text-cyan-400 font-semibold',
+        dotColor: 'bg-cyan-500 dark:bg-cyan-400',
     },
     {
         id: 'working',
@@ -103,8 +103,8 @@ const ABILITY_FILTER_OPTIONS: AbilityFilterOption[] = [
         range: '70% - 84%',
         min: 70,
         max: 84,
-        badgeColor: 'text-purple-400',
-        dotColor: 'bg-purple-400',
+        badgeColor: 'text-purple-700 dark:text-purple-400 font-semibold',
+        dotColor: 'bg-purple-500 dark:bg-purple-400',
     },
     {
         id: 'conversational',
@@ -113,8 +113,8 @@ const ABILITY_FILTER_OPTIONS: AbilityFilterOption[] = [
         range: '< 70%',
         min: 0,
         max: 69,
-        badgeColor: 'text-amber-400',
-        dotColor: 'bg-amber-400',
+        badgeColor: 'text-amber-700 dark:text-amber-400 font-semibold',
+        dotColor: 'bg-amber-500 dark:bg-amber-400',
     },
 ];
 
@@ -125,36 +125,36 @@ function getProficiencyLevel(percentage: number = 80) {
     if (percentage >= 95) {
         return {
             label: 'Native / Bilingual Mastery',
-            badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
+            badge: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 font-bold dark:font-semibold',
             barColor: 'from-purple-600 via-cyan-500 to-emerald-400',
             glow: 'shadow-[0_0_15px_rgba(52,211,153,0.4)]',
-            dot: 'bg-emerald-400',
+            dot: 'bg-emerald-500 dark:bg-emerald-400',
         };
     }
     if (percentage >= 85) {
         return {
             label: 'Full Professional Proficiency',
-            badge: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
+            badge: 'bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 border-cyan-500/30 font-bold dark:font-semibold',
             barColor: 'from-purple-600 via-indigo-500 to-cyan-400',
             glow: 'shadow-[0_0_15px_rgba(34,211,238,0.4)]',
-            dot: 'bg-cyan-400',
+            dot: 'bg-cyan-500 dark:bg-cyan-400',
         };
     }
     if (percentage >= 70) {
         return {
             label: 'Professional Working Ability',
-            badge: 'bg-purple-500/10 text-purple-400 border-purple-500/30',
+            badge: 'bg-purple-500/15 text-purple-700 dark:text-purple-400 border-purple-500/30 font-bold dark:font-semibold',
             barColor: 'from-pink-600 via-purple-600 to-indigo-500',
             glow: 'shadow-[0_0_15px_rgba(168,85,247,0.4)]',
-            dot: 'bg-purple-400',
+            dot: 'bg-purple-500 dark:bg-purple-400',
         };
     }
     return {
         label: 'Conversational / Technical',
-        badge: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
+        badge: 'bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30 font-bold dark:font-semibold',
         barColor: 'from-amber-600 via-orange-500 to-yellow-400',
         glow: 'shadow-[0_0_15px_rgba(251,191,36,0.4)]',
-        dot: 'bg-amber-400',
+        dot: 'bg-amber-500 dark:bg-amber-400',
     };
 }
 
@@ -307,10 +307,11 @@ export default function LanguageSkillsSection({ skills = [] }: LanguageSkillsSec
     const isFilterActive = searchQuery !== '' || selectedAbility !== 'all';
 
     return (
-        <section id="languages" className="py-28 relative overflow-hidden bg-background">
-            {/* Ambient Background Glows */}
-            <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
-            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-cyan-400/10 rounded-full blur-[130px] pointer-events-none -z-10" />
+        <section id="languages" className="py-28 relative overflow-hidden bg-transparent">
+            {/* Ambient Cosmic Background Glows */}
+            <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-purple-400/20 dark:bg-purple-600/15 rounded-full blur-3xl pointer-events-none -z-10" />
+            <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-cyan-300/15 dark:bg-cyan-400/10 rounded-full blur-3xl pointer-events-none -z-10" />
+            <div className="absolute top-1/4 right-10 w-[450px] h-[450px] bg-indigo-200/20 dark:bg-transparent rounded-full blur-3xl pointer-events-none -z-10" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* ── Section Header ── */}
@@ -319,7 +320,7 @@ export default function LanguageSkillsSection({ skills = [] }: LanguageSkillsSec
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-400 text-xs font-semibold shadow-sm"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-purple-500/40 bg-purple-500/15 text-purple-700 dark:text-purple-300 text-xs font-bold dark:font-semibold shadow-sm"
                     >
                         <Languages className="w-3.5 h-3.5" />
                         <span>{t('languages.title')}</span>
@@ -345,7 +346,7 @@ export default function LanguageSkillsSection({ skills = [] }: LanguageSkillsSec
                 </div>
 
                 {/* ── Search & Ability Selection Control Bar ── */}
-                <div className="p-4 sm:p-6 rounded-3xl border border-border/80 bg-card/60 backdrop-blur-2xl shadow-xl shadow-purple-950/10 mb-10 space-y-4">
+                <div className="p-4 sm:p-6 rounded-3xl border border-border/80 bg-card/90 backdrop-blur-sm shadow-xl shadow-purple-950/10 mb-10 space-y-4">
                     
                     {/* Row 1: Search Bar & Ability Select Dropdown */}
                     <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
@@ -463,7 +464,7 @@ export default function LanguageSkillsSection({ skills = [] }: LanguageSkillsSec
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0 }}
-                            className="flex flex-col items-center justify-center py-16 px-4 rounded-3xl border border-border/80 bg-card/40 backdrop-blur-xl text-center gap-3"
+                            className="flex flex-col items-center justify-center py-16 px-4 rounded-3xl border border-border/80 bg-card/90 backdrop-blur-sm text-center gap-3"
                         >
                             <div className="w-14 h-14 rounded-2xl border border-border bg-secondary flex items-center justify-center text-purple-400 shadow-inner">
                                 <Search className="w-7 h-7 opacity-70" />
@@ -496,7 +497,7 @@ export default function LanguageSkillsSection({ skills = [] }: LanguageSkillsSec
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ duration: 0.4, delay: idx * 0.08 }}
-                                        className="group relative flex flex-col justify-between rounded-3xl border border-border/80 bg-card/60 backdrop-blur-2xl shadow-xl hover:shadow-2xl hover:shadow-purple-950/20 hover:border-purple-500/40 transition-all duration-300 overflow-hidden"
+                                        className="group relative flex flex-col justify-between rounded-3xl border border-border/80 bg-card/90 backdrop-blur-sm shadow-xl hover:shadow-2xl hover:shadow-purple-950/20 hover:border-purple-500/40 transition-all duration-300 overflow-hidden"
                                     >
                                         {/* Futuristic Top Border Accent Glow */}
                                         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-cyan-400 opacity-60 group-hover:opacity-100 transition-opacity z-10" />
@@ -542,6 +543,8 @@ export default function LanguageSkillsSection({ skills = [] }: LanguageSkillsSec
                                                                         <img
                                                                             src={item.url || (item.file ? `/storage/${item.file}` : '')}
                                                                             alt={item.caption || skill.name}
+                                                                            loading="lazy"
+                                                                            decoding="async"
                                                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                                                         />
                                                                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-3">
@@ -586,6 +589,8 @@ export default function LanguageSkillsSection({ skills = [] }: LanguageSkillsSec
                                                                 <img
                                                                     src={mediaList[0].url || (mediaList[0].file ? `/storage/${mediaList[0].file}` : '')}
                                                                     alt={mediaList[0].caption || skill.name}
+                                                                    loading="lazy"
+                                                                    decoding="async"
                                                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                                                 />
                                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-3">
@@ -611,6 +616,8 @@ export default function LanguageSkillsSection({ skills = [] }: LanguageSkillsSec
                                                                 <img
                                                                     src={`/storage/${skill.logo}`}
                                                                     alt={skill.name}
+                                                                    loading="lazy"
+                                                                    decoding="async"
                                                                     className="w-7 h-7 object-contain drop-shadow"
                                                                 />
                                                             ) : (
@@ -711,7 +718,7 @@ export default function LanguageSkillsSection({ skills = [] }: LanguageSkillsSec
 
                 {/* ── Futuristic Pagination Controls Bar ── */}
                 {filteredSkills.length > 0 && (
-                    <div className="mt-10 p-4 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg shadow-purple-950/10">
+                    <div className="mt-10 p-4 rounded-2xl border border-border/80 bg-card/90 backdrop-blur-sm flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg shadow-purple-950/10">
                         {/* Items Per Page Selector */}
                         <div className="flex items-center gap-2.5 text-xs text-muted-foreground">
                             <span className="flex items-center gap-1.5 font-medium">
@@ -814,7 +821,7 @@ export default function LanguageSkillsSection({ skills = [] }: LanguageSkillsSec
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setActiveModalSkill(null)}
-                            className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity"
+                            className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
                         />
 
                         {/* Modal Container */}
@@ -875,6 +882,8 @@ export default function LanguageSkillsSection({ skills = [] }: LanguageSkillsSec
                                                             <img
                                                                 src={item.url || (item.file ? `/storage/${item.file}` : '')}
                                                                 alt={item.caption || activeModalSkill.name}
+                                                                loading="lazy"
+                                                                decoding="async"
                                                                 className="w-full h-full object-cover"
                                                             />
                                                             {item.caption && (
@@ -903,6 +912,8 @@ export default function LanguageSkillsSection({ skills = [] }: LanguageSkillsSec
                                                 <img
                                                     src={`/storage/${activeModalSkill.logo}`}
                                                     alt={activeModalSkill.name}
+                                                    loading="lazy"
+                                                    decoding="async"
                                                     className="w-8 h-8 object-contain"
                                                 />
                                             ) : (

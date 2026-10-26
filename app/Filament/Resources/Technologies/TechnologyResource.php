@@ -35,6 +35,14 @@ class TechnologyResource extends Resource
         return TechnologiesTable::configure($table);
     }
 
+    public static function getWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\Technologies\Widgets\TechnologyStatsWidget::class,
+            \App\Filament\Resources\Technologies\Widgets\TechnologyProficiencyChart::class,
+        ];
+    }
+
     public static function getRelations(): array
     {
         return [];

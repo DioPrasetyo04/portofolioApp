@@ -1,0 +1,100 @@
+/* ==========================================================================
+   Editorial Poster Hero Section Theme Variables & Animations
+   ========================================================================== */
+
+:root {
+  /* LIGHT MODE (Celestial Planetary Dawn) */
+  --hero-bg: transparent;
+  --hero-bg-gradient: radial-gradient(120% 90% at 50% 25%, rgba(254, 243, 199, 0.40) 0%, rgba(224, 231, 255, 0.35) 40%, rgba(219, 234, 254, 0.20) 75%, transparent 100%);
+  --hero-fg: #0F172A;
+  --hero-fg-muted: rgba(30, 41, 59, 0.70);
+  --hero-title: #0F172A;
+  --hero-strip-bg: rgba(255, 255, 255, 0.85);
+  --hero-strip-border: rgba(99, 102, 241, 0.28);
+  --hero-pill-border: #FFFFFF;
+  --hero-pill-hover: rgba(99, 102, 241, 0.12);
+  --hero-arc: rgba(99, 102, 241, 0.28);
+  --hero-accent: #C93A32;
+  --hero-circle: #C93A32;
+  --hero-badge-bg: rgba(255, 255, 255, 0.95);
+  --hero-nav-bg-scrolled: rgba(248, 250, 252, 0.92);
+}
+
+:root.dark,
+html.dark,
+body.dark,
+.dark {
+  /* DARK MODE (Matching Reference Poster + Cosmic Universe Theme) */
+  --hero-bg: transparent;
+  --hero-bg-gradient: radial-gradient(120% 90% at 50% 50%, rgba(201, 58, 50, 0.06) 0%, rgba(88, 28, 135, 0.10) 45%, rgba(6, 182, 212, 0.05) 75%, rgba(3, 1, 10, 0.35) 100%);
+  --hero-fg: #FFFFFF;
+  --hero-fg-muted: rgba(255, 255, 255, 0.72);
+  --hero-title: #FFFFFF;
+  --hero-strip-bg: rgba(10, 6, 18, 0.88);
+  --hero-strip-border: rgba(167, 139, 250, 0.22);
+  --hero-pill-border: rgba(255, 255, 255, 0.35);
+  --hero-pill-hover: rgba(255, 255, 255, 0.12);
+  --hero-arc: rgba(167, 139, 250, 0.22);
+  --hero-accent: #C93A32;
+  --hero-circle: #C93A32;
+  --hero-badge-bg: rgba(10, 6, 18, 0.95);
+  --hero-nav-bg-scrolled: rgba(5, 5, 12, 0.92);
+}
+
+.font-hero {
+  font-family: 'Anton', 'Bebas Neue', Impact, 'Arial Narrow', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.font-hero-condensed {
+  font-family: 'Bebas Neue', 'Anton', Impact, 'Arial Narrow', sans-serif;
+}
+
+/* Smooth theme transitions */
+.hero-transition {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+/* Seamless infinite marquee animation */
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Continuous slow circular rotation for the badge */
+@keyframes rotate-badge {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: rotate-badge 16s linear infinite;
+  will-change: transform;
+}
+
+/* Respect user's reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-spin-slow {
+    animation: none !important;
+  }
+}

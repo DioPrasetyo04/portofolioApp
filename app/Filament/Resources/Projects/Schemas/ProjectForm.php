@@ -5,13 +5,13 @@ namespace App\Filament\Resources\Projects\Schemas;
 use App\Models\Technology;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class ProjectForm
@@ -31,7 +31,8 @@ class ProjectForm
                                 ->required(),
                             TextInput::make('name.id')
                                 ->label('Project Name (Indonesia)')
-                                ->placeholder('e.g. Platform Portofolio 3D Berbasis AI'),
+                                ->placeholder('e.g. Plat
+                                is AI'),
                             TextInput::make('name.zh')
                                 ->label('Project Name (Chinese)')
                                 ->placeholder('e.g. AI驱动的3D作品集平台'),
@@ -126,6 +127,7 @@ class ProjectForm
                         FileUpload::make('image')
                             ->label('Project Thumbnail / Cover')
                             ->image()
+                            ->disk('public')
                             ->directory('projects')
                             ->imageEditor()
                             ->columnSpanFull(),
@@ -134,6 +136,7 @@ class ProjectForm
                             ->label('Project Gallery (additional screenshots)')
                             ->image()
                             ->multiple()
+                            ->disk('public')
                             ->maxFiles(8)
                             ->directory('projects/gallery')
                             ->reorderable()

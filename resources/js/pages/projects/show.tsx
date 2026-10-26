@@ -23,7 +23,7 @@ export default function ProjectShow({ project }: ProjectProps) {
     return (
         <>
             <AsteroidBackground />
-            <Head title={`${title} - Portfolio 3D`} />
+            <Head title={title} />
 
             <div className="min-h-screen text-foreground flex flex-col bg-transparent">
                 <Navbar />

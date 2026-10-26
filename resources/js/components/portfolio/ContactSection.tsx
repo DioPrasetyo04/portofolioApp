@@ -202,7 +202,7 @@ function SocialMediaIcon({ item }: { item: SocialMediaItem }) {
 }
 
     return (
-        <section id="contact" className="py-28 relative overflow-hidden bg-transparent">
+        <section id="contact" className="py-12 sm:py-16 md:py-24 lg:py-28 relative overflow-hidden bg-transparent">
             {/* Ambient Cosmic Background Glows */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
                 <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-purple-400/20 dark:bg-purple-600/15 rounded-full blur-3xl" />
@@ -212,7 +212,7 @@ function SocialMediaIcon({ item }: { item: SocialMediaItem }) {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
-                <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 md:mb-16 space-y-3">
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -234,7 +234,7 @@ function SocialMediaIcon({ item }: { item: SocialMediaItem }) {
                 </div>
 
                 {/* 2 Grids Container */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
                     {/* ════════ SECTION 1: Contact Form Card (7 Cols) ════════ */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}

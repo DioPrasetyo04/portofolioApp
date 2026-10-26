@@ -23,10 +23,10 @@ function SectionSkeleton({ minHeight = '500px', id }: { minHeight?: string; id?:
             id={id}
             role="status"
             aria-label="Loading section..."
-            className="w-full py-24 relative overflow-hidden bg-transparent flex flex-col items-center justify-center"
+            className="w-full py-12 sm:py-16 md:py-24 relative overflow-hidden bg-transparent flex flex-col items-center justify-center"
             style={{ minHeight }}
         >
-            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 animate-pulse">
+            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-10 animate-pulse">
                 {/* Header Skeleton */}
                 <div className="flex flex-col items-center text-center space-y-3">
                     <div className="w-32 h-6 rounded-full bg-purple-500/10 border border-purple-500/20" />
@@ -48,7 +48,7 @@ function SectionSkeleton({ minHeight = '500px', id }: { minHeight?: string; id?:
 /* ─── Footer Skeleton ─── */
 function FooterSkeleton() {
     return (
-        <footer className="border-t border-purple-300/30 dark:border-white/10 bg-white/90 dark:bg-black/90 pt-16 pb-12 relative z-10 min-h-[220px]">
+        <footer className="border-t border-purple-300/30 dark:border-white/10 bg-white/90 dark:bg-black/90 pt-10 sm:pt-12 md:pt-16 pb-10 sm:pb-12 relative z-10 min-h-[220px]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-pulse">
                 <div className="h-20 rounded-2xl bg-foreground/5 mb-6" />
                 <div className="h-6 w-48 rounded-lg bg-foreground/5 mx-auto" />
@@ -88,7 +88,7 @@ export default function Welcome({ portfolio }: WelcomeProps) {
 
     return (
         <>
-            <Head title="Portfolio 3D — Fullstack Engineer & Creative Technologist" />
+            <Head title="DIOSTACK-PORTOFOLIO" />
 
             {/* Global Interactive Cosmic Universe Canvas Background */}
             <CosmicUniverseBackground />

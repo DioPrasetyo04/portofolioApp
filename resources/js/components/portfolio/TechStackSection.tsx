@@ -192,7 +192,7 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
     const endIndex = Math.min(safeCurrentPage * pageSize, filteredTechs.length);
 
     return (
-        <section id="skills" className="py-28 relative overflow-hidden bg-transparent">
+        <section id="skills" className="py-12 sm:py-16 md:py-24 lg:py-28 relative overflow-hidden bg-transparent">
             {/* Ambient Cosmic Background Glows */}
             <div className="absolute top-1/3 right-1/4 w-[600px] h-[600px] bg-purple-400/20 dark:bg-purple-600/15 rounded-full blur-3xl pointer-events-none -z-10" />
             <div className="absolute bottom-10 left-1/4 w-[550px] h-[550px] bg-cyan-300/15 dark:bg-cyan-400/10 rounded-full blur-3xl pointer-events-none -z-10" />
@@ -200,7 +200,7 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* ── Section Header ── */}
-                <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 space-y-3">
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}

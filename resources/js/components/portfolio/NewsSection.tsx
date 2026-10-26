@@ -23,7 +23,7 @@ export default function NewsSection({ newsList = [] }: NewsSectionProps) {
     if (!newsList || newsList.length === 0) return null;
 
     return (
-        <section id="news" className="py-24 relative overflow-hidden bg-transparent">
+        <section id="news" className="py-12 sm:py-16 md:py-24 relative overflow-hidden bg-transparent">
             {/* Ambient Cosmic Background Glows */}
             <div className="absolute top-1/2 right-10 w-[500px] h-[500px] bg-purple-400/20 dark:bg-purple-600/15 rounded-full blur-3xl pointer-events-none -z-10" />
             <div className="absolute bottom-0 left-10 w-[450px] h-[450px] bg-cyan-300/15 dark:bg-cyan-400/10 rounded-full blur-3xl pointer-events-none -z-10" />
@@ -31,7 +31,7 @@ export default function NewsSection({ newsList = [] }: NewsSectionProps) {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Section Header */}
-                <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12 md:mb-16 space-y-3">
                     <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-purple-500/40 bg-purple-500/15 text-purple-700 dark:text-purple-300 text-xs font-bold dark:font-semibold shadow-sm">
                         <Newspaper className="w-3.5 h-3.5" />
                         <span>{t('news.title')}</span>

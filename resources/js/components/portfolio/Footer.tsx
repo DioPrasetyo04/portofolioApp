@@ -109,9 +109,9 @@ export default function Footer({ socialMedia: propSocialMedia }: FooterProps) {
     };
 
     return (
-        <footer className="border-t border-purple-300/30 dark:border-white/10 bg-white/90 dark:bg-black/90 backdrop-blur-sm pt-16 pb-12 relative z-10">
+        <footer className="border-t border-purple-300/30 dark:border-white/10 bg-white/90 dark:bg-black/90 backdrop-blur-sm pt-10 sm:pt-12 md:pt-16 pb-10 sm:pb-12 relative z-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-border/60">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10 pb-8 sm:pb-12 border-b border-border/60">
                     {/* Brand & Bio */}
                     <div className="md:col-span-2 space-y-4">
                         <div className="flex items-center gap-2">
@@ -152,40 +152,43 @@ export default function Footer({ socialMedia: propSocialMedia }: FooterProps) {
                         </div>
                     </div>
 
-                    {/* Quick Links */}
-                    <div>
-                        <h4 className="font-semibold text-sm mb-4 text-foreground">Navigation</h4>
-                        <ul className="space-y-2 text-xs text-muted-foreground">
-                            <li><a href="#about" className="hover:text-primary transition-colors">{t('nav.about')}</a></li>
-                            <li><a href="#projects" className="hover:text-primary transition-colors">{t('nav.projects')}</a></li>
-                            <li><a href="#skills" className="hover:text-primary transition-colors">{t('nav.skills')}</a></li>
-                            <li><a href="#languages" className="hover:text-primary transition-colors">{t('nav.languages')}</a></li>
-                            <li><a href="#certificates" className="hover:text-primary transition-colors">{t('nav.certificates')}</a></li>
-                            <li><a href="#news" className="hover:text-primary transition-colors">{t('nav.news')}</a></li>
-                            <li><a href="#contact" className="hover:text-primary transition-colors">{t('nav.contact')}</a></li>
-                        </ul>
-                    </div>
+                    {/* Quick Links & Explore (Grid 2 on mobile) */}
+                    <div className="grid grid-cols-2 gap-6 sm:gap-8 md:col-span-2 md:gap-10">
+                        {/* Quick Links */}
+                        <div>
+                            <h4 className="font-semibold text-sm mb-4 text-foreground">Navigation</h4>
+                            <ul className="space-y-2 text-xs text-muted-foreground">
+                                <li><a href="#about" className="hover:text-primary transition-colors">{t('nav.about')}</a></li>
+                                <li><a href="#projects" className="hover:text-primary transition-colors">{t('nav.projects')}</a></li>
+                                <li><a href="#skills" className="hover:text-primary transition-colors">{t('nav.skills')}</a></li>
+                                <li><a href="#languages" className="hover:text-primary transition-colors">{t('nav.languages')}</a></li>
+                                <li><a href="#certificates" className="hover:text-primary transition-colors">{t('nav.certificates')}</a></li>
+                                <li><a href="#news" className="hover:text-primary transition-colors">{t('nav.news')}</a></li>
+                                <li><a href="#contact" className="hover:text-primary transition-colors">{t('nav.contact')}</a></li>
+                            </ul>
+                        </div>
 
-                    {/* Explore & Back to Top */}
-                    <div>
-                        <h4 className="font-semibold text-sm mb-4 text-foreground">Explore</h4>
-                        <ul className="space-y-2 text-xs text-muted-foreground">
-                            <li>
-                                <a href="/news" className="hover:text-primary transition-colors">All Articles</a>
-                            </li>
-                            <li>
-                                <a href="#contact" className="hover:text-primary transition-colors">{t('nav.contact')}</a>
-                            </li>
-                            <li className="pt-4">
-                                <button
-                                    onClick={scrollToTop}
-                                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-secondary/80 hover:bg-secondary text-xs text-muted-foreground hover:text-foreground transition-colors"
-                                >
-                                    <ArrowUp className="w-3.5 h-3.5" />
-                                    <span>Back to Top</span>
-                                </button>
-                            </li>
-                        </ul>
+                        {/* Explore & Back to Top */}
+                        <div>
+                            <h4 className="font-semibold text-sm mb-4 text-foreground">Explore</h4>
+                            <ul className="space-y-2 text-xs text-muted-foreground">
+                                <li>
+                                    <a href="/news" className="hover:text-primary transition-colors">All Articles</a>
+                                </li>
+                                <li>
+                                    <a href="#contact" className="hover:text-primary transition-colors">{t('nav.contact')}</a>
+                                </li>
+                                <li className="pt-4">
+                                    <button
+                                        onClick={scrollToTop}
+                                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-secondary/80 hover:bg-secondary text-xs text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
+                                    >
+                                        <ArrowUp className="w-3.5 h-3.5" />
+                                        <span>Back to Top</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 

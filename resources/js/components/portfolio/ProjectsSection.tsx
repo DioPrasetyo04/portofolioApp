@@ -537,7 +537,7 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
     const hasActiveFilters = activeSearch || selectedCategory || selectedStatus || featuredOnly;
 
     return (
-        <section id="projects" className="py-28 relative overflow-hidden bg-transparent">
+        <section id="projects" className="py-12 sm:py-16 md:py-24 lg:py-28 relative overflow-hidden bg-transparent">
             {/* Ambient Cosmic Background Glows */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
                 <div className="absolute top-1/3 left-0 w-[600px] h-[600px] bg-purple-400/20 dark:bg-purple-600/15 rounded-full blur-3xl" />
@@ -548,7 +548,7 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* ── Section Header ── */}
-                <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 md:mb-16 space-y-3">
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -573,7 +573,7 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
                 </div>
 
                 {/* ── 2-Section Grid Layout (Left: Search Card, Right: Projects Grid) ── */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
 
                     {/* ════════ LEFT SECTION: Search & Filters Card ════════ */}
                     <div className="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-24 z-20 self-start">

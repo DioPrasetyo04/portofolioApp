@@ -64,7 +64,7 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
     };
 
     return (
-        <section id="certificates" className="py-28 relative overflow-hidden bg-transparent">
+        <section id="certificates" className="py-12 sm:py-16 md:py-24 lg:py-28 relative overflow-hidden bg-transparent">
             {/* Ambient Cosmic Background Glows */}
             <div className="absolute top-1/3 left-1/3 w-[600px] h-[600px] bg-amber-400/20 dark:bg-amber-500/15 rounded-full blur-3xl pointer-events-none -z-10" />
             <div className="absolute bottom-10 right-1/4 w-[550px] h-[550px] bg-purple-400/20 dark:bg-purple-600/15 rounded-full blur-3xl pointer-events-none -z-10" />
@@ -72,7 +72,7 @@ export default function CertificatesSection({ certificates = [] }: CertificatesS
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* ── Section Header ── */}
-                <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8 sm:mb-12">
                     <div className="text-center md:text-left space-y-3 max-w-2xl">
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}

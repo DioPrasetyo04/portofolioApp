@@ -29,7 +29,7 @@ export default function NewsIndex({ newsList }: NewsIndexProps) {
 
     return (
         <>
-            <Head title="Articles & Insights - Portfolio 3D" />
+            <Head title="Articles & Insights" />
 
             <div className="min-h-screen bg-background text-foreground flex flex-col">
                 <Navbar />

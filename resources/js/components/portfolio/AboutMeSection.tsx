@@ -516,7 +516,7 @@ export default function AboutMeSection({ aboutData }: AboutMeSectionProps) {
     ];
 
     return (
-        <section id="about" className="py-28 relative overflow-hidden bg-transparent">
+        <section id="about" className="py-12 sm:py-16 md:py-24 lg:py-28 relative overflow-hidden bg-transparent">
             {/* Ambient Cosmic Background Glows */}
             <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-purple-400/20 dark:bg-purple-600/15 rounded-full blur-3xl pointer-events-none -z-10" />
             <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-cyan-300/15 dark:bg-cyan-400/10 rounded-full blur-3xl pointer-events-none -z-10" />
@@ -525,7 +525,7 @@ export default function AboutMeSection({ aboutData }: AboutMeSectionProps) {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* ── Section Header ── */}
-                <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 md:mb-16 space-y-3 sm:space-y-4">
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -546,9 +546,9 @@ export default function AboutMeSection({ aboutData }: AboutMeSectionProps) {
                     </motion.h2>
                 </div>
 
-                <div className="space-y-8">
+                <div className="space-y-6 sm:space-y-8">
                     {/* ── Top Row: Gallery + Tech Expertise (Left) & StatsPanel (Right) ── */}
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
                         {/* ── LEFT: Photo Gallery Carousel + Tech Expertise ── */}
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}

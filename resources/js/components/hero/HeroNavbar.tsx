@@ -19,6 +19,8 @@ export default function HeroNavbar() {
     const [activeSection, setActiveSection] = useState<string>('hero');
 
     const langDropdownRef = useRef<HTMLDivElement>(null);
+    const mobileMenuRef = useRef<HTMLDivElement>(null);
+    const mobileMenuBtnRef = useRef<HTMLButtonElement>(null);
 
     // Scrollspy to automatically detect and highlight active section
     useEffect(() => {
@@ -89,6 +91,36 @@ export default function HeroNavbar() {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    // Close mobile menu on outside click or Escape key
+    useEffect(() => {
+        if (!mobileMenuOpen) return;
+
+        const handleOutsideClick = (event: MouseEvent) => {
+            if (
+                mobileMenuRef.current &&
+                !mobileMenuRef.current.contains(event.target as Node) &&
+                mobileMenuBtnRef.current &&
+                !mobileMenuBtnRef.current.contains(event.target as Node)
+            ) {
+                setMobileMenuOpen(false);
+            }
+        };
+
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setMobileMenuOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+        document.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [mobileMenuOpen]);
+
     const languages = [
         { code: 'en', label: 'EN', fullName: 'English' },
         { code: 'id', label: 'ID', fullName: 'Indonesia' },
@@ -132,30 +164,32 @@ export default function HeroNavbar() {
         }
     };
 
+    const isSolid = isScrolled || mobileMenuOpen;
+
     return (
         <header
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-                isScrolled
+                isSolid
                     ? isDark
-                        ? 'py-3 bg-black/90 backdrop-blur-sm border-b border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.85)]'
-                        : 'py-3 bg-white/90 backdrop-blur-sm border-b border-indigo-100/60 shadow-[0_6px_25px_rgba(99,102,241,0.08)]'
-                    : 'py-5 sm:py-6 bg-transparent'
+                        ? 'py-2.5 sm:py-3 bg-black/95 backdrop-blur-md border-b border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.85)]'
+                        : 'py-2.5 sm:py-3 bg-white/95 backdrop-blur-md border-b border-indigo-100/60 shadow-[0_6px_25px_rgba(99,102,241,0.08)]'
+                    : 'py-3 sm:py-5 lg:py-6 bg-transparent'
             }`}
         >
-            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
-                <div className="flex items-center justify-between gap-3 lg:gap-4">
+            <div className="max-w-[1440px] mx-auto px-3.5 sm:px-6 lg:px-10">
+                <div className="flex items-center justify-between gap-2 sm:gap-4">
                     {/* ── Brand Logo (Click to scroll to top) ── */}
                     <a
                         href="#hero"
                         onClick={(e) => handleNavClick(e, 'hero')}
-                        className="flex items-center gap-2.5 group select-none flex-shrink-0"
+                        className="flex items-center gap-2 sm:gap-2.5 group select-none flex-shrink-0"
                     >
-                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#C93A32] via-[#E50914] to-amber-500 p-[1.5px] shadow-[0_0_15px_rgba(201,58,50,0.4)] group-hover:shadow-[0_0_24px_rgba(229,9,20,0.7)] transition-all duration-300">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#C93A32] via-[#E50914] to-amber-500 p-[1.5px] shadow-[0_0_15px_rgba(201,58,50,0.4)] group-hover:shadow-[0_0_24px_rgba(229,9,20,0.7)] transition-all duration-300">
                             <div className="w-full h-full rounded-[10px] flex items-center justify-center bg-black/90">
                                 <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#E50914] group-hover:rotate-12 transition-transform duration-300" />
                             </div>
                         </div>
-                        <span className="font-hero text-lg sm:text-xl tracking-wider text-[var(--hero-fg)] uppercase">
+                        <span className="font-hero text-base sm:text-xl tracking-wider text-[var(--hero-fg)] uppercase">
                             DIO<span className="text-[#C93A32]">STACK</span>
                         </span>
                     </a>
@@ -195,17 +229,19 @@ export default function HeroNavbar() {
                     </nav>
 
                     {/* ── Right Actions: Like Button + Resume Button + Theme Toggle + Language Switch + Mobile Menu ── */}
-                    <div className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
+                    <div className="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
 
-                        {/* Interactive Like Button */}
-                        <PortfolioLikeButton variant="hero" idPrefix="hero" />
+                        {/* Interactive Like Button (Desktop & Tablet >= 768px; also inside mobile drawer) */}
+                        <div className="hidden md:inline-flex">
+                            <PortfolioLikeButton variant="hero" idPrefix="hero" />
+                        </div>
 
-                        {/* Resume Download Pill Button */}
+                        {/* Resume Download Pill Button (Desktop & Small Tablet >= 640px; also inside mobile drawer) */}
                         <a
                             id="hero-resume-download-btn"
                             href="/resume/download"
                             download
-                            className="h-9 sm:h-10 px-3 sm:px-4 rounded-full bg-gradient-to-r from-[#C93A32] via-[#E50914] to-amber-500 hover:from-[#E50914] hover:to-amber-400 text-white font-hero-condensed text-xs sm:text-sm tracking-wider uppercase flex items-center gap-1.5 sm:gap-2 shadow-[0_0_16px_rgba(201,58,50,0.4)] hover:shadow-[0_0_24px_rgba(229,9,20,0.7)] hover:scale-[1.03] active:scale-95 transition-all duration-300 select-none group cursor-pointer"
+                            className="hidden sm:inline-flex h-9 sm:h-10 px-3 sm:px-4 rounded-full bg-gradient-to-r from-[#C93A32] via-[#E50914] to-amber-500 hover:from-[#E50914] hover:to-amber-400 text-white font-hero-condensed text-xs sm:text-sm tracking-wider uppercase items-center gap-1.5 sm:gap-2 shadow-[0_0_16px_rgba(201,58,50,0.4)] hover:shadow-[0_0_24px_rgba(229,9,20,0.7)] hover:scale-[1.03] active:scale-95 transition-all duration-300 select-none group cursor-pointer"
                             title={t('nav.downloadCv')}
                         >
                             <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-100 transition-transform duration-300 group-hover:translate-y-0.5" />
@@ -218,29 +254,29 @@ export default function HeroNavbar() {
                             type="button"
                             onClick={toggleTheme}
                             aria-label="Toggle dark and light theme"
-                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[var(--hero-pill-border)] flex items-center justify-center text-[var(--hero-fg)] hover:bg-[var(--hero-pill-hover)] hover:border-[#C93A32] transition-colors cursor-pointer pointer-events-auto"
+                            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-[var(--hero-pill-border)] flex items-center justify-center text-[var(--hero-fg)] hover:bg-[var(--hero-pill-hover)] hover:border-[#C93A32] transition-colors cursor-pointer flex-shrink-0"
                         >
                             {isDark ? (
-                                <Sun className="w-4 h-4 text-amber-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.6)]" />
+                                <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.6)]" />
                             ) : (
-                                <Moon className="w-4 h-4 text-slate-800" />
+                                <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-800" />
                             )}
                         </button>
 
                         {/* Language Dropdown */}
-                        <div className="relative" ref={langDropdownRef}>
+                        <div className="relative flex-shrink-0" ref={langDropdownRef}>
                             <button
                                 type="button"
                                 onClick={() => setLangDropdownOpen(!langDropdownOpen)}
                                 aria-label={`Select language (current: ${currentLang.fullName})`}
                                 title={`Language: ${currentLang.fullName}`}
-                                className="h-9 sm:h-10 px-2.5 sm:px-3 rounded-full border border-[var(--hero-pill-border)] flex items-center gap-1.5 text-[var(--hero-fg)] hover:bg-[var(--hero-pill-hover)] hover:border-[#C93A32] transition-colors cursor-pointer select-none"
+                                className="h-8 sm:h-10 px-2 sm:px-3 rounded-full border border-[var(--hero-pill-border)] flex items-center gap-1 sm:gap-1.5 text-[var(--hero-fg)] hover:bg-[var(--hero-pill-hover)] hover:border-[#C93A32] transition-colors cursor-pointer select-none"
                             >
-                                <span className="w-5 h-3.5 rounded-[2.5px] overflow-hidden border border-black/15 dark:border-white/20 shadow-xs flex-shrink-0 inline-flex items-center justify-center">
+                                <span className="w-4 h-3 sm:w-5 sm:h-3.5 rounded-[2px] sm:rounded-[2.5px] overflow-hidden border border-black/15 dark:border-white/20 shadow-xs flex-shrink-0 inline-flex items-center justify-center">
                                     <FlagIcon code={currentLang.code} className="w-full h-full object-cover" />
                                 </span>
                                 <ChevronDown
-                                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                                    className={`w-3 h-3 sm:w-3.5 sm:h-3.5 transition-transform duration-200 ${
                                         langDropdownOpen ? 'rotate-180 opacity-100' : 'opacity-70'
                                     }`}
                                 />
@@ -274,12 +310,18 @@ export default function HeroNavbar() {
                             )}
                         </div>
 
-                        {/* Mobile Hamburger Button (< 1024px) */}
+                        {/* Mobile & Tablet Hamburger Button (< 1024px) */}
                         <button
+                            ref={mobileMenuBtnRef}
                             type="button"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             aria-label="Toggle navigation menu"
-                            className="lg:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[var(--hero-pill-border)] flex items-center justify-center text-[var(--hero-fg)] hover:bg-[var(--hero-pill-hover)] hover:border-[#C93A32] transition-colors cursor-pointer"
+                            aria-expanded={mobileMenuOpen}
+                            className={`lg:hidden w-8 h-8 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-all cursor-pointer flex-shrink-0 ${
+                                mobileMenuOpen
+                                    ? 'border-[#E50914] bg-[#E50914]/15 text-[#E50914] shadow-[0_0_12px_rgba(229,9,20,0.4)]'
+                                    : 'border-[var(--hero-pill-border)] text-[var(--hero-fg)] hover:bg-[var(--hero-pill-hover)] hover:border-[#C93A32]'
+                            }`}
                         >
                             {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
                         </button>
@@ -288,8 +330,11 @@ export default function HeroNavbar() {
 
                 {/* ── Mobile & Tablet Drawer Menu (< 1024px) ── */}
                 {mobileMenuOpen && (
-                    <div className="lg:hidden mt-3 p-4 sm:p-5 rounded-3xl border border-[var(--hero-strip-border)] bg-[var(--hero-badge-bg)] shadow-2xl backdrop-blur-sm space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
-                        <nav className="flex flex-col gap-1.5">
+                    <div
+                        ref={mobileMenuRef}
+                        className="lg:hidden mt-2.5 sm:mt-3 p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-[var(--hero-strip-border)] bg-[var(--hero-badge-bg)] shadow-[0_20px_60px_rgba(0,0,0,0.7)] backdrop-blur-xl space-y-3.5 animate-in fade-in slide-in-from-top-2 duration-200 max-h-[calc(100dvh-5.5rem)] overflow-y-auto overscroll-contain"
+                    >
+                        <nav className="flex flex-col gap-1">
                             {heroConfig.navLinks.map((link, index) => {
                                 const isActive = activeSection === link.sectionId;
                                 const indexStr = String(index + 1).padStart(2, '0');
@@ -298,7 +343,7 @@ export default function HeroNavbar() {
                                         key={link.href}
                                         href={link.href}
                                         onClick={(e) => handleNavClick(e, link.sectionId)}
-                                        className={`font-hero text-base tracking-wider py-2.5 px-3.5 rounded-xl uppercase transition-all duration-200 flex items-center justify-between ${
+                                        className={`font-hero text-sm sm:text-base tracking-wider py-2 sm:py-2.5 px-3 sm:px-3.5 rounded-xl uppercase transition-all duration-200 flex items-center justify-between ${
                                             isActive
                                                 ? isDark
                                                     ? 'bg-[#C93A32]/25 text-[#E50914] border border-[#C93A32]/40 shadow-sm'
@@ -310,11 +355,11 @@ export default function HeroNavbar() {
                                             {isActive ? (
                                                 <span className="w-2 h-2 rounded-full bg-[#E50914] shadow-[0_0_8px_rgba(229,9,20,1)] animate-pulse" />
                                             ) : (
-                                                <span className="w-2 h-2 rounded-full bg-white/20" />
+                                                <span className="w-1.5 h-1.5 rounded-full bg-current opacity-25" />
                                             )}
                                             <span>{t(link.labelKey)}</span>
                                         </div>
-                                        <span className="font-hero-condensed text-xs opacity-50 tracking-widest">
+                                        <span className="font-hero-condensed text-[11px] sm:text-xs opacity-50 tracking-widest">
                                             {indexStr}
                                         </span>
                                     </a>
@@ -323,18 +368,49 @@ export default function HeroNavbar() {
                         </nav>
 
                         {/* Mobile Actions: Resume Download + Interactive Like Button */}
-                        <div className="pt-2.5 border-t border-[var(--hero-strip-border)] flex flex-col gap-2">
+                        <div className="pt-3 border-t border-[var(--hero-strip-border)] flex flex-col gap-2.5">
                             <div className="grid grid-cols-2 gap-2">
                                 <a
                                     id="mobile-hero-resume-download-btn"
                                     href="/resume/download"
                                     download
-                                    className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#C93A32] via-[#E50914] to-amber-500 text-white font-hero text-xs sm:text-sm tracking-wider uppercase flex items-center justify-center gap-1.5 shadow-lg shadow-[#C93A32]/30 active:scale-95 transition-all cursor-pointer"
+                                    className="w-full h-10 px-3 rounded-xl bg-gradient-to-r from-[#C93A32] via-[#E50914] to-amber-500 hover:from-[#E50914] hover:to-amber-400 text-white font-hero text-xs sm:text-sm tracking-wider uppercase flex items-center justify-center gap-1.5 shadow-md shadow-[#C93A32]/30 active:scale-95 transition-all select-none cursor-pointer"
                                 >
-                                    <Download className="w-4 h-4 text-amber-100" />
+                                    <Download className="w-3.5 h-3.5 text-amber-100" />
                                     <span className="font-bold">{t('nav.resume')}</span>
                                 </a>
-                                <PortfolioLikeButton variant="hero" isMobile idPrefix="mobile-hero" />
+                                <PortfolioLikeButton
+                                    variant="hero"
+                                    isMobile
+                                    idPrefix="mobile-hero"
+                                    className="!h-10 !rounded-xl"
+                                />
+                            </div>
+
+                            {/* Mobile Language Switcher Row in Drawer */}
+                            <div className="flex items-center justify-between pt-1 text-xs">
+                                <span className="font-hero-condensed text-xs uppercase tracking-wider text-[var(--hero-fg-muted)]">
+                                    {t('nav.language') || 'Language'}
+                                </span>
+                                <div className="flex items-center gap-1.5">
+                                    {languages.map((lang) => (
+                                        <button
+                                            key={lang.code}
+                                            type="button"
+                                            onClick={() => changeLanguage(lang.code)}
+                                            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all ${
+                                                lang.code === currentLang.code
+                                                    ? 'bg-[#C93A32]/20 text-[#E50914] border-[#E50914]/50 font-bold shadow-xs'
+                                                    : 'border-[var(--hero-strip-border)] hover:bg-[var(--hero-pill-hover)] text-[var(--hero-fg)]'
+                                            }`}
+                                        >
+                                            <span className="w-4 h-3 rounded-[2px] overflow-hidden border border-black/15 dark:border-white/20 inline-flex items-center justify-center flex-shrink-0">
+                                                <FlagIcon code={lang.code} className="w-full h-full object-cover" />
+                                            </span>
+                                            <span>{lang.label}</span>
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -28,7 +28,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('dahandio')
             ->login()
-            ->brandName('DIO STACK — Admin CMS')
+            ->brandName('DIOSTACK-PORTOFOLIO')
+            ->favicon(asset('images/dio-cutout.png'))
             ->sidebarCollapsibleOnDesktop()
             ->colors([
                 'primary' => Color::Violet,

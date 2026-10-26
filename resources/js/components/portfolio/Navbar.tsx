@@ -161,7 +161,7 @@ export default function Navbar({ currentSection }: NavbarProps) {
                             </div>
                         </div>
                         <span className={`font-extrabold text-lg tracking-tight hidden sm:inline-block ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                            Portfolio<span className="bg-gradient-to-r from-purple-600 to-cyan-500 dark:from-cyan-400 dark:to-purple-400 bg-clip-text text-transparent">.3D</span>
+                            DIO<span className="bg-gradient-to-r from-purple-600 to-cyan-500 dark:from-cyan-400 dark:to-purple-400 bg-clip-text text-transparent">STACK</span>
                         </span>
                     </a>
 
@@ -296,12 +296,13 @@ export default function Navbar({ currentSection }: NavbarProps) {
                         </a>
                     </div>
 
-                    {/* ── Mobile Hamburger Controls ── */}
-                    <div className="flex items-center gap-2 sm:hidden">
+                    {/* ── Mobile & Tablet Hamburger Controls (< 1024px) ── */}
+                    <div className="flex items-center gap-2 lg:hidden">
                         <button
                             type="button"
                             onClick={toggleTheme}
-                            className={`p-2 rounded-xl border ${
+                            aria-label="Toggle theme"
+                            className={`p-2 rounded-xl border sm:hidden ${
                                 isDark 
                                     ? 'bg-black/60 border-white/15 text-white/90' 
                                     : 'bg-white/80 border-slate-200 text-slate-800 shadow-sm'
@@ -316,6 +317,7 @@ export default function Navbar({ currentSection }: NavbarProps) {
                         <button
                             type="button"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            aria-label="Toggle navigation menu"
                             className={`p-2 rounded-xl border ${
                                 isDark 
                                     ? 'bg-black/60 border-white/15 text-white' 
@@ -329,7 +331,7 @@ export default function Navbar({ currentSection }: NavbarProps) {
 
                 {/* ── Mobile Menu Dropdown ── */}
                 {mobileMenuOpen && (
-                    <div className={`lg:hidden mt-3 p-4 rounded-3xl border backdrop-blur-md shadow-2xl space-y-3 ${
+                    <div className={`lg:hidden mt-3 p-4 rounded-3xl border backdrop-blur-md shadow-2xl space-y-3 max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain ${
                         isDark 
                             ? 'border-white/15 bg-black/95 text-white' 
                             : 'border-slate-200 bg-white/95 text-slate-900'

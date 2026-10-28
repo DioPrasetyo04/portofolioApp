@@ -1,0 +1,28 @@
+name: Deploy Portofolio App to Domainesia
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify Github Actions
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@4
+
+      - name: Verify deployment workflow
+        run : | 
+          echo "Github Actions berhasil dijalankan."
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Branch: $GITHUB_REF_NAME"
+          test -f artisan
+          test -f composer.json
+          echo "Struktur dasar laravel ditemukan."

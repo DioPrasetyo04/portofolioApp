@@ -156,7 +156,7 @@ export const resources = {
     id: {
         translation: {
             nav: {
-                home: 'Beranda',
+                home: 'Berandasal',
                 about: 'Tentang',
                 projects: 'Proyek',
                 skills: 'Keahlian',

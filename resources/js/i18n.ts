@@ -1,6 +1,6 @@
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import { initReactI18next } from 'react-i18next';
 
 export const resources = {
     en: {
@@ -8,6 +8,7 @@ export const resources = {
             nav: {
                 home: 'Home',
                 about: 'About',
+                experience: 'Experience',
                 projects: 'Projects',
                 skills: 'Skills',
                 languages: 'Languages',
@@ -35,14 +36,16 @@ export const resources = {
                 nameRight1: 'LARAVEL · REACT',
                 nameRight2: 'JAKARTA, ID',
                 title: 'DIO',
-                description: 'FULL-STACK SOFTWARE ENGINEER & CREATIVE TECHNOLOGIST PASSIONATE ABOUT HIGH-PERFORMANCE REACT, LARAVEL ARCHITECTURES, AND IMMERSIVE DIGITAL EXPERIENCES.',
+                description:
+                    'FULL-STACK SOFTWARE ENGINEER & CREATIVE TECHNOLOGIST PASSIONATE ABOUT HIGH-PERFORMANCE REACT, LARAVEL ARCHITECTURES, AND IMMERSIVE DIGITAL EXPERIENCES.',
                 cta: 'HIRE ME',
                 counter: '01',
                 badgeText: 'AVAILABLE FOR WORK • FULL-STACK ENGINEER • ',
             },
             about: {
                 title: 'Engineering Profile',
-                subtitle: 'Full-stack engineering focused on resilient architectures, type safety, and real-time 3D',
+                subtitle:
+                    'Full-stack engineering focused on resilient architectures, type safety, and real-time 3D',
                 statsProjects: 'Shipped Projects',
                 statsCerts: 'Verified Credentials',
                 statsExp: 'Production Experience',
@@ -67,15 +70,113 @@ export const resources = {
                 featuresTitle: 'Core Engineering Standards',
                 techExpertise: 'Core Technical Expertise',
             },
+            experience: {
+                badge: 'Career & Academic Roadmap',
+                title: 'Experience & Education',
+                subtitle:
+                    'Chronological timeline of professional software engineering, academic foundations, and organizational leadership',
+                tabAll: 'All Milestones',
+                tabExperience: 'Work Experience',
+                tabEducation: 'Education Timeline',
+                experienceHeading: 'Professional & Organizational Journey',
+                educationHeading: 'Academic & Training Milestones',
+                present: 'Present',
+                verifiedCredential: 'Verified Credential',
+                keyResponsibilities: 'Key Contributions & Engineering Impact',
+                skillsUtilized: 'Applied Technologies & Competencies',
+                roles: {
+                    indotech: {
+                        role: 'Internship Full-Stack Developer',
+                        company: 'PT. Indotech Energi Persada',
+                        location: 'Jakarta, ID',
+                        period: 'Mar 2025 - Jun 2025',
+                        type: 'Industry Internship',
+                        points: [
+                            'Developed and maintained web and mobile application features using Next.js, CSS, JavaScript, Flutter, and backend integration.',
+                            'Built CRUD functionalities and optimized database operations for internal enterprise applications.',
+                            'Collaborated with the engineering team to improve system functionality, code maintainability, and user experience.',
+                            'Participated in application testing, systematic debugging, and frontend/backend performance optimization.',
+                            'Contributed to software architecture documentation and deployment workflows.',
+                        ],
+                    },
+                    kemenkeu: {
+                        role: 'Internship (Information Systems)',
+                        company: 'Kementerian Keuangan Republik Indonesia',
+                        location: 'Jakarta, ID',
+                        period: 'Oct 2021 - Jan 2022',
+                        type: 'Government Internship',
+                        points: [
+                            'Assisted in information systems operations and administrative digital workflow processes.',
+                            'Supported enterprise data management, technical documentation, and digital record archives.',
+                            'Participated in internal system operational workflows and digital archiving modernization initiatives.',
+                            'Collaborated with ministry staff members to support daily operational and technical governance activities.',
+                            'Gained practical experience in institutional organizational workflows, security standards, and cross-team collaboration.',
+                        ],
+                    },
+                    hmtif: {
+                        role: 'Head of Student Welfare Division III',
+                        company:
+                            'Informatics Engineering Association Faculty of Engineering Pancasila University',
+                        location: 'Jakarta, ID',
+                        period: 'Nov 2023 - Apr 2024',
+                        type: 'Organizational Leadership',
+                        points: [
+                            'Led and coordinated student welfare advocacy programs and academic support for Informatics Engineering students.',
+                            'Facilitated transparent communication channels and mediation between student representatives and faculty leadership.',
+                            'Organized peer coding tutorials, technology seminars, and developer community study groups.',
+                            'Supervised divisional team members, task allocation, and budgeting for student support initiatives.',
+                        ],
+                    },
+                },
+                education: {
+                    up: {
+                        degree: 'Bachelor of Computer Science / Informatics Engineering (S.Kom)',
+                        institution: 'Universitas Pancasila',
+                        location: 'Jakarta, ID',
+                        period: '2021 - 2025',
+                        type: 'Undergraduate Degree',
+                        points: [
+                            'Specialized in Software Engineering, Modern Web & Mobile Systems, and Relational Database Architectures.',
+                            'Academic focus: High-performance Laravel backends, reactive React/TypeScript SPAs, and real-time 3D WebGL graphics.',
+                            'Active contributor to campus developer chapters, peer tutoring, and academic research activities.',
+                        ],
+                    },
+                    bootcamp: {
+                        degree: 'Professional Tech Academies & Certifications',
+                        institution:
+                            'Dicoding Indonesia, FreeCodeCamp & Coursera',
+                        location: 'Online / Industry Credential',
+                        period: '2021 - 2024',
+                        type: 'Professional Certification',
+                        points: [
+                            'Graduated from verified learning paths in Full-Stack Web Development, Modern JavaScript, Flutter Mobile Apps, and SQL Database Systems.',
+                            'Passed rigorous code reviews and built production-grade capstone applications adhering to industry coding standards.',
+                        ],
+                    },
+                    highschool: {
+                        degree: 'Senior High School (Mathematics & Natural Sciences / MIPA)',
+                        institution: 'SMA / Secondary High School',
+                        location: 'Jakarta, ID',
+                        period: '2018 - 2021',
+                        type: 'High School Diploma',
+                        points: [
+                            'Focused on Mathematics and Natural Sciences, cultivating rigorous algorithmic logic, quantitative problem-solving, and analytical reasoning.',
+                        ],
+                    },
+                },
+            },
             projects: {
                 badge: 'System Builds & Deployments',
                 title: 'Featured Projects',
-                subtitle: 'Production Systems, 3D WebGL, and Open-Source Builds',
-                description: 'A curated index of web applications focusing on robust Laravel backend architectures, responsive React interfaces, and real-time Three.js graphics tuned for 60 FPS performance.',
+                subtitle:
+                    'Production Systems, 3D WebGL, and Open-Source Builds',
+                description:
+                    'A curated index of web applications focusing on robust Laravel backend architectures, responsive React interfaces, and real-time Three.js graphics tuned for 60 FPS performance.',
                 viewGrid: 'Grid Showcase',
                 viewChart: 'Stack Analytics',
                 chartHeading: 'Engineering Domain Distribution',
-                chartDescription: 'Distribution of active systems across backend architectures, fullstack applications, and real-time 3D environments.',
+                chartDescription:
+                    'Distribution of active systems across backend architectures, fullstack applications, and real-time 3D environments.',
                 filterTitle: 'Filter & Search',
                 resetFilters: 'Reset',
                 searchLabel: 'Repository Search',
@@ -95,7 +196,8 @@ export const resources = {
                 viewDetails: 'Bedah Arsitektur',
                 featured: 'Featured',
                 emptyTitle: 'No projects matching your criteria',
-                emptyDesc: 'Try adjusting your search query, selecting another category, or resetting all filters.',
+                emptyDesc:
+                    'Try adjusting your search query, selecting another category, or resetting all filters.',
                 resetAll: 'Reset All Filters',
                 modalOverview: 'System Architecture & Problem Solved',
                 modalHighlights: 'Engineering Decisions & Key Highlights',
@@ -107,7 +209,8 @@ export const resources = {
             },
             techStack: {
                 title: 'Tech Stack & Skills',
-                subtitle: 'Technologies, languages, and frameworks I use to build scalable products',
+                subtitle:
+                    'Technologies, languages, and frameworks I use to build scalable products',
                 all: 'All Stack',
             },
             languages: {
@@ -116,12 +219,14 @@ export const resources = {
             },
             certificates: {
                 title: 'Certifications & Accreditations',
-                subtitle: 'Industry-recognized credentials validating specialized engineering expertise',
+                subtitle:
+                    'Industry-recognized credentials validating specialized engineering expertise',
                 verify: 'Verify Credential',
             },
             news: {
                 title: 'Articles & Insights',
-                subtitle: 'Thoughts on 3D creative development, clean architecture, and modern tech',
+                subtitle:
+                    'Thoughts on 3D creative development, clean architecture, and modern tech',
                 readMore: 'Read Article',
                 allArticles: 'View All Articles',
                 backToHome: 'Back to Home',
@@ -148,7 +253,8 @@ export const resources = {
                 socialMedia: 'Connect with me',
             },
             footer: {
-                tagline: 'Crafted with Laravel, Inertia.js, React, Three.js & Tailwind CSS.',
+                tagline:
+                    'Crafted with Laravel, Inertia.js, React, Three.js & Tailwind CSS.',
                 rights: 'All rights reserved.',
             },
         },
@@ -158,6 +264,7 @@ export const resources = {
             nav: {
                 home: 'Beranda',
                 about: 'Tentang',
+                experience: 'Pengalaman',
                 projects: 'Proyek',
                 skills: 'Keahlian',
                 languages: 'Bahasa',
@@ -171,7 +278,7 @@ export const resources = {
                 liked: 'Disukai',
             },
             hero: {
-                badge: '✨ Terbuka untuk Peluang Baru',
+                badge: 'Terbuka untuk Peluang Baru',
                 viewProjects: 'Jelajahi Proyek',
                 contactMe: 'Hubungi Saya',
                 scrollDown: 'Gulir ke Bawah',
@@ -185,14 +292,16 @@ export const resources = {
                 nameRight1: 'LARAVEL · REACT',
                 nameRight2: 'JAKARTA, ID',
                 title: 'DIO',
-                description: 'FULL-STACK SOFTWARE ENGINEER & CREATIVE TECHNOLOGIST YANG BERFOKUS PADA ARSITEKTUR LARAVEL, REACT BERKINERJA TINGGI, DAN PENGALAMAN DIGITAL MODERN.',
+                description:
+                    'FULL-STACK SOFTWARE ENGINEER & CREATIVE TECHNOLOGIST YANG BERFOKUS PADA ARSITEKTUR LARAVEL, REACT BERKINERJA TINGGI, DAN PENGALAMAN DIGITAL MODERN.',
                 cta: 'HUBUNGI SAYA',
                 counter: '01',
                 badgeText: 'TERBUKA UNTUK PELUANG • FULL-STACK ENGINEER • ',
             },
             about: {
                 title: 'Profil Rekayasa',
-                subtitle: 'Pengembangan full-stack berbasis arsitektur teruji, keandalan data, dan interaksi 3D realtime',
+                subtitle:
+                    'Pengembangan full-stack berbasis arsitektur teruji, keandalan data, dan interaksi 3D realtime',
                 statsProjects: 'Proyek Selesai & Rilis',
                 statsCerts: 'Sertifikasi Terverifikasi',
                 statsExp: 'Pengalaman Produksi',
@@ -217,15 +326,113 @@ export const resources = {
                 featuresTitle: 'Standar Rekayasa Inti',
                 techExpertise: 'Keahlian Teknis Utama',
             },
+            experience: {
+                badge: 'Rekam Jejak Karier & Akademik',
+                title: 'Pengalaman & Pendidikan',
+                subtitle:
+                    'Rekam jejak rekayasa perangkat lunak profesional, fondasi akademik, serta kontribusi organisasi keilmuan',
+                tabAll: 'Semua Jejak',
+                tabExperience: 'Pengalaman Kerja',
+                tabEducation: 'Jejak Pendidikan',
+                experienceHeading: 'Karier & Perjalanan Organisasi',
+                educationHeading: 'Fondasi Akademik & Pelatihan',
+                present: 'Sekarang',
+                verifiedCredential: 'Kredensial Terverifikasi',
+                keyResponsibilities: 'Kontribusi Kunci & Tanggung Jawab Teknis',
+                skillsUtilized: 'Teknologi & Kompetensi Terapan',
+                roles: {
+                    indotech: {
+                        role: 'Internship Full-Stack Developer',
+                        company: 'PT. Indotech Energi Persada',
+                        location: 'Jakarta, ID',
+                        period: 'Mar 2025 - Jun 2025',
+                        type: 'Magang Industri',
+                        points: [
+                            'Mengembangkan dan memelihara fitur aplikasi web dan mobile menggunakan Next.js, CSS, JavaScript, Flutter, serta integrasi backend.',
+                            'Membangun fungsionalitas CRUD dan operasi database yang teroptimasi untuk aplikasi internal perusahaan.',
+                            'Berkolaborasi aktif dengan tim engineering untuk meningkatkan performa sistem dan pengalaman pengguna (UX).',
+                            'Terlibat dalam pengujian aplikasi, debugging sistematis, dan optimasi performa modul.',
+                            'Menyusun dokumentasi teknis implementasi perangkat lunak dan alur deployment sistem.',
+                        ],
+                    },
+                    kemenkeu: {
+                        role: 'Internship (Sistem Informasi & Data)',
+                        company: 'Kementerian Keuangan Republik Indonesia',
+                        location: 'Jakarta, ID',
+                        period: 'Okt 2021 - Jan 2022',
+                        type: 'Magang Pemerintahan',
+                        points: [
+                            'Membantu operasional sistem informasi dan dukungan teknis alur proses administrasi pemerintahan.',
+                            'Mengelola manajemen data institusi, dokumentasi sistem, dan penataan arsip berkas digital resmi.',
+                            'Berpartisipasi dalam inisiatif optimalisasi operasional sistem internal dan modernisasi alur data kementerian.',
+                            'Berkolaborasi dengan staf kementerian dalam menangani kegiatan teknis dan operasional harian.',
+                            'Memperoleh pengalaman praktis dalam tata kelola organisasi skala nasional, standar kepatuhan dokumen, dan kerja tim.',
+                        ],
+                    },
+                    hmtif: {
+                        role: 'Kepala Divisi Kesejahteraan Mahasiswa III',
+                        company:
+                            'Himpunan Mahasiswa Teknik Informatika Fakultas Teknik Universitas Pancasila',
+                        location: 'Jakarta, ID',
+                        period: 'Nov 2023 - Apr 2024',
+                        type: 'Kepemimpinan Organisasi',
+                        points: [
+                            'Memimpin dan mengoordinasikan program kesejahteraan mahasiswa serta advokasi akademik bagi mahasiswa Teknik Informatika.',
+                            'Menjembatani komunikasi dan penyampaian aspirasi mahasiswa kepada jajaran pimpinan fakultas.',
+                            'Menginisiasi tutorial coding mahasiswa, workshop teknologi, dan kelompok belajar pemrograman kolaboratif.',
+                            'Mengelola pembagian tugas anggota divisi serta alokasi anggaran kegiatan sosial kemahasiswaan.',
+                        ],
+                    },
+                },
+                education: {
+                    up: {
+                        degree: 'S1 Teknik Informatika (Sarjana Komputer - S.Kom)',
+                        institution: 'Universitas Pancasila',
+                        location: 'Jakarta, ID',
+                        period: '2021 - 2025',
+                        type: 'Gelar Sarjana',
+                        points: [
+                            'Fokus pada Rekayasa Perangkat Lunak, Arsitektur Web & Mobile Modern, serta Sistem Database Terdistribusi.',
+                            'Riset & Proyek: Backend Laravel berkinerja tinggi, SPA React/TypeScript responsif, dan grafis interaktif 3D WebGL.',
+                            'Berperan aktif dalam kegiatan keilmuan kampus, forum developer, dan kepengurusan himpunan mahasiswa.',
+                        ],
+                    },
+                    bootcamp: {
+                        degree: 'Akademi Teknologi & Sertifikasi Industri',
+                        institution:
+                            'Dicoding Indonesia, FreeCodeCamp & Coursera',
+                        location: 'Daring / Kredensial Global',
+                        period: '2021 - 2024',
+                        type: 'Sertifikasi Profesional',
+                        points: [
+                            'Menyelesaikan jalur belajar terverifikasi di bidang Full-Stack Web Development, Modern JavaScript, Flutter Mobile Apps, dan SQL Database Systems.',
+                            'Lulus review kode ketat dan membangun aplikasi capstone berstandar industri nyata.',
+                        ],
+                    },
+                    highschool: {
+                        degree: 'Sekolah Menengah Atas (MIPA / IPA)',
+                        institution: 'SMA / Sekolah Menengah Atas',
+                        location: 'Jakarta, ID',
+                        period: '2018 - 2021',
+                        type: 'Ijazah SMA',
+                        points: [
+                            'Jurusan Matematika dan Ilmu Pengetahuan Alam (MIPA), membangun dasar logika analitis, pemecahan masalah kuantitatif, dan fondasi komputasi.',
+                        ],
+                    },
+                },
+            },
             projects: {
                 badge: 'PROYEK & IMPLEMENTASI TEKNIS',
                 title: 'Sistem Produksi & Portofolio Rekayasa',
-                subtitle: 'Sistem Produksi, Eksperimen 3D, dan Perangkat Lunak Terbuka',
-                description: 'Dokumentasi sistem web yang saya bangun dengan fokus pada skalabilitas backend Laravel, responsivitas antarmuka React, dan optimalisasi grafis real-time 60 FPS pada Three.js.',
+                subtitle:
+                    'Sistem Produksi, Eksperimen 3D, dan Perangkat Lunak Terbuka',
+                description:
+                    'Dokumentasi sistem web yang saya bangun dengan fokus pada skalabilitas backend Laravel, responsivitas antarmuka React, dan optimalisasi grafis real-time 60 FPS pada Three.js.',
                 viewGrid: 'Grid Showcase',
                 viewChart: 'Distribusi Domain & Stack',
                 chartHeading: 'Distribusi Domain Rekayasa Perangkat Lunak',
-                chartDescription: 'Rasio alokasi proyek berdasarkan kompleksitas backend, antarmuka interaktif, dan rendering WebGL.',
+                chartDescription:
+                    'Rasio alokasi proyek berdasarkan kompleksitas backend, antarmuka interaktif, dan rendering WebGL.',
                 filterTitle: 'Filter & Spesifikasi',
                 resetFilters: 'Setel Ulang',
                 searchLabel: 'Pencarian Repositori',
@@ -245,7 +452,8 @@ export const resources = {
                 viewDetails: 'Bedah Arsitektur',
                 featured: 'Unggulan',
                 emptyTitle: 'Tidak ada repositori proyek yang sesuai kriteria',
-                emptyDesc: 'Coba sesuaikan kata kunci pencarian, ganti filter kategori, atau reset parameter filter.',
+                emptyDesc:
+                    'Coba sesuaikan kata kunci pencarian, ganti filter kategori, atau reset parameter filter.',
                 resetAll: 'Setel Ulang Filter',
                 modalOverview: 'Ringkasan Sistem & Masalah yang Diselesaikan',
                 modalHighlights: 'Keputusan Arsitektur & Rekayasa Inti',
@@ -257,7 +465,8 @@ export const resources = {
             },
             techStack: {
                 title: 'Tech Stack & Keahlian',
-                subtitle: 'Teknologi, bahasa, dan framework yang saya gunakan untuk membangun produk berskala besar',
+                subtitle:
+                    'Teknologi, bahasa, dan framework yang saya gunakan untuk membangun produk berskala besar',
                 all: 'Semua Stack',
             },
             languages: {
@@ -266,12 +475,14 @@ export const resources = {
             },
             certificates: {
                 title: 'Sertifikasi & Lisensi',
-                subtitle: 'Kredensial yang diakui industri memvalidasi keahlian rekayasa perangkat lunak',
+                subtitle:
+                    'Kredensial yang diakui industri memvalidasi keahlian rekayasa perangkat lunak',
                 verify: 'Verifikasi Sertifikat',
             },
             news: {
                 title: 'Artikel & Wawasan',
-                subtitle: 'Pemikiran seputar pengembangan kreatif 3D, clean architecture, dan teknologi modern',
+                subtitle:
+                    'Pemikiran seputar pengembangan kreatif 3D, clean architecture, dan teknologi modern',
                 readMore: 'Baca Selengkapnya',
                 allArticles: 'Lihat Semua Artikel',
                 backToHome: 'Kembali ke Beranda',
@@ -298,7 +509,8 @@ export const resources = {
                 socialMedia: 'Terhubung dengan saya',
             },
             footer: {
-                tagline: 'Dibuat dengan Laravel, Inertia.js, React, Three.js & Tailwind CSS.',
+                tagline:
+                    'Dibuat dengan Laravel, Inertia.js, React, Three.js & Tailwind CSS.',
                 rights: 'Hak cipta dilindungi.',
             },
         },
@@ -308,6 +520,7 @@ export const resources = {
             nav: {
                 home: '首页',
                 about: '关于我',
+                experience: '履历经历',
                 projects: '精选项目',
                 skills: '技术栈',
                 languages: '语言能力',
@@ -335,7 +548,8 @@ export const resources = {
                 nameRight1: 'LARAVEL · REACT',
                 nameRight2: '雅加达，印尼',
                 title: 'DIO',
-                description: '全栈软件工程师与创意技术专家，专注于高性能 REACT、LARAVEL 架构及现代前沿数字化体验。',
+                description:
+                    '全栈软件工程师与创意技术专家，专注于高性能 REACT、LARAVEL 架构及现代前沿数字化体验。',
                 cta: '与我合作',
                 counter: '01',
                 badgeText: '开放工作机会 • 全栈工程师 • ',
@@ -367,15 +581,113 @@ export const resources = {
                 featuresTitle: '核心工程规范',
                 techExpertise: '核心技术专长',
             },
+            experience: {
+                badge: '职业生涯与学术路线图',
+                title: '职业履历与教育背景',
+                subtitle:
+                    '专业软件工程实践、系统学术培养与技术社群领导力的时间线里程碑',
+                tabAll: '全部历程',
+                tabExperience: '工作与实习',
+                tabEducation: '学历与教育',
+                experienceHeading: '职业与组织经历',
+                educationHeading: '学术教育与进阶认证',
+                present: '至今',
+                verifiedCredential: '核验证书',
+                keyResponsibilities: '核心贡献与工程职责',
+                skillsUtilized: '运用技术与专业能力',
+                roles: {
+                    indotech: {
+                        role: '全栈开发实习生 (Internship Full-Stack)',
+                        company: 'PT. Indotech Energi Persada',
+                        location: '雅加达，印尼',
+                        period: '2025年3月 - 2025年6月',
+                        type: '企业实习',
+                        points: [
+                            '使用 Next.js、CSS、JavaScript、Flutter 与后端接口进行 Web 及移动端应用程序功能开发与维护。',
+                            '构建高效的 CRUD 业务功能及内部企业管理系统的数据库交互优化。',
+                            '与工程研发团队紧密协作，持续提升系统稳定性、代码可维护性与用户体验。',
+                            '深度参与全栈应用程序测试、系统级 Debugging 与前后端性能调优。',
+                            '撰写规范的软件架构技术文档与自动化部署流程说明。',
+                        ],
+                    },
+                    kemenkeu: {
+                        role: '信息化系统实习生 (Information Systems)',
+                        company:
+                            '印度尼西亚共和国财政部 (Kementerian Keuangan RI)',
+                        location: '雅加达，印尼',
+                        period: '2021年10月 - 2022年1月',
+                        type: '政府机构实习',
+                        points: [
+                            '协助印尼财政部信息化系统日常运行维护与政务数字化流程技术支持。',
+                            '负责机构级数据资产管理、技术文档整理与电子政务数字档案归档。',
+                            '参与部内内部系统日常运行维护与工作流数字化改进项目。',
+                            '与各部门政务与技术人员紧密配合，支撑日常数据管理与运维工作。',
+                            '深入践行国家级大型组织的工作标准、合规文档规范与跨部门协同。',
+                        ],
+                    },
+                    hmtif: {
+                        role: '第三学生福利部负责人 (Head of Student Welfare)',
+                        company:
+                            '潘查希拉大学工程学院计算机工程学生会 (HMTIF FT-UP)',
+                        location: '雅加达，印尼',
+                        period: '2023年11月 - 2024年4月',
+                        type: '学生会核心领导',
+                        points: [
+                            '领导并统筹计算机工程系（Informatics Engineering）学生福利倡导与学业支持援助项目。',
+                            '搭建学生群体与学院领导层之间的沟通桥梁，协调处理学术与学习保障诉求。',
+                            '组织开展同侪编程辅导、技术交流沙龙以及开发者学习研讨社群。',
+                            '全面负责分部成员分工、活动策划执行及项目预算管理。',
+                        ],
+                    },
+                },
+                education: {
+                    up: {
+                        degree: '计算机工程学士 (S.Kom / B.S. in Computer Science)',
+                        institution: '潘查希拉大学 (Universitas Pancasila)',
+                        location: '雅加达，印尼',
+                        period: '2021 - 2025',
+                        type: '全日制本科学士',
+                        points: [
+                            '主修软件工程、现代 Web 与移动端分布式系统以及关系型数据库架构。',
+                            '核心研究与项目：高吞吐 Laravel 后端、响应式 React/TypeScript SPA 及实时 3D WebGL 图形渲染。',
+                            '积极参与校级技术社区建设、课程助教辅导与学术研讨活动。',
+                        ],
+                    },
+                    bootcamp: {
+                        degree: '前沿技术学院与行业专业认证',
+                        institution:
+                            'Dicoding Indonesia, FreeCodeCamp & Coursera',
+                        location: '在线认证 / 全球认可',
+                        period: '2021 - 2024',
+                        type: '专业技术认证',
+                        points: [
+                            '完成全栈 Web 开发、现代 JavaScript/TypeScript、Flutter 跨平台移动端及 SQL 数据库高阶课程。',
+                            '通过严苛的代码审核（Code Review）并交付符合行业生产标准的实战项目。',
+                        ],
+                    },
+                    highschool: {
+                        degree: '高级中学 (数理自然科学方向 / MIPA)',
+                        institution: '高级中学 (SMA)',
+                        location: '雅加达，印尼',
+                        period: '2018 - 2021',
+                        type: '高中毕业证书',
+                        points: [
+                            '主修数学与自然科学（MIPA），培养严谨的算法逻辑思维、定量问题拆解与计算机科学启蒙。',
+                        ],
+                    },
+                },
+            },
             projects: {
                 badge: '工程项目与架构部署',
                 title: '生产级系统与精选作品',
                 subtitle: '生产级系统、3D WebGL与开源构建',
-                description: '专注于高可用Laravel后端架构、响应式React前端交互与稳定锁帧60 FPS的三维Three.js WebGL工程实践。',
+                description:
+                    '专注于高可用Laravel后端架构、响应式React前端交互与稳定锁帧60 FPS的三维Three.js WebGL工程实践。',
                 viewGrid: '网格展示',
                 viewChart: '技术栈与领域分布',
                 chartHeading: '软件工程技术领域与项目分布',
-                chartDescription: '各项目在全栈系统、分布式API及实时3D图形渲染领域的比重与投入。',
+                chartDescription:
+                    '各项目在全栈系统、分布式API及实时3D图形渲染领域的比重与投入。',
                 filterTitle: '检索与技术筛选',
                 resetFilters: '重置筛选',
                 searchLabel: '代码库检索',
@@ -395,7 +707,8 @@ export const resources = {
                 viewDetails: '技术架构拆解',
                 featured: '核心项目',
                 emptyTitle: '未找到符合条件的工程项目',
-                emptyDesc: '请尝试修改关键词、切换类别筛选，或重置全部过滤条件。',
+                emptyDesc:
+                    '请尝试修改关键词、切换类别筛选，或重置全部过滤条件。',
                 resetAll: '重置所有筛选',
                 modalOverview: '系统架构与业务痛点解决方案',
                 modalHighlights: '核心工程决策与关键亮点',
@@ -448,15 +761,15 @@ export const resources = {
                 socialMedia: '关注我',
             },
             footer: {
-                tagline: '基于 Laravel、Inertia.js、React、Three.js 与 Tailwind CSS 构建。',
+                tagline:
+                    '基于 Laravel、Inertia.js、React、Three.js 与 Tailwind CSS 构建。',
                 rights: '保留所有权利。',
             },
         },
     },
 };
 
-i18n
-    .use(LanguageDetector)
+i18n.use(LanguageDetector)
     .use(initReactI18next)
     .init({
         resources,

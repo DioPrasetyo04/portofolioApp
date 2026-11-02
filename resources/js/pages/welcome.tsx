@@ -1,44 +1,67 @@
-"use client";
+'use client';
 
-import React, { Suspense, lazy } from 'react';
 import { Head } from '@inertiajs/react';
-import HeroSection from '@/components/portfolio/HeroSection';
+import React, { Suspense, lazy } from 'react';
 import CosmicUniverseBackground from '@/components/portfolio/CosmicUniverseBackground';
+import HeroSection from '@/components/portfolio/HeroSection';
 
 // Lazy-loaded Below-the-Fold Components (Code-Splitting)
-const AboutMeSection = lazy(() => import('@/components/portfolio/AboutMeSection'));
-const ProjectsSection = lazy(() => import('@/components/portfolio/ProjectsSection'));
-const TechStackSection = lazy(() => import('@/components/portfolio/TechStackSection'));
-const LanguageSkillsSection = lazy(() => import('@/components/portfolio/LanguageSkillsSection'));
-const CertificatesSection = lazy(() => import('@/components/portfolio/CertificatesSection'));
+const AboutMeSection = lazy(
+    () => import('@/components/portfolio/AboutMeSection'),
+);
+const ExperienceEducationSection = lazy(
+    () => import('@/components/portfolio/ExperienceEducationSection'),
+);
+const ProjectsSection = lazy(
+    () => import('@/components/portfolio/ProjectsSection'),
+);
+const TechStackSection = lazy(
+    () => import('@/components/portfolio/TechStackSection'),
+);
+const LanguageSkillsSection = lazy(
+    () => import('@/components/portfolio/LanguageSkillsSection'),
+);
+const CertificatesSection = lazy(
+    () => import('@/components/portfolio/CertificatesSection'),
+);
 const NewsSection = lazy(() => import('@/components/portfolio/NewsSection'));
-const ContactSection = lazy(() => import('@/components/portfolio/ContactSection'));
-const AnnouncementModal = lazy(() => import('@/components/portfolio/AnnouncementModal'));
+const ContactSection = lazy(
+    () => import('@/components/portfolio/ContactSection'),
+);
+const AnnouncementModal = lazy(
+    () => import('@/components/portfolio/AnnouncementModal'),
+);
 const Footer = lazy(() => import('@/components/portfolio/Footer'));
 
 /* ─── Elegant Section Fallback Skeleton ─── */
-function SectionSkeleton({ minHeight = '500px', id }: { minHeight?: string; id?: string }) {
+function SectionSkeleton({
+    minHeight = '500px',
+    id,
+}: {
+    minHeight?: string;
+    id?: string;
+}) {
     return (
         <section
             id={id}
             role="status"
             aria-label="Loading section..."
-            className="w-full py-12 sm:py-16 md:py-24 relative overflow-hidden bg-transparent flex flex-col items-center justify-center"
+            className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-transparent py-12 sm:py-16 md:py-24"
             style={{ minHeight }}
         >
-            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-10 animate-pulse">
+            <div className="mx-auto w-full max-w-7xl animate-pulse space-y-6 px-4 sm:space-y-10 sm:px-6 lg:px-8">
                 {/* Header Skeleton */}
-                <div className="flex flex-col items-center text-center space-y-3">
-                    <div className="w-32 h-6 rounded-full bg-purple-500/10 border border-purple-500/20" />
-                    <div className="w-72 max-w-full h-10 rounded-2xl bg-foreground/10" />
-                    <div className="w-96 max-w-full h-4 rounded-lg bg-muted-foreground/15" />
+                <div className="flex flex-col items-center space-y-3 text-center">
+                    <div className="h-6 w-32 rounded-full border border-purple-500/20 bg-purple-500/10" />
+                    <div className="h-10 w-72 max-w-full rounded-2xl bg-foreground/10" />
+                    <div className="h-4 w-96 max-w-full rounded-lg bg-muted-foreground/15" />
                 </div>
 
                 {/* Content Cards Skeleton */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
-                    <div className="h-64 rounded-3xl bg-card/40 border border-border/40" />
-                    <div className="h-64 rounded-3xl bg-card/40 border border-border/40 hidden md:block" />
-                    <div className="h-64 rounded-3xl bg-card/40 border border-border/40 hidden lg:block" />
+                <div className="grid grid-cols-1 gap-6 pt-4 md:grid-cols-2 lg:grid-cols-3">
+                    <div className="h-64 rounded-3xl border border-border/40 bg-card/40" />
+                    <div className="hidden h-64 rounded-3xl border border-border/40 bg-card/40 md:block" />
+                    <div className="hidden h-64 rounded-3xl border border-border/40 bg-card/40 lg:block" />
                 </div>
             </div>
         </section>
@@ -48,10 +71,10 @@ function SectionSkeleton({ minHeight = '500px', id }: { minHeight?: string; id?:
 /* ─── Footer Skeleton ─── */
 function FooterSkeleton() {
     return (
-        <footer className="border-t border-purple-300/30 dark:border-white/10 bg-white/90 dark:bg-black/90 pt-10 sm:pt-12 md:pt-16 pb-10 sm:pb-12 relative z-10 min-h-[220px]">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-pulse">
-                <div className="h-20 rounded-2xl bg-foreground/5 mb-6" />
-                <div className="h-6 w-48 rounded-lg bg-foreground/5 mx-auto" />
+        <footer className="relative z-10 min-h-[220px] border-t border-purple-300/30 bg-white/90 pt-10 pb-10 sm:pt-12 sm:pb-12 md:pt-16 dark:border-white/10 dark:bg-black/90">
+            <div className="mx-auto max-w-7xl animate-pulse px-4 sm:px-6 lg:px-8">
+                <div className="mb-6 h-20 rounded-2xl bg-foreground/5" />
+                <div className="mx-auto h-6 w-48 rounded-lg bg-foreground/5" />
             </div>
         </footer>
     );
@@ -64,6 +87,7 @@ interface PortfolioData {
     projects: any[];
     skills: any[];
     certificates: any[];
+    experiences?: any[];
     latestNews: any[];
     announcements: any[];
     socialMedia: any[];
@@ -81,6 +105,7 @@ export default function Welcome({ portfolio }: WelcomeProps) {
         projects = [],
         skills = [],
         certificates = [],
+        experiences = [],
         latestNews = [],
         announcements = [],
         socialMedia = [],
@@ -93,45 +118,88 @@ export default function Welcome({ portfolio }: WelcomeProps) {
             {/* Global Interactive Cosmic Universe Canvas Background */}
             <CosmicUniverseBackground />
 
-            <div className="min-h-screen bg-transparent text-foreground flex flex-col antialiased selection:bg-purple-500/30 selection:text-cyan-400 relative z-10">
-                <main className="flex-1 relative">
+            <div className="relative z-10 flex min-h-screen flex-col bg-transparent text-foreground antialiased selection:bg-purple-500/30 selection:text-cyan-400">
+                <main className="relative flex-1">
                     {/* 1. Hero Section with Cinematic Editorial Poster Layout (Eagerly Loaded) */}
                     <HeroSection heroData={hero} />
 
                     {/* 2. About Me Section with Animated Counters */}
-                    <Suspense fallback={<SectionSkeleton id="about" minHeight="700px" />}>
+                    <Suspense
+                        fallback={
+                            <SectionSkeleton id="about" minHeight="700px" />
+                        }
+                    >
                         <AboutMeSection aboutData={about} />
                     </Suspense>
 
-                    {/* 3. Featured Projects Showcase */}
-                    <Suspense fallback={<SectionSkeleton id="projects" minHeight="800px" />}>
+                    {/* 3. Professional Experience & Education Timeline */}
+                    <Suspense
+                        fallback={
+                            <SectionSkeleton
+                                id="experience"
+                                minHeight="750px"
+                            />
+                        }
+                    >
+                        <ExperienceEducationSection experiences={experiences} />
+                    </Suspense>
+
+                    {/* 4. Featured Projects Showcase */}
+                    <Suspense
+                        fallback={
+                            <SectionSkeleton id="projects" minHeight="800px" />
+                        }
+                    >
                         <ProjectsSection projects={projects} />
                     </Suspense>
 
                     {/* 4. Tech Stack / Skills with Category Tabs */}
-                    <Suspense fallback={<SectionSkeleton id="skills" minHeight="650px" />}>
+                    <Suspense
+                        fallback={
+                            <SectionSkeleton id="skills" minHeight="650px" />
+                        }
+                    >
                         <TechStackSection categories={categories} />
                     </Suspense>
 
                     {/* 5. Language Skills Carousel */}
-                    <Suspense fallback={<SectionSkeleton id="languages" minHeight="550px" />}>
+                    <Suspense
+                        fallback={
+                            <SectionSkeleton id="languages" minHeight="550px" />
+                        }
+                    >
                         <LanguageSkillsSection skills={skills} />
                     </Suspense>
 
                     {/* 6. Certifications & Accreditations Carousel */}
-                    <Suspense fallback={<SectionSkeleton id="certificates" minHeight="650px" />}>
+                    <Suspense
+                        fallback={
+                            <SectionSkeleton
+                                id="certificates"
+                                minHeight="650px"
+                            />
+                        }
+                    >
                         <CertificatesSection certificates={certificates} />
                     </Suspense>
 
                     {/* 7. Latest Articles & News */}
                     {latestNews && latestNews.length > 0 && (
-                        <Suspense fallback={<SectionSkeleton id="news" minHeight="450px" />}>
+                        <Suspense
+                            fallback={
+                                <SectionSkeleton id="news" minHeight="450px" />
+                            }
+                        >
                             <NewsSection newsList={latestNews} />
                         </Suspense>
                     )}
 
                     {/* 8. Contact Us Section */}
-                    <Suspense fallback={<SectionSkeleton id="contact" minHeight="600px" />}>
+                    <Suspense
+                        fallback={
+                            <SectionSkeleton id="contact" minHeight="600px" />
+                        }
+                    >
                         <ContactSection socialMedia={socialMedia} />
                     </Suspense>
                 </main>

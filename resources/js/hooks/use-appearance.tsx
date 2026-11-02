@@ -38,10 +38,12 @@ const getStoredAppearance = (): Appearance => {
         localStorage.setItem('appearance', 'dark');
         localStorage.setItem('portfolio_dark_default_v1', 'true');
         setCookie('appearance', 'dark');
+
         return 'dark';
     }
 
     const stored = localStorage.getItem('appearance') as Appearance | null;
+
     if (!stored || stored === 'system') {
         return 'dark';
     }
@@ -49,13 +51,18 @@ const getStoredAppearance = (): Appearance => {
     return stored;
 };
 
-let currentAppearance: Appearance = typeof window !== 'undefined'
-    ? getStoredAppearance()
-    : 'dark';
+let currentAppearance: Appearance =
+    typeof window !== 'undefined' ? getStoredAppearance() : 'dark';
 
 const isDarkMode = (appearance: Appearance): boolean => {
-    if (appearance === 'dark') return true;
-    if (appearance === 'light') return false;
+    if (appearance === 'dark') {
+        return true;
+    }
+
+    if (appearance === 'light') {
+        return false;
+    }
+
     // 'system': if system prefers dark or default to dark
     return prefersDark();
 };
@@ -106,6 +113,7 @@ export function initializeTheme(): void {
         currentAppearance = 'dark';
     } else {
         const stored = localStorage.getItem('appearance');
+
         if (!stored || stored === 'system') {
             localStorage.setItem('appearance', 'dark');
             setCookie('appearance', 'dark');

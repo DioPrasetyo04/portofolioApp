@@ -24,15 +24,29 @@ export interface HeroConfig {
 
 export const heroConfig: HeroConfig = {
     portraitImage: '/images/dio-cutout.png',
-    portraitAlt: 'Dio Prasetyo - Full-Stack Software Engineer & Creative Technologist',
+    portraitAlt:
+        'Dio Prasetyo - Full-Stack Software Engineer & Creative Technologist',
     giantTitle: 'DIO',
     navLinks: [
         { href: '#hero', sectionId: 'hero', labelKey: 'nav.home' },
         { href: '#about', sectionId: 'about', labelKey: 'nav.about' },
+        {
+            href: '#experience',
+            sectionId: 'experience',
+            labelKey: 'nav.experience',
+        },
         { href: '#projects', sectionId: 'projects', labelKey: 'nav.projects' },
         { href: '#skills', sectionId: 'skills', labelKey: 'nav.skills' },
-        { href: '#languages', sectionId: 'languages', labelKey: 'nav.languages' },
-        { href: '#certificates', sectionId: 'certificates', labelKey: 'nav.certificates' },
+        {
+            href: '#languages',
+            sectionId: 'languages',
+            labelKey: 'nav.languages',
+        },
+        {
+            href: '#certificates',
+            sectionId: 'certificates',
+            labelKey: 'nav.certificates',
+        },
         { href: '#news', sectionId: 'news', labelKey: 'nav.news' },
         { href: '#contact', sectionId: 'contact', labelKey: 'nav.contact' },
     ],
@@ -41,14 +55,8 @@ export const heroConfig: HeroConfig = {
         'heroEditorial.pill2',
         'heroEditorial.pill3',
     ],
-    labelsLeft: [
-        'heroEditorial.nameLeft1',
-        'heroEditorial.nameLeft2',
-    ],
-    labelsRight: [
-        'heroEditorial.nameRight1',
-        'heroEditorial.nameRight2',
-    ],
+    labelsLeft: ['heroEditorial.nameLeft1', 'heroEditorial.nameLeft2'],
+    labelsRight: ['heroEditorial.nameRight1', 'heroEditorial.nameRight2'],
     techLogos: [
         { name: 'TypeScript', src: '/images/tech/typescript.svg' },
         { name: 'React', src: '/images/tech/react.svg' },

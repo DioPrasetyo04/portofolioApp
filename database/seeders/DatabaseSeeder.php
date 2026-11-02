@@ -551,5 +551,8 @@ class DatabaseSeeder extends Seeder
                 'image' => null,
             ]);
         }
+
+        // 10. Experiences & Educations
+        $this->call(ExperienceSeeder::class);
     }
 }

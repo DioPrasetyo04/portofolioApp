@@ -1,7 +1,5 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
     Sun,
     Moon,
@@ -12,25 +10,39 @@ import {
     X,
     Download,
 } from 'lucide-react';
-import { useAppearance } from '@/hooks/use-appearance';
+import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import PortfolioLikeButton from '@/components/portfolio/ui/PortfolioLikeButton';
 import FlagIcon from '@/components/ui/FlagIcon';
+import { useAppearance } from '@/hooks/use-appearance';
 
 interface NavbarProps {
     currentSection?: string;
 }
 
-const SECTION_IDS = ['hero', 'about', 'projects', 'skills', 'languages', 'certificates', 'news', 'contact'];
+const SECTION_IDS = [
+    'hero',
+    'about',
+    'experience',
+    'projects',
+    'skills',
+    'languages',
+    'certificates',
+    'news',
+    'contact',
+];
 
 export default function Navbar({ currentSection }: NavbarProps) {
     const { t, i18n } = useTranslation();
-    const { appearance, resolvedAppearance, updateAppearance } = useAppearance();
+    const { resolvedAppearance, updateAppearance } = useAppearance();
     const isDark = resolvedAppearance === 'dark';
 
     const [isScrolled, setIsScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [langDropdownOpen, setLangDropdownOpen] = useState(false);
-    const [activeSection, setActiveSection] = useState<string>(currentSection || 'hero');
+    const [activeSection, setActiveSection] = useState<string>(
+        currentSection || 'hero',
+    );
 
     useEffect(() => {
         let ticking = false;
@@ -42,17 +54,20 @@ export default function Navbar({ currentSection }: NavbarProps) {
                     setIsScrolled(scrollY > 20);
 
                     const windowHeight = window.innerHeight;
-                    const documentHeight = document.documentElement.scrollHeight;
+                    const documentHeight =
+                        document.documentElement.scrollHeight;
 
                     if (scrollY < 120) {
                         setActiveSection('hero');
                         ticking = false;
+
                         return;
                     }
 
                     if (scrollY + windowHeight >= documentHeight - 70) {
                         setActiveSection('contact');
                         ticking = false;
+
                         return;
                     }
 
@@ -61,8 +76,10 @@ export default function Navbar({ currentSection }: NavbarProps) {
 
                     for (const id of SECTION_IDS) {
                         const el = document.getElementById(id);
+
                         if (el) {
                             const rect = el.getBoundingClientRect();
+
                             if (rect.top <= triggerOffset) {
                                 current = id;
                             }
@@ -89,29 +106,45 @@ export default function Navbar({ currentSection }: NavbarProps) {
     ];
 
     const currentLang =
-        languages.find((l) => l.code === (i18n.language?.split('-')[0] || 'en')) ||
-        languages[0];
+        languages.find(
+            (l) => l.code === (i18n.language?.split('-')[0] || 'en'),
+        ) || languages[0];
 
     const navLinks = [
         { href: '#hero', sectionId: 'hero', label: t('nav.home') },
         { href: '#about', sectionId: 'about', label: t('nav.about') },
+        {
+            href: '#experience',
+            sectionId: 'experience',
+            label: t('nav.experience'),
+        },
         { href: '#projects', sectionId: 'projects', label: t('nav.projects') },
         { href: '#skills', sectionId: 'skills', label: t('nav.skills') },
-        { href: '#languages', sectionId: 'languages', label: t('nav.languages') },
-        { href: '#certificates', sectionId: 'certificates', label: t('nav.certificates') },
+        {
+            href: '#languages',
+            sectionId: 'languages',
+            label: t('nav.languages'),
+        },
+        {
+            href: '#certificates',
+            sectionId: 'certificates',
+            label: t('nav.certificates'),
+        },
         { href: '#news', sectionId: 'news', label: t('nav.news') },
         { href: '#contact', sectionId: 'contact', label: t('nav.contact') },
     ];
 
-    const toggleTheme = () =>
-        updateAppearance(isDark ? 'light' : 'dark');
+    const toggleTheme = () => updateAppearance(isDark ? 'light' : 'dark');
 
     const changeLanguage = (code: string) => {
         i18n.changeLanguage(code);
         setLangDropdownOpen(false);
     };
 
-    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    const handleNavClick = (
+        e: React.MouseEvent<HTMLAnchorElement>,
+        sectionId: string,
+    ) => {
         e.preventDefault();
         setActiveSection(sectionId);
         setMobileMenuOpen(false);
@@ -120,76 +153,93 @@ export default function Navbar({ currentSection }: NavbarProps) {
             if (document.getElementById('hero')) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
-                window.location.href = '/#hero';
+                window.location.assign('/#hero');
             }
+
             return;
         }
 
         const el = document.getElementById(sectionId);
+
         if (el) {
             const navbarOffset = 76;
-            const elementPosition = el.getBoundingClientRect().top + window.scrollY;
+            const elementPosition =
+                el.getBoundingClientRect().top + window.scrollY;
             window.scrollTo({
                 top: Math.max(0, elementPosition - navbarOffset),
                 behavior: 'smooth',
             });
         } else {
-            window.location.href = `/#${sectionId}`;
+            window.location.assign(`/#${sectionId}`);
         }
     };
 
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+            className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
                 isScrolled
                     ? isDark
-                        ? 'py-3 bg-black/85 backdrop-blur-md border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)]'
-                        : 'py-3 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.06)]'
+                        ? 'border-b border-white/10 bg-black/85 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-md'
+                        : 'border-b border-slate-200/80 bg-white/90 py-3 shadow-[0_4px_20px_rgba(0,0,0,0.06)] backdrop-blur-md'
                     : isDark
-                        ? 'py-5 bg-gradient-to-b from-black/80 via-black/40 to-transparent'
-                        : 'py-5 bg-gradient-to-b from-white/90 via-white/40 to-transparent'
+                      ? 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-5'
+                      : 'bg-gradient-to-b from-white/90 via-white/40 to-transparent py-5'
             }`}
         >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between gap-4">
-
                     {/* ── Brand Logo ── */}
-                    <a href="#" className="flex items-center gap-2.5 group select-none flex-shrink-0">
-                        <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-purple-500 via-indigo-500 to-cyan-400 p-[1.5px] shadow-[0_0_20px_rgba(168,85,247,0.35)] group-hover:shadow-[0_0_25px_rgba(34,211,238,0.5)] transition-all duration-300">
-                            <div className={`w-full h-full rounded-[14px] flex items-center justify-center ${isDark ? 'bg-black/90' : 'bg-white/95'}`}>
-                                <Sparkles className="w-5 h-5 text-purple-500 dark:text-cyan-400 group-hover:rotate-12 transition-transform duration-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.6)]" />
+                    <a
+                        href="#"
+                        className="group flex flex-shrink-0 items-center gap-2.5 select-none"
+                    >
+                        <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-purple-500 via-indigo-500 to-cyan-400 p-[1.5px] shadow-[0_0_20px_rgba(168,85,247,0.35)] transition-all duration-300 group-hover:shadow-[0_0_25px_rgba(34,211,238,0.5)]">
+                            <div
+                                className={`flex h-full w-full items-center justify-center rounded-[14px] ${isDark ? 'bg-black/90' : 'bg-white/95'}`}
+                            >
+                                <Sparkles className="h-5 w-5 text-purple-500 drop-shadow-[0_0_8px_rgba(168,85,247,0.6)] transition-transform duration-300 group-hover:rotate-12 dark:text-cyan-400" />
                             </div>
                         </div>
-                        <span className={`font-extrabold text-lg tracking-tight hidden sm:inline-block ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                            DIO<span className="bg-gradient-to-r from-purple-600 to-cyan-500 dark:from-cyan-400 dark:to-purple-400 bg-clip-text text-transparent">STACK</span>
+                        <span
+                            className={`hidden text-lg font-extrabold tracking-tight sm:inline-block ${isDark ? 'text-white' : 'text-slate-900'}`}
+                        >
+                            DIO
+                            <span className="bg-gradient-to-r from-purple-600 to-cyan-500 bg-clip-text text-transparent dark:from-cyan-400 dark:to-purple-400">
+                                STACK
+                            </span>
                         </span>
                     </a>
 
                     {/* ── Desktop Navigation Capsule ── */}
-                    <nav className={`hidden lg:flex items-center gap-1 backdrop-blur-md px-3 py-1.5 rounded-full border shadow-sm ${
-                        isDark 
-                            ? 'bg-black/80 border-white/15 shadow-[0_4px_24px_rgba(0,0,0,0.5)]' 
-                            : 'bg-white/90 border-slate-200/90 shadow-[0_4px_16px_rgba(0,0,0,0.04)]'
-                    }`}>
+                    <nav
+                        className={`hidden items-center gap-1 rounded-full border px-3 py-1.5 shadow-sm backdrop-blur-md lg:flex ${
+                            isDark
+                                ? 'border-white/15 bg-black/80 shadow-[0_4px_24px_rgba(0,0,0,0.5)]'
+                                : 'border-slate-200/90 bg-white/90 shadow-[0_4px_16px_rgba(0,0,0,0.04)]'
+                        }`}
+                    >
                         {navLinks.map((link) => {
                             const isActive = activeSection === link.sectionId;
+
                             return (
                                 <a
                                     key={link.href}
                                     href={link.href}
-                                    onClick={(e) => handleNavClick(e, link.sectionId)}
-                                    className={`relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 select-none ${
+                                    onClick={(e) =>
+                                        handleNavClick(e, link.sectionId)
+                                    }
+                                    className={`relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200 select-none ${
                                         isActive
                                             ? isDark
-                                                 ? 'bg-gradient-to-r from-purple-600/50 to-cyan-600/40 text-white font-semibold border border-white/20 shadow-[0_0_15px_rgba(168,85,247,0.3)]'
-                                                : 'bg-gradient-to-r from-purple-100 to-cyan-50 text-purple-900 font-bold border border-purple-200 shadow-sm'
+                                                ? 'border border-white/20 bg-gradient-to-r from-purple-600/50 to-cyan-600/40 font-semibold text-white shadow-[0_0_15px_rgba(168,85,247,0.3)]'
+                                                : 'border border-purple-200 bg-gradient-to-r from-purple-100 to-cyan-50 font-bold text-purple-900 shadow-sm'
                                             : isDark
-                                                ? 'text-white/70 hover:text-white hover:bg-white/10'
-                                                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                                              ? 'text-white/70 hover:bg-white/10 hover:text-white'
+                                              : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                                     }`}
                                 >
                                     {isActive && (
-                                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(34,211,238,1)] animate-pulse" />
+                                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(34,211,238,1)]" />
                                     )}
                                     <span>{link.label}</span>
                                 </a>
@@ -198,62 +248,79 @@ export default function Navbar({ currentSection }: NavbarProps) {
                     </nav>
 
                     {/* ── Action Controls Capsule ── */}
-                    <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
-                        
+                    <div className="hidden flex-shrink-0 items-center gap-2 sm:flex">
                         {/* Language & Theme Combined Container */}
-                        <div className={`flex items-center gap-1 backdrop-blur-md p-1 rounded-2xl border ${
-                            isDark 
-                                ? 'bg-black/80 border-white/15 shadow-[0_4px_20px_rgba(0,0,0,0.4)]' 
-                                : 'bg-white/90 border-slate-200/90 shadow-sm'
-                        }`}>
+                        <div
+                            className={`flex items-center gap-1 rounded-2xl border p-1 backdrop-blur-md ${
+                                isDark
+                                    ? 'border-white/15 bg-black/80 shadow-[0_4px_20px_rgba(0,0,0,0.4)]'
+                                    : 'border-slate-200/90 bg-white/90 shadow-sm'
+                            }`}
+                        >
                             {/* Language Switcher */}
                             <div className="relative">
                                 <button
                                     type="button"
-                                    onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+                                    onClick={() =>
+                                        setLangDropdownOpen(!langDropdownOpen)
+                                    }
                                     aria-label={`Select language (current: ${currentLang.label})`}
                                     title={`Language: ${currentLang.label}`}
-                                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all select-none ${
-                                        isDark 
-                                            ? 'hover:bg-white/10 text-white/90' 
-                                            : 'hover:bg-slate-100 text-slate-800'
+                                    className={`flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 text-xs font-semibold transition-all select-none ${
+                                        isDark
+                                            ? 'text-white/90 hover:bg-white/10'
+                                            : 'text-slate-800 hover:bg-slate-100'
                                     }`}
                                 >
-                                    <span className="w-5 h-3.5 rounded-[2px] overflow-hidden border border-black/15 dark:border-white/20 shadow-xs flex-shrink-0 inline-flex items-center justify-center">
-                                        <FlagIcon code={currentLang.code} className="w-full h-full object-cover" />
+                                    <span className="inline-flex h-3.5 w-5 flex-shrink-0 items-center justify-center overflow-hidden rounded-[2px] border border-black/15 shadow-xs dark:border-white/20">
+                                        <FlagIcon
+                                            code={currentLang.code}
+                                            className="h-full w-full object-cover"
+                                        />
                                     </span>
-                                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${langDropdownOpen ? 'rotate-180 opacity-100' : isDark ? 'text-white/60' : 'text-slate-500'}`} />
+                                    <ChevronDown
+                                        className={`h-3.5 w-3.5 transition-transform duration-200 ${langDropdownOpen ? 'rotate-180 opacity-100' : isDark ? 'text-white/60' : 'text-slate-500'}`}
+                                    />
                                 </button>
 
                                 {langDropdownOpen && (
-                                    <div className={`absolute right-0 mt-2 w-44 rounded-2xl border p-1.5 shadow-2xl z-50 backdrop-blur-md ${
-                                        isDark 
-                                            ? 'border-white/15 bg-black/95 text-white' 
-                                            : 'border-slate-200 bg-white/95 text-slate-900'
-                                    }`}>
+                                    <div
+                                        className={`absolute right-0 z-50 mt-2 w-44 rounded-2xl border p-1.5 shadow-2xl backdrop-blur-md ${
+                                            isDark
+                                                ? 'border-white/15 bg-black/95 text-white'
+                                                : 'border-slate-200 bg-white/95 text-slate-900'
+                                        }`}
+                                    >
                                         {languages.map((lang) => (
                                             <button
                                                 key={lang.code}
                                                 type="button"
-                                                onClick={() => changeLanguage(lang.code)}
-                                                className={`w-full flex items-center justify-between px-3 py-2 text-xs rounded-xl transition-colors ${
-                                                    lang.code === currentLang.code
+                                                onClick={() =>
+                                                    changeLanguage(lang.code)
+                                                }
+                                                className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs transition-colors ${
+                                                    lang.code ===
+                                                    currentLang.code
                                                         ? isDark
-                                                            ? 'bg-purple-600/30 text-purple-200 font-bold border border-purple-500/30'
-                                                            : 'bg-purple-50 text-purple-700 font-bold border border-purple-200'
+                                                            ? 'border border-purple-500/30 bg-purple-600/30 font-bold text-purple-200'
+                                                            : 'border border-purple-200 bg-purple-50 font-bold text-purple-700'
                                                         : isDark
-                                                            ? 'hover:bg-white/10 text-white/70 hover:text-white'
-                                                            : 'hover:bg-slate-100 text-slate-600 hover:text-slate-900'
+                                                          ? 'text-white/70 hover:bg-white/10 hover:text-white'
+                                                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                                                 }`}
                                             >
                                                 <span className="flex items-center gap-2.5">
-                                                    <span className="w-5 h-3.5 rounded-[2px] overflow-hidden border border-black/15 dark:border-white/20 shadow-xs flex-shrink-0 inline-flex items-center justify-center">
-                                                        <FlagIcon code={lang.code} className="w-full h-full object-cover" />
+                                                    <span className="inline-flex h-3.5 w-5 flex-shrink-0 items-center justify-center overflow-hidden rounded-[2px] border border-black/15 shadow-xs dark:border-white/20">
+                                                        <FlagIcon
+                                                            code={lang.code}
+                                                            className="h-full w-full object-cover"
+                                                        />
                                                     </span>
                                                     <span>{lang.label}</span>
                                                 </span>
-                                                {lang.code === currentLang.code && (
-                                                    <Check className="w-3.5 h-3.5 text-cyan-500" />
+                                                {lang.code ===
+                                                    currentLang.code && (
+                                                    <Check className="h-3.5 w-3.5 text-cyan-500" />
                                                 )}
                                             </button>
                                         ))}
@@ -261,37 +328,44 @@ export default function Navbar({ currentSection }: NavbarProps) {
                                 )}
                             </div>
 
-                            <div className={`w-[1px] h-4 ${isDark ? 'bg-white/15' : 'bg-slate-200'}`} />
+                            <div
+                                className={`h-4 w-[1px] ${isDark ? 'bg-white/15' : 'bg-slate-200'}`}
+                            />
 
                             {/* Theme Toggle */}
                             <button
                                 type="button"
                                 onClick={toggleTheme}
                                 aria-label="Toggle theme"
-                                className={`p-1.5 rounded-xl transition-all ${
-                                    isDark ? 'hover:bg-white/10 text-white/80 hover:text-white' : 'hover:bg-slate-100 text-slate-700 hover:text-slate-900'
+                                className={`rounded-xl p-1.5 transition-all ${
+                                    isDark
+                                        ? 'text-white/80 hover:bg-white/10 hover:text-white'
+                                        : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
                                 }`}
                             >
                                 {isDark ? (
-                                    <Sun className="w-4 h-4 text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
+                                    <Sun className="h-4 w-4 text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
                                 ) : (
-                                    <Moon className="w-4 h-4 text-purple-600 drop-shadow-[0_0_8px_rgba(147,51,234,0.4)]" />
+                                    <Moon className="h-4 w-4 text-purple-600 drop-shadow-[0_0_8px_rgba(147,51,234,0.4)]" />
                                 )}
                             </button>
                         </div>
 
                         {/* Interactive Like Button */}
-                        <PortfolioLikeButton variant="cosmic" idPrefix="global" />
+                        <PortfolioLikeButton
+                            variant="cosmic"
+                            idPrefix="global"
+                        />
 
                         {/* Resume Download Pill Button */}
                         <a
                             id="global-resume-download-btn"
                             href="/resume/download"
                             download
-                            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white font-semibold text-xs shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:shadow-[0_0_25px_rgba(34,211,238,0.5)] transition-all duration-200 active:scale-95 group cursor-pointer"
+                            className="group flex cursor-pointer items-center gap-1.5 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 px-3.5 py-1.5 text-xs font-semibold text-white shadow-[0_0_20px_rgba(168,85,247,0.35)] transition-all duration-200 hover:from-purple-500 hover:to-cyan-400 hover:shadow-[0_0_25px_rgba(34,211,238,0.5)] active:scale-95"
                             title={t('nav.downloadCv')}
                         >
-                            <Download className="w-3.5 h-3.5 text-cyan-200 transition-transform duration-200 group-hover:translate-y-0.5" />
+                            <Download className="h-3.5 w-3.5 text-cyan-200 transition-transform duration-200 group-hover:translate-y-0.5" />
                             <span>{t('nav.resume')}</span>
                         </a>
                     </div>
@@ -302,63 +376,75 @@ export default function Navbar({ currentSection }: NavbarProps) {
                             type="button"
                             onClick={toggleTheme}
                             aria-label="Toggle theme"
-                            className={`p-2 rounded-xl border sm:hidden ${
-                                isDark 
-                                    ? 'bg-black/60 border-white/15 text-white/90' 
-                                    : 'bg-white/80 border-slate-200 text-slate-800 shadow-sm'
+                            className={`rounded-xl border p-2 sm:hidden ${
+                                isDark
+                                    ? 'border-white/15 bg-black/60 text-white/90'
+                                    : 'border-slate-200 bg-white/80 text-slate-800 shadow-sm'
                             }`}
                         >
                             {isDark ? (
-                                <Sun className="w-4 h-4 text-amber-400" />
+                                <Sun className="h-4 w-4 text-amber-400" />
                             ) : (
-                                <Moon className="w-4 h-4 text-purple-600" />
+                                <Moon className="h-4 w-4 text-purple-600" />
                             )}
                         </button>
                         <button
                             type="button"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             aria-label="Toggle navigation menu"
-                            className={`p-2 rounded-xl border ${
-                                isDark 
-                                    ? 'bg-black/60 border-white/15 text-white' 
-                                    : 'bg-white/80 border-slate-200 text-slate-800 shadow-sm'
+                            className={`rounded-xl border p-2 ${
+                                isDark
+                                    ? 'border-white/15 bg-black/60 text-white'
+                                    : 'border-slate-200 bg-white/80 text-slate-800 shadow-sm'
                             }`}
                         >
-                            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                            {mobileMenuOpen ? (
+                                <X className="h-5 w-5" />
+                            ) : (
+                                <Menu className="h-5 w-5" />
+                            )}
                         </button>
                     </div>
                 </div>
 
                 {/* ── Mobile Menu Dropdown ── */}
                 {mobileMenuOpen && (
-                    <div className={`lg:hidden mt-3 p-4 rounded-3xl border backdrop-blur-md shadow-2xl space-y-3 max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain ${
-                        isDark 
-                            ? 'border-white/15 bg-black/95 text-white' 
-                            : 'border-slate-200 bg-white/95 text-slate-900'
-                    }`}>
+                    <div
+                        className={`mt-3 max-h-[calc(100dvh-5rem)] space-y-3 overflow-y-auto overscroll-contain rounded-3xl border p-4 shadow-2xl backdrop-blur-md lg:hidden ${
+                            isDark
+                                ? 'border-white/15 bg-black/95 text-white'
+                                : 'border-slate-200 bg-white/95 text-slate-900'
+                        }`}
+                    >
                         <nav className="flex flex-col space-y-1">
                             {navLinks.map((link) => {
-                                const isActive = activeSection === link.sectionId;
+                                const isActive =
+                                    activeSection === link.sectionId;
+
                                 return (
                                     <a
                                         key={link.href}
                                         href={link.href}
-                                        onClick={(e) => handleNavClick(e, link.sectionId)}
-                                        className={`flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl text-sm transition-all duration-200 ${
+                                        onClick={(e) =>
+                                            handleNavClick(e, link.sectionId)
+                                        }
+                                        className={`flex items-center gap-2.5 rounded-2xl px-3.5 py-2.5 text-sm transition-all duration-200 ${
                                             isActive
                                                 ? isDark
-                                                    ? 'bg-purple-600/30 border border-purple-500/40 text-white font-bold shadow-md shadow-purple-500/20'
-                                                    : 'bg-purple-100 border border-purple-200 text-purple-900 font-bold'
+                                                    ? 'border border-purple-500/40 bg-purple-600/30 font-bold text-white shadow-md shadow-purple-500/20'
+                                                    : 'border border-purple-200 bg-purple-100 font-bold text-purple-900'
                                                 : isDark
-                                                    ? 'text-white/70 hover:text-white hover:bg-white/10 font-medium'
-                                                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-medium'
+                                                  ? 'font-medium text-white/70 hover:bg-white/10 hover:text-white'
+                                                  : 'font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                                         }`}
                                     >
                                         <span
-                                            className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                                            className={`h-2 w-2 rounded-full transition-all duration-200 ${
                                                 isActive
-                                                    ? 'bg-cyan-400 shadow-sm shadow-cyan-400/80 animate-pulse'
-                                                    : isDark ? 'bg-white/20' : 'bg-slate-300'
+                                                    ? 'animate-pulse bg-cyan-400 shadow-sm shadow-cyan-400/80'
+                                                    : isDark
+                                                      ? 'bg-white/20'
+                                                      : 'bg-slate-300'
                                             }`}
                                         />
                                         <span>{link.label}</span>
@@ -367,18 +453,24 @@ export default function Navbar({ currentSection }: NavbarProps) {
                             })}
                         </nav>
 
-                        <div className={`pt-3 border-t flex flex-col gap-2.5 ${isDark ? 'border-white/10' : 'border-slate-200'}`}>
+                        <div
+                            className={`flex flex-col gap-2.5 border-t pt-3 ${isDark ? 'border-white/10' : 'border-slate-200'}`}
+                        >
                             <div className="grid grid-cols-2 gap-2">
                                 <a
                                     id="mobile-global-resume-download-btn"
                                     href="/resume/download"
                                     download
-                                    className="w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white text-xs font-bold shadow-md shadow-purple-500/30 active:scale-95 transition-all cursor-pointer"
+                                    className="flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 px-3 py-2 text-xs font-bold text-white shadow-md shadow-purple-500/30 transition-all active:scale-95"
                                 >
-                                    <Download className="w-3.5 h-3.5 text-cyan-200" />
+                                    <Download className="h-3.5 w-3.5 text-cyan-200" />
                                     <span>{t('nav.resume')}</span>
                                 </a>
-                                <PortfolioLikeButton variant="cosmic" isMobile idPrefix="mobile-global" />
+                                <PortfolioLikeButton
+                                    variant="cosmic"
+                                    isMobile
+                                    idPrefix="mobile-global"
+                                />
                             </div>
 
                             <div className="flex items-center justify-between gap-2">
@@ -387,21 +479,28 @@ export default function Navbar({ currentSection }: NavbarProps) {
                                         <button
                                             key={lang.code}
                                             type="button"
-                                            onClick={() => changeLanguage(lang.code)}
-                                            className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded-xl font-semibold border transition-all ${
+                                            onClick={() =>
+                                                changeLanguage(lang.code)
+                                            }
+                                            className={`flex items-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-xs font-semibold transition-all ${
                                                 lang.code === currentLang.code
                                                     ? isDark
-                                                        ? 'bg-purple-600/40 text-white border-purple-400 shadow-sm'
-                                                        : 'bg-purple-600 text-white border-purple-600'
+                                                        ? 'border-purple-400 bg-purple-600/40 text-white shadow-sm'
+                                                        : 'border-purple-600 bg-purple-600 text-white'
                                                     : isDark
-                                                        ? 'border-white/10 text-white/60 hover:text-white'
-                                                        : 'border-slate-200 text-slate-600 hover:text-slate-900'
+                                                      ? 'border-white/10 text-white/60 hover:text-white'
+                                                      : 'border-slate-200 text-slate-600 hover:text-slate-900'
                                             }`}
                                         >
-                                            <span className="w-4 h-3 rounded-[2px] overflow-hidden border border-black/15 dark:border-white/20 shadow-xs flex-shrink-0 inline-flex items-center justify-center">
-                                                <FlagIcon code={lang.code} className="w-full h-full object-cover" />
+                                            <span className="inline-flex h-3 w-4 flex-shrink-0 items-center justify-center overflow-hidden rounded-[2px] border border-black/15 shadow-xs dark:border-white/20">
+                                                <FlagIcon
+                                                    code={lang.code}
+                                                    className="h-full w-full object-cover"
+                                                />
                                             </span>
-                                            <span>{lang.code.toUpperCase()}</span>
+                                            <span>
+                                                {lang.code.toUpperCase()}
+                                            </span>
                                         </button>
                                     ))}
                                 </div>

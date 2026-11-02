@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Sparkles } from 'lucide-react';
+import { Heart } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
@@ -30,18 +30,17 @@ export default function PortfolioLikeButton({
 }: PortfolioLikeButtonProps) {
     const { t } = useTranslation();
     const [likesCount, setLikesCount] = useState<number>(0);
-    const [isLiked, setIsLiked] = useState<boolean>(false);
+    const [isLiked, setIsLiked] = useState<boolean>(() =>
+        typeof window !== 'undefined'
+            ? localStorage.getItem('portfolio_has_liked') === 'true'
+            : false,
+    );
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const [particles, setParticles] = useState<Particle[]>([]);
     const [isExploding, setIsExploding] = useState<boolean>(false);
 
     // Sync with localStorage on initial mount
     useEffect(() => {
-        const storedLiked = localStorage.getItem('portfolio_has_liked') === 'true';
-        if (storedLiked) {
-            setIsLiked(true);
-        }
-
         // Fetch current total likes & IP status from backend
         let isMounted = true;
         fetch('/interactions/portfolio-like', {
@@ -51,10 +50,15 @@ export default function PortfolioLikeButton({
         })
             .then((res) => (res.ok ? res.json() : null))
             .then((data) => {
-                if (!isMounted || !data) return;
+                if (!isMounted || !data) {
+                    return;
+                }
+
                 setLikesCount(data.total_likes ?? 0);
+
                 if (data.already_liked !== undefined) {
                     setIsLiked(!!data.already_liked);
+
                     if (data.already_liked) {
                         localStorage.setItem('portfolio_has_liked', 'true');
                     } else {
@@ -98,7 +102,10 @@ export default function PortfolioLikeButton({
         e.stopPropagation();
 
         if (isLiked || isSubmitting) {
-            toast.info(t('nav.liked') || 'You have already liked this portfolio!');
+            toast.info(
+                t('nav.liked') || 'You have already liked this portfolio!',
+            );
+
             return;
         }
 
@@ -112,7 +119,9 @@ export default function PortfolioLikeButton({
         // 2. Transmit to backend
         try {
             const csrfToken =
-                document.head.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content || '';
+                document.head.querySelector<HTMLMetaElement>(
+                    'meta[name="csrf-token"]',
+                )?.content || '';
 
             const response = await fetch('/interactions/portfolio-like', {
                 method: 'POST',
@@ -128,7 +137,9 @@ export default function PortfolioLikeButton({
             if (response.status === 409) {
                 // Backend anti-spam triggered: IP already liked
                 setLikesCount(data.total_likes ?? likesCount);
-                toast.info(data.message || 'You have already liked this portfolio.');
+                toast.info(
+                    data.message || 'You have already liked this portfolio.',
+                );
             } else if (response.ok) {
                 setLikesCount(data.total_likes ?? likesCount);
                 toast.success('Thank you for liking my portfolio! ❤️', {
@@ -149,6 +160,7 @@ export default function PortfolioLikeButton({
         if (num >= 1000) {
             return (num / 1000).toFixed(1) + 'k';
         }
+
         return num.toLocaleString();
     };
 
@@ -178,7 +190,13 @@ export default function PortfolioLikeButton({
                 {particles.map((p) => (
                     <motion.span
                         key={p.id}
-                        initial={{ opacity: 1, x: 0, y: 0, scale: 0, rotate: 0 }}
+                        initial={{
+                            opacity: 1,
+                            x: 0,
+                            y: 0,
+                            scale: 0,
+                            rotate: 0,
+                        }}
                         animate={{
                             opacity: [1, 1, 0],
                             x: p.x,
@@ -188,7 +206,7 @@ export default function PortfolioLikeButton({
                         }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.9, ease: 'easeOut' }}
-                        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none text-base select-none z-50 filter drop-shadow-[0_0_8px_rgba(239,68,68,0.8)]"
+                        className="pointer-events-none absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2 text-base drop-shadow-[0_0_8px_rgba(239,68,68,0.8)] filter select-none"
                     >
                         {p.char}
                     </motion.span>
@@ -201,7 +219,7 @@ export default function PortfolioLikeButton({
                     initial={{ scale: 0.8, opacity: 0.9 }}
                     animate={{ scale: 1.6, opacity: 0 }}
                     transition={{ duration: 0.6, ease: 'easeOut' }}
-                    className={`absolute inset-0 rounded-full pointer-events-none z-10 border-2 ${
+                    className={`pointer-events-none absolute inset-0 z-10 rounded-full border-2 ${
                         isHero ? 'border-red-500' : 'border-purple-400'
                     }`}
                 />
@@ -222,28 +240,31 @@ export default function PortfolioLikeButton({
                 <motion.div
                     animate={
                         isExploding
-                            ? { scale: [1, 1.45, 0.9, 1.15, 1], rotate: [0, -10, 10, -5, 0] }
+                            ? {
+                                  scale: [1, 1.45, 0.9, 1.15, 1],
+                                  rotate: [0, -10, 10, -5, 0],
+                              }
                             : { scale: 1, rotate: 0 }
                     }
                     transition={{ duration: 0.5, ease: 'easeInOut' }}
-                    className="flex-shrink-0 relative"
+                    className="relative flex-shrink-0"
                 >
                     <Heart
-                        className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-colors duration-300 ${
+                        className={`h-3.5 w-3.5 transition-colors duration-300 sm:h-4 sm:w-4 ${
                             isLiked
-                                ? 'fill-red-500 text-red-500 filter drop-shadow-[0_0_8px_rgba(239,68,68,0.7)]'
-                                : 'text-neutral-300 group-hover:text-red-400 group-hover:scale-110'
+                                ? 'fill-red-500 text-red-500 drop-shadow-[0_0_8px_rgba(239,68,68,0.7)] filter'
+                                : 'text-neutral-300 group-hover:scale-110 group-hover:text-red-400'
                         }`}
                     />
                 </motion.div>
 
                 {/* State Text & Animated Counter */}
-                <span className="font-bold flex items-center gap-1">
+                <span className="flex items-center gap-1 font-bold">
                     <span>{isLiked ? t('nav.liked') : t('nav.like')}</span>
                     <span
-                        className={`inline-flex items-center px-1.5 py-0.2 rounded-full text-[10px] sm:text-[11px] font-mono font-semibold ${
+                        className={`py-0.2 inline-flex items-center rounded-full px-1.5 font-mono text-[10px] font-semibold sm:text-[11px] ${
                             isLiked
-                                ? 'bg-red-500/25 text-red-100 border border-red-500/30'
+                                ? 'border border-red-500/30 bg-red-500/25 text-red-100'
                                 : 'bg-white/10 text-white/80'
                         }`}
                     >

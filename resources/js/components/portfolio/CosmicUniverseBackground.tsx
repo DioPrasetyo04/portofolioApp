@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useEffect, useRef } from 'react';
 import { useAppearance } from '@/hooks/use-appearance';
@@ -34,10 +34,10 @@ interface ConstellationLine {
 
 interface CelestialPlanetConfig {
     name: string;
-    xPct: number;             // 0 to 1 horizontal position
-    yOffsetVh: number;        // position in total document heights (0 = hero, 1.2 = about, etc.)
-    radius: number;           // base radius in px
-    parallaxFactor: number;   // parallax response to scroll (e.g. 0.75 - 0.9)
+    xPct: number; // 0 to 1 horizontal position
+    yOffsetVh: number; // position in total document heights (0 = hero, 1.2 = about, etc.)
+    radius: number; // base radius in px
+    parallaxFactor: number; // parallax response to scroll (e.g. 0.75 - 0.9)
     // 3D Sphere Gradients in Light Mode
     lightSphere: {
         highlight: string;
@@ -93,9 +93,9 @@ const PLANETS: CelestialPlanetConfig[] = [
         parallaxFactor: 0.85,
         lightSphere: {
             highlight: '#FFFFFF',
-            mid: '#DDD6FE',      // Soft pastel lavender
-            dark: '#A78BFA',     // Celestial violet
-            shadow: '#6366F1',   // Deep royal indigo
+            mid: '#DDD6FE', // Soft pastel lavender
+            dark: '#A78BFA', // Celestial violet
+            shadow: '#6366F1', // Deep royal indigo
             rim: 'rgba(56, 189, 248, 0.55)', // Cyan atmosphere limb
             corona: 'rgba(167, 139, 250, 0.28)',
         },
@@ -108,8 +108,16 @@ const PLANETS: CelestialPlanetConfig[] = [
             corona: 'rgba(147, 51, 234, 0.35)',
         },
         hasBands: true,
-        bandColorsLight: ['rgba(255, 255, 255, 0.25)', 'rgba(99, 102, 241, 0.15)', 'rgba(216, 180, 254, 0.2)'],
-        bandColorsDark: ['rgba(255, 255, 255, 0.15)', 'rgba(147, 51, 234, 0.25)', 'rgba(34, 211, 238, 0.18)'],
+        bandColorsLight: [
+            'rgba(255, 255, 255, 0.25)',
+            'rgba(99, 102, 241, 0.15)',
+            'rgba(216, 180, 254, 0.2)',
+        ],
+        bandColorsDark: [
+            'rgba(255, 255, 255, 0.15)',
+            'rgba(147, 51, 234, 0.25)',
+            'rgba(34, 211, 238, 0.18)',
+        ],
         hasRings: true,
         ringRadiusInner: 85,
         ringRadiusOuter: 135,
@@ -131,9 +139,9 @@ const PLANETS: CelestialPlanetConfig[] = [
         parallaxFactor: 0.82,
         lightSphere: {
             highlight: '#F0FDFA',
-            mid: '#5EEAD4',      // Radiant teal
-            dark: '#0D9488',     // Deep ocean
-            shadow: '#115E59',   // Midnight oceanic teal
+            mid: '#5EEAD4', // Radiant teal
+            dark: '#0D9488', // Deep ocean
+            shadow: '#115E59', // Midnight oceanic teal
             rim: 'rgba(56, 189, 248, 0.6)',
             corona: 'rgba(45, 212, 191, 0.25)',
         },
@@ -167,9 +175,9 @@ const PLANETS: CelestialPlanetConfig[] = [
         isSun: true,
         lightSphere: {
             highlight: '#FEF08A',
-            mid: '#FBBF24',      // Warm solar gold
-            dark: '#F59E0B',     // Amber
-            shadow: '#D97706',   // Rich topaz
+            mid: '#FBBF24', // Warm solar gold
+            dark: '#F59E0B', // Amber
+            shadow: '#D97706', // Rich topaz
             rim: 'rgba(253, 224, 71, 0.8)',
             corona: 'rgba(245, 158, 11, 0.35)',
         },
@@ -191,14 +199,14 @@ const PLANETS: CelestialPlanetConfig[] = [
     {
         name: 'Ares Coral',
         xPct: 0.16,
-        yOffsetVh: 3.50,
+        yOffsetVh: 3.5,
         radius: 50,
-        parallaxFactor: 0.80,
+        parallaxFactor: 0.8,
         lightSphere: {
             highlight: '#FFF1F2',
-            mid: '#FDA4AF',      // Rose quartz
-            dark: '#F43F5E',     // Coral
-            shadow: '#9F1239',   // Terracotta crimson
+            mid: '#FDA4AF', // Rose quartz
+            dark: '#F43F5E', // Coral
+            shadow: '#9F1239', // Terracotta crimson
             rim: 'rgba(244, 114, 182, 0.55)',
             corona: 'rgba(251, 113, 133, 0.25)',
         },
@@ -211,7 +219,10 @@ const PLANETS: CelestialPlanetConfig[] = [
             corona: 'rgba(225, 29, 72, 0.35)',
         },
         hasBands: true,
-        bandColorsLight: ['rgba(255, 255, 255, 0.2)', 'rgba(225, 29, 72, 0.12)'],
+        bandColorsLight: [
+            'rgba(255, 255, 255, 0.2)',
+            'rgba(225, 29, 72, 0.12)',
+        ],
         bandColorsDark: ['rgba(255, 255, 255, 0.15)', 'rgba(244, 63, 94, 0.2)'],
         hasMoon: true,
         moonDistance: 74,
@@ -229,14 +240,14 @@ const PLANETS: CelestialPlanetConfig[] = [
     {
         name: 'Zephyr',
         xPct: 0.85,
-        yOffsetVh: 5.00,
+        yOffsetVh: 5.0,
         radius: 62,
         parallaxFactor: 0.84,
         lightSphere: {
             highlight: '#FAF5FF',
-            mid: '#D8B4FE',      // Lilac mist
-            dark: '#A855F7',     // Amethyst
-            shadow: '#6B21A8',   // Deep royal violet
+            mid: '#D8B4FE', // Lilac mist
+            dark: '#A855F7', // Amethyst
+            shadow: '#6B21A8', // Deep royal violet
             rim: 'rgba(192, 132, 252, 0.55)',
             corona: 'rgba(168, 85, 247, 0.25)',
         },
@@ -249,8 +260,14 @@ const PLANETS: CelestialPlanetConfig[] = [
             corona: 'rgba(147, 51, 234, 0.35)',
         },
         hasBands: true,
-        bandColorsLight: ['rgba(255, 255, 255, 0.22)', 'rgba(126, 34, 206, 0.12)'],
-        bandColorsDark: ['rgba(255, 255, 255, 0.15)', 'rgba(192, 132, 252, 0.2)'],
+        bandColorsLight: [
+            'rgba(255, 255, 255, 0.22)',
+            'rgba(126, 34, 206, 0.12)',
+        ],
+        bandColorsDark: [
+            'rgba(255, 255, 255, 0.15)',
+            'rgba(192, 132, 252, 0.2)',
+        ],
         hasRings: true,
         ringRadiusInner: 76,
         ringRadiusOuter: 115,
@@ -267,14 +284,14 @@ const PLANETS: CelestialPlanetConfig[] = [
     {
         name: 'Frost Opal',
         xPct: 0.16,
-        yOffsetVh: 6.80,
+        yOffsetVh: 6.8,
         radius: 42,
         parallaxFactor: 0.82,
         lightSphere: {
             highlight: '#FFFFFF',
-            mid: '#BAE6FD',      // Sky frost
-            dark: '#38BDF8',     // Ice blue
-            shadow: '#0284C7',   // Deep glacial
+            mid: '#BAE6FD', // Sky frost
+            dark: '#38BDF8', // Ice blue
+            shadow: '#0284C7', // Deep glacial
             rim: 'rgba(125, 211, 252, 0.65)',
             corona: 'rgba(56, 189, 248, 0.25)',
         },
@@ -303,10 +320,17 @@ export default function CosmicUniverseBackground() {
 
     useEffect(() => {
         const canvas = canvasRef.current;
-        if (!canvas) return;
+
+        if (!canvas) {
+            return;
+        }
 
         const rawCtx = canvas.getContext('2d', { alpha: false });
-        if (!rawCtx) return;
+
+        if (!rawCtx) {
+            return;
+        }
+
         const ctx: CanvasRenderingContext2D = rawCtx;
 
         let animationFrameId: number;
@@ -314,7 +338,10 @@ export default function CosmicUniverseBackground() {
         let height = (canvas.height = window.innerHeight);
 
         const handleResize = () => {
-            if (!canvas) return;
+            if (!canvas) {
+                return;
+            }
+
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
             initStars();
@@ -334,12 +361,29 @@ export default function CosmicUniverseBackground() {
             scrollPosRef.current = window.scrollY;
         };
 
-        window.addEventListener('mousemove', handleMouseMove, { passive: true });
+        window.addEventListener('mousemove', handleMouseMove, {
+            passive: true,
+        });
         window.addEventListener('scroll', handleScroll, { passive: true });
 
         // Star colors
-        const darkStarColors = ['#FFFFFF', '#C4B5FD', '#67E8F9', '#FDE68A', '#A78BFA'];
-        const lightStarColors = ['#6366F1', '#8B5CF6', '#4F46E5', '#7C3AED', '#0284C7', '#06B6D4', '#D97706', '#DB2777'];
+        const darkStarColors = [
+            '#FFFFFF',
+            '#C4B5FD',
+            '#67E8F9',
+            '#FDE68A',
+            '#A78BFA',
+        ];
+        const lightStarColors = [
+            '#6366F1',
+            '#8B5CF6',
+            '#4F46E5',
+            '#7C3AED',
+            '#0284C7',
+            '#06B6D4',
+            '#D97706',
+            '#DB2777',
+        ];
 
         let stars: Star[] = [];
         // Capped star count for optimal CPU/GPU raster performance
@@ -347,6 +391,7 @@ export default function CosmicUniverseBackground() {
 
         function initStars() {
             stars = [];
+
             for (let i = 0; i < numStars; i++) {
                 const z = Math.random() * 0.8 + 0.2;
                 const colors = isDark ? darkStarColors : lightStarColors;
@@ -374,23 +419,32 @@ export default function CosmicUniverseBackground() {
 
         function initConstellations() {
             constellations = [];
-            if (isDark) return;
+
+            if (isDark) {
+                return;
+            }
+
             const groupCount = 7;
+
             for (let g = 0; g < groupCount; g++) {
                 const cx = Math.random() * width;
                 const cy = (g / groupCount) * height * 3 + Math.random() * 250;
                 const pointCount = 3 + Math.floor(Math.random() * 3);
                 const points: { x: number; y: number }[] = [];
+
                 for (let p = 0; p < pointCount; p++) {
                     points.push({
                         x: cx + (Math.random() - 0.5) * 180,
                         y: cy + (Math.random() - 0.5) * 140,
                     });
                 }
+
                 for (let p = 0; p < points.length - 1; p++) {
                     constellations.push({
-                        x1: points[p].x, y1: points[p].y,
-                        x2: points[p + 1].x, y2: points[p + 1].y,
+                        x1: points[p].x,
+                        y1: points[p].y,
+                        x2: points[p + 1].x,
+                        y2: points[p + 1].y,
                         alpha: 0.08 + Math.random() * 0.06,
                     });
                 }
@@ -405,11 +459,16 @@ export default function CosmicUniverseBackground() {
         let lastMeteorTime = 0;
 
         function spawnMeteor() {
-            if (meteors.length >= maxMeteors) return;
+            if (meteors.length >= maxMeteors) {
+                return;
+            }
+
             meteors.push({
                 x: Math.random() * width * 1.2 - width * 0.1,
                 y: Math.random() * height * 0.4,
-                length: isDark ? Math.random() * 90 + 60 : Math.random() * 70 + 40,
+                length: isDark
+                    ? Math.random() * 90 + 60
+                    : Math.random() * 70 + 40,
                 speed: Math.random() * 14 + 10,
                 angle: Math.PI / 4 + (Math.random() * 0.2 - 0.1),
                 alpha: 1,
@@ -423,7 +482,7 @@ export default function CosmicUniverseBackground() {
             screenX: number,
             screenY: number,
             scale: number,
-            clock: number
+            clock: number,
         ) {
             const r = p.radius * scale;
             const sphere = isDark ? p.darkSphere : p.lightSphere;
@@ -431,7 +490,9 @@ export default function CosmicUniverseBackground() {
             // 1. Orbital Trajectory Dashed Path
             if (p.hasOrbitPath) {
                 ctx.save();
-                ctx.strokeStyle = isDark ? 'rgba(167, 139, 250, 0.18)' : 'rgba(99, 102, 241, 0.24)';
+                ctx.strokeStyle = isDark
+                    ? 'rgba(167, 139, 250, 0.18)'
+                    : 'rgba(99, 102, 241, 0.24)';
                 ctx.lineWidth = 1.0;
                 ctx.setLineDash([4, 7]);
                 ctx.beginPath();
@@ -442,14 +503,18 @@ export default function CosmicUniverseBackground() {
                     (p.orbitRadiusY || r * 1.1) * scale,
                     p.orbitTilt || 0,
                     0,
-                    Math.PI * 2
+                    Math.PI * 2,
                 );
                 ctx.stroke();
 
                 // Decorative trajectory node tick
                 const nodeAngle = clock * 0.2;
-                const nodeX = screenX + Math.cos(nodeAngle) * (p.orbitRadiusX || r * 2.5) * scale;
-                const nodeY = screenY + Math.sin(nodeAngle) * (p.orbitRadiusY || r * 1.1) * scale;
+                const nodeX =
+                    screenX +
+                    Math.cos(nodeAngle) * (p.orbitRadiusX || r * 2.5) * scale;
+                const nodeY =
+                    screenY +
+                    Math.sin(nodeAngle) * (p.orbitRadiusY || r * 1.1) * scale;
                 ctx.fillStyle = isDark ? '#A78BFA' : '#6366F1';
                 ctx.beginPath();
                 ctx.arc(nodeX, nodeY, 2.5, 0, Math.PI * 2);
@@ -461,18 +526,38 @@ export default function CosmicUniverseBackground() {
             if (p.isSun) {
                 ctx.save();
                 const pulse = Math.sin(clock * 2) * 6;
-                const sunGlow = ctx.createRadialGradient(screenX, screenY, r * 0.8, screenX, screenY, (r + 40 + pulse) * scale);
+                const sunGlow = ctx.createRadialGradient(
+                    screenX,
+                    screenY,
+                    r * 0.8,
+                    screenX,
+                    screenY,
+                    (r + 40 + pulse) * scale,
+                );
                 sunGlow.addColorStop(0, sphere.corona);
-                sunGlow.addColorStop(0.6, isDark ? 'rgba(245, 158, 11, 0.15)' : 'rgba(251, 191, 36, 0.20)');
+                sunGlow.addColorStop(
+                    0.6,
+                    isDark
+                        ? 'rgba(245, 158, 11, 0.15)'
+                        : 'rgba(251, 191, 36, 0.20)',
+                );
                 sunGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
                 ctx.fillStyle = sunGlow;
                 ctx.beginPath();
-                ctx.arc(screenX, screenY, (r + 40 + pulse) * scale, 0, Math.PI * 2);
+                ctx.arc(
+                    screenX,
+                    screenY,
+                    (r + 40 + pulse) * scale,
+                    0,
+                    Math.PI * 2,
+                );
                 ctx.fill();
 
                 // 4-point solar cross-flare
                 const flareLen = (r + 35 + pulse * 1.5) * scale;
-                ctx.strokeStyle = isDark ? 'rgba(251, 191, 36, 0.4)' : 'rgba(245, 158, 11, 0.45)';
+                ctx.strokeStyle = isDark
+                    ? 'rgba(251, 191, 36, 0.4)'
+                    : 'rgba(245, 158, 11, 0.45)';
                 ctx.lineWidth = 1.5;
                 ctx.beginPath();
                 ctx.moveTo(screenX - flareLen, screenY);
@@ -495,25 +580,47 @@ export default function CosmicUniverseBackground() {
                 const ringW = ringOut - ringIn;
 
                 // Back half: angles Math.PI to 2*Math.PI
-                ctx.strokeStyle = isDark ? (p.ringColorDark || 'rgba(192, 132, 252, 0.45)') : (p.ringColorLight || 'rgba(165, 180, 252, 0.55)');
+                ctx.strokeStyle = isDark
+                    ? p.ringColorDark || 'rgba(192, 132, 252, 0.45)'
+                    : p.ringColorLight || 'rgba(165, 180, 252, 0.55)';
                 ctx.lineWidth = ringW;
                 ctx.beginPath();
-                ctx.ellipse(0, 0, ringMid, ringMid * 0.32, 0, Math.PI, Math.PI * 2);
+                ctx.ellipse(
+                    0,
+                    0,
+                    ringMid,
+                    ringMid * 0.32,
+                    0,
+                    Math.PI,
+                    Math.PI * 2,
+                );
                 ctx.stroke();
 
                 // Cassini division gap
-                ctx.strokeStyle = isDark ? 'rgba(3, 1, 10, 0.7)' : 'rgba(240, 244, 255, 0.7)';
+                ctx.strokeStyle = isDark
+                    ? 'rgba(3, 1, 10, 0.7)'
+                    : 'rgba(240, 244, 255, 0.7)';
                 ctx.lineWidth = 2 * scale;
                 ctx.beginPath();
-                ctx.ellipse(0, 0, ringMid, ringMid * 0.32, 0, Math.PI, Math.PI * 2);
+                ctx.ellipse(
+                    0,
+                    0,
+                    ringMid,
+                    ringMid * 0.32,
+                    0,
+                    Math.PI,
+                    Math.PI * 2,
+                );
                 ctx.stroke();
 
                 ctx.restore();
             }
 
             // 4. Moon (If Behind Planet)
-            let moonX = 0, moonY = 0;
+            let moonX = 0,
+                moonY = 0;
             let moonInFront = false;
+
             if (p.hasMoon) {
                 const moonAngle = clock * (p.moonSpeed || 0.6);
                 const moonDistX = (p.moonDistance || 75) * scale;
@@ -523,14 +630,26 @@ export default function CosmicUniverseBackground() {
                 moonInFront = Math.sin(moonAngle) >= 0;
 
                 if (!moonInFront) {
-                    drawMoon(moonX, moonY, (p.moonRadius || 7) * scale, isDark ? p.moonColorDark : p.moonColorLight);
+                    drawMoon(
+                        moonX,
+                        moonY,
+                        (p.moonRadius || 7) * scale,
+                        isDark ? p.moonColorDark : p.moonColorLight,
+                    );
                 }
             }
 
             // 5. Outer Atmospheric Corona Glow
             ctx.save();
             const coronaR = r * 1.45;
-            const coronaGrad = ctx.createRadialGradient(screenX, screenY, r * 0.85, screenX, screenY, coronaR);
+            const coronaGrad = ctx.createRadialGradient(
+                screenX,
+                screenY,
+                r * 0.85,
+                screenX,
+                screenY,
+                coronaR,
+            );
             coronaGrad.addColorStop(0, sphere.corona);
             coronaGrad.addColorStop(0.5, sphere.rim);
             coronaGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
@@ -549,21 +668,37 @@ export default function CosmicUniverseBackground() {
             // 3D Volumetric Lighting Gradient (light source offset towards top-left)
             const lightOffX = screenX - r * 0.35;
             const lightOffY = screenY - r * 0.35;
-            const sphereGrad = ctx.createRadialGradient(lightOffX, lightOffY, r * 0.05, screenX, screenY, r * 1.05);
+            const sphereGrad = ctx.createRadialGradient(
+                lightOffX,
+                lightOffY,
+                r * 0.05,
+                screenX,
+                screenY,
+                r * 1.05,
+            );
             sphereGrad.addColorStop(0, sphere.highlight);
             sphereGrad.addColorStop(0.25, sphere.mid);
-            sphereGrad.addColorStop(0.70, sphere.dark);
+            sphereGrad.addColorStop(0.7, sphere.dark);
             sphereGrad.addColorStop(1, sphere.shadow);
             ctx.fillStyle = sphereGrad;
             ctx.fillRect(screenX - r, screenY - r, r * 2, r * 2);
 
             // Planetary Atmospheric Cloud Belts / Bands
             if (p.hasBands) {
-                const bands = isDark ? (p.bandColorsDark || []) : (p.bandColorsLight || []);
+                const bands = isDark
+                    ? p.bandColorsDark || []
+                    : p.bandColorsLight || [];
                 const bandOffsets = [-0.45, -0.15, 0.2, 0.5];
                 bands.forEach((bColor, idx) => {
-                    const by = screenY + (bandOffsets[idx % bandOffsets.length] || 0) * r;
-                    const bGrad = ctx.createLinearGradient(screenX - r, by, screenX + r, by);
+                    const by =
+                        screenY +
+                        (bandOffsets[idx % bandOffsets.length] || 0) * r;
+                    const bGrad = ctx.createLinearGradient(
+                        screenX - r,
+                        by,
+                        screenX + r,
+                        by,
+                    );
                     bGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
                     bGrad.addColorStop(0.3, bColor);
                     bGrad.addColorStop(0.7, bColor);
@@ -578,13 +713,22 @@ export default function CosmicUniverseBackground() {
                 ctx.save();
                 ctx.translate(screenX, screenY);
                 ctx.rotate(p.ringTilt || -0.4);
-                ctx.fillStyle = isDark ? 'rgba(0, 0, 0, 0.4)' : 'rgba(30, 27, 75, 0.22)';
+                ctx.fillStyle = isDark
+                    ? 'rgba(0, 0, 0, 0.4)'
+                    : 'rgba(30, 27, 75, 0.22)';
                 ctx.fillRect(-r, -3 * scale, r * 2, 7 * scale);
                 ctx.restore();
             }
 
             // Atmospheric Limb Glow (Fresnel rim around edge)
-            const limbGrad = ctx.createRadialGradient(screenX, screenY, r * 0.82, screenX, screenY, r);
+            const limbGrad = ctx.createRadialGradient(
+                screenX,
+                screenY,
+                r * 0.82,
+                screenX,
+                screenY,
+                r,
+            );
             limbGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
             limbGrad.addColorStop(0.75, sphere.rim);
             limbGrad.addColorStop(1, sphere.highlight);
@@ -605,14 +749,18 @@ export default function CosmicUniverseBackground() {
                 const ringW = ringOut - ringIn;
 
                 // Front half: angles 0 to Math.PI
-                ctx.strokeStyle = isDark ? (p.ringColorDark || 'rgba(192, 132, 252, 0.55)') : (p.ringColorLight || 'rgba(165, 180, 252, 0.65)');
+                ctx.strokeStyle = isDark
+                    ? p.ringColorDark || 'rgba(192, 132, 252, 0.55)'
+                    : p.ringColorLight || 'rgba(165, 180, 252, 0.65)';
                 ctx.lineWidth = ringW;
                 ctx.beginPath();
                 ctx.ellipse(0, 0, ringMid, ringMid * 0.32, 0, 0, Math.PI);
                 ctx.stroke();
 
                 // Cassini division gap
-                ctx.strokeStyle = isDark ? 'rgba(3, 1, 10, 0.7)' : 'rgba(240, 244, 255, 0.7)';
+                ctx.strokeStyle = isDark
+                    ? 'rgba(3, 1, 10, 0.7)'
+                    : 'rgba(240, 244, 255, 0.7)';
                 ctx.lineWidth = 2 * scale;
                 ctx.beginPath();
                 ctx.ellipse(0, 0, ringMid, ringMid * 0.32, 0, 0, Math.PI);
@@ -623,14 +771,26 @@ export default function CosmicUniverseBackground() {
 
             // 8. Moon (If In Front of Planet)
             if (p.hasMoon && moonInFront) {
-                drawMoon(moonX, moonY, (p.moonRadius || 7) * scale, isDark ? p.moonColorDark : p.moonColorLight);
+                drawMoon(
+                    moonX,
+                    moonY,
+                    (p.moonRadius || 7) * scale,
+                    isDark ? p.moonColorDark : p.moonColorLight,
+                );
             }
         }
 
         // Draw Moon Helper
         function drawMoon(mx: number, my: number, mr: number, mColor?: string) {
             ctx.save();
-            const moonGrad = ctx.createRadialGradient(mx - mr * 0.3, my - mr * 0.3, mr * 0.1, mx, my, mr);
+            const moonGrad = ctx.createRadialGradient(
+                mx - mr * 0.3,
+                my - mr * 0.3,
+                mr * 0.1,
+                mx,
+                my,
+                mr,
+            );
             moonGrad.addColorStop(0, '#FFFFFF');
             moonGrad.addColorStop(0.5, mColor || '#CBD5E1');
             moonGrad.addColorStop(1, '#64748B');
@@ -652,12 +812,18 @@ export default function CosmicUniverseBackground() {
         const targetInterval = 1000 / 30; // Cap to 30 FPS for dramatic GPU & power savings
 
         const render = (currentTime: number) => {
-            if (!isRunning) return;
+            if (!isRunning) {
+                return;
+            }
 
             animationFrameId = requestAnimationFrame(render);
 
             const elapsed = currentTime - lastFrameTime;
-            if (elapsed < targetInterval) return;
+
+            if (elapsed < targetInterval) {
+                return;
+            }
+
             lastFrameTime = currentTime - (elapsed % targetInterval);
 
             clock += 0.033; // ~30fps step
@@ -676,8 +842,12 @@ export default function CosmicUniverseBackground() {
 
                 // Deep Purple Nebula
                 const grad1 = ctx.createRadialGradient(
-                    width * 0.2 + m.x * 0.5, height * 0.3 + m.y * 0.5, 50,
-                    width * 0.2 + m.x * 0.5, height * 0.3 + m.y * 0.5, width * 0.55
+                    width * 0.2 + m.x * 0.5,
+                    height * 0.3 + m.y * 0.5,
+                    50,
+                    width * 0.2 + m.x * 0.5,
+                    height * 0.3 + m.y * 0.5,
+                    width * 0.55,
                 );
                 grad1.addColorStop(0, 'rgba(109, 40, 217, 0.16)');
                 grad1.addColorStop(0.6, 'rgba(76, 29, 149, 0.06)');
@@ -687,8 +857,12 @@ export default function CosmicUniverseBackground() {
 
                 // Cyan Cosmic Nebula
                 const grad2 = ctx.createRadialGradient(
-                    width * 0.8 - m.x * 0.5, height * 0.7 - m.y * 0.5, 40,
-                    width * 0.8 - m.x * 0.5, height * 0.7 - m.y * 0.5, width * 0.5
+                    width * 0.8 - m.x * 0.5,
+                    height * 0.7 - m.y * 0.5,
+                    40,
+                    width * 0.8 - m.x * 0.5,
+                    height * 0.7 - m.y * 0.5,
+                    width * 0.5,
                 );
                 grad2.addColorStop(0, 'rgba(6, 182, 212, 0.12)');
                 grad2.addColorStop(0.7, 'rgba(14, 116, 144, 0.04)');
@@ -698,19 +872,24 @@ export default function CosmicUniverseBackground() {
             } else {
                 // ── Light: Luminous Celestial Day-Cosmos / Stellar Dawn ──
                 const skyGrad = ctx.createLinearGradient(0, 0, 0, height);
-                skyGrad.addColorStop(0, '#E8EEF8');   // Pale starlight sky
+                skyGrad.addColorStop(0, '#E8EEF8'); // Pale starlight sky
                 skyGrad.addColorStop(0.22, '#EDE9FE'); // Celestial dawn lavender
                 skyGrad.addColorStop(0.48, '#E0F2FE'); // Ethereal crystalline cyan
                 skyGrad.addColorStop(0.75, '#EDE8F5'); // Soft amethyst horizon
-                skyGrad.addColorStop(1, '#F1F5F9');    // Pearl starlight
+                skyGrad.addColorStop(1, '#F1F5F9'); // Pearl starlight
                 ctx.fillStyle = skyGrad;
                 ctx.fillRect(0, 0, width, height);
 
                 // Aurora Band 1 — Radiant Emerald / Teal Celestial Shimmer
-                const auroraY1 = height * 0.16 + m.y * 0.8 + Math.sin(clock * 0.3) * 45;
+                const auroraY1 =
+                    height * 0.16 + m.y * 0.8 + Math.sin(clock * 0.3) * 45;
                 const aGrad1 = ctx.createRadialGradient(
-                    width * 0.5 + m.x * 1.5 + Math.sin(clock * 0.2) * 110, auroraY1, 40,
-                    width * 0.5 + m.x * 1.5 + Math.sin(clock * 0.2) * 110, auroraY1, width * 0.65
+                    width * 0.5 + m.x * 1.5 + Math.sin(clock * 0.2) * 110,
+                    auroraY1,
+                    40,
+                    width * 0.5 + m.x * 1.5 + Math.sin(clock * 0.2) * 110,
+                    auroraY1,
+                    width * 0.65,
                 );
                 aGrad1.addColorStop(0, 'rgba(45, 212, 191, 0.32)');
                 aGrad1.addColorStop(0.35, 'rgba(56, 189, 248, 0.18)');
@@ -720,10 +899,15 @@ export default function CosmicUniverseBackground() {
                 ctx.fillRect(0, 0, width, height);
 
                 // Aurora Band 2 — Vivid Celestial Amethyst / Violet
-                const auroraY2 = height * 0.42 - m.y * 0.5 + Math.cos(clock * 0.25) * 55;
+                const auroraY2 =
+                    height * 0.42 - m.y * 0.5 + Math.cos(clock * 0.25) * 55;
                 const aGrad2 = ctx.createRadialGradient(
-                    width * 0.28 - m.x * 1.0 + Math.cos(clock * 0.18) * 85, auroraY2, 50,
-                    width * 0.28 - m.x * 1.0 + Math.cos(clock * 0.18) * 85, auroraY2, width * 0.58
+                    width * 0.28 - m.x * 1.0 + Math.cos(clock * 0.18) * 85,
+                    auroraY2,
+                    50,
+                    width * 0.28 - m.x * 1.0 + Math.cos(clock * 0.18) * 85,
+                    auroraY2,
+                    width * 0.58,
                 );
                 aGrad2.addColorStop(0, 'rgba(168, 85, 247, 0.28)');
                 aGrad2.addColorStop(0.35, 'rgba(192, 132, 252, 0.16)');
@@ -733,10 +917,15 @@ export default function CosmicUniverseBackground() {
                 ctx.fillRect(0, 0, width, height);
 
                 // Aurora Band 3 — Solar Dawn Warmth (Amber / Rose Quartz Glow)
-                const auroraY3 = height * 0.68 + Math.sin(clock * 0.15 + 2) * 60;
+                const auroraY3 =
+                    height * 0.68 + Math.sin(clock * 0.15 + 2) * 60;
                 const aGrad3 = ctx.createRadialGradient(
-                    width * 0.72 + m.x * 0.8, auroraY3, 50,
-                    width * 0.72 + m.x * 0.8, auroraY3, width * 0.52
+                    width * 0.72 + m.x * 0.8,
+                    auroraY3,
+                    50,
+                    width * 0.72 + m.x * 0.8,
+                    auroraY3,
+                    width * 0.52,
                 );
                 aGrad3.addColorStop(0, 'rgba(251, 191, 36, 0.24)');
                 aGrad3.addColorStop(0.35, 'rgba(251, 113, 133, 0.14)');
@@ -753,30 +942,54 @@ export default function CosmicUniverseBackground() {
                 // Compute world Y in terms of document screen heights
                 const planetBaseY = planet.yOffsetVh * height;
                 // Apply smooth parallax relative to document scroll
-                const screenY = planetBaseY - scrollY * planet.parallaxFactor + m.y * 1.5 + Math.sin(clock * 0.4 + idx) * 5;
-                
+                const screenY =
+                    planetBaseY -
+                    scrollY * planet.parallaxFactor +
+                    m.y * 1.5 +
+                    Math.sin(clock * 0.4 + idx) * 5;
+
                 // Keep X responsive: clamp between screen margins
-                let screenX = width * planet.xPct + m.x * planet.parallaxFactor * 1.5 + Math.cos(clock * 0.35 + idx) * 4;
+                let screenX =
+                    width * planet.xPct +
+                    m.x * planet.parallaxFactor * 1.5 +
+                    Math.cos(clock * 0.35 + idx) * 4;
+
                 if (width < 768) {
                     screenX = planet.xPct < 0.5 ? width * 0.12 : width * 0.88;
                 }
 
                 // Render only if currently in or near viewport for ultra-high performance
                 const margin = planet.radius * 2.5 * responsiveScale;
+
                 if (screenY >= -margin && screenY <= height + margin) {
-                    drawPlanet(planet, screenX, screenY, responsiveScale, clock);
+                    drawPlanet(
+                        planet,
+                        screenX,
+                        screenY,
+                        responsiveScale,
+                        clock,
+                    );
                 }
             });
 
             // ── 3. STARS & CELESTIAL STARDUST (Batch render without per-star save/restore) ──
             for (let i = 0; i < stars.length; i++) {
                 const s = stars[i];
-                s.alpha = s.baseAlpha + Math.sin(clock * 3 + i) * (isDark ? 0.25 : 0.22);
-                if (s.alpha < 0.05) s.alpha = 0.05;
-                if (s.alpha > 1) s.alpha = 1;
+                s.alpha =
+                    s.baseAlpha +
+                    Math.sin(clock * 3 + i) * (isDark ? 0.25 : 0.22);
+
+                if (s.alpha < 0.05) {
+                    s.alpha = 0.05;
+                }
+
+                if (s.alpha > 1) {
+                    s.alpha = 1;
+                }
 
                 const px = s.x + m.x * s.z * 1.5;
-                const py = (s.y + m.y * s.z * 1.5 - (scrollY * 0.08 * s.z)) % height;
+                const py =
+                    (s.y + m.y * s.z * 1.5 - scrollY * 0.08 * s.z) % height;
                 const finalY = py < 0 ? py + height : py;
 
                 ctx.globalAlpha = s.alpha;
@@ -788,14 +1001,19 @@ export default function CosmicUniverseBackground() {
                 // Cross flare on bright stars
                 const flareThreshold = isDark ? 1.3 : 1.1;
                 const flareAlphaMin = isDark ? 0.6 : 0.25;
+
                 if (s.size > flareThreshold && s.alpha > flareAlphaMin) {
                     ctx.fillStyle = s.color;
-                    ctx.globalAlpha = Math.max(0, isDark ? (s.alpha - 0.6) * 0.45 : (s.alpha - 0.2) * 0.4);
+                    ctx.globalAlpha = Math.max(
+                        0,
+                        isDark ? (s.alpha - 0.6) * 0.45 : (s.alpha - 0.2) * 0.4,
+                    );
                     const fl = isDark ? s.size * 4 : s.size * 3.5;
                     ctx.fillRect(px - fl / 2, finalY - 0.4, fl, 0.8);
                     ctx.fillRect(px - 0.4, finalY - fl / 2, 0.8, fl);
                 }
             }
+
             ctx.globalAlpha = 1.0;
 
             // ── 4. CONSTELLATION LINES (Light Mode) ──
@@ -804,21 +1022,32 @@ export default function CosmicUniverseBackground() {
                 ctx.strokeStyle = '#6366F1';
                 ctx.lineWidth = 1.0;
                 ctx.setLineDash([5, 9]);
+
                 for (const line of constellations) {
                     const pf = 0.6;
                     const lx1 = line.x1 + m.x * pf;
-                    const ly1 = (line.y1 + m.y * pf - scrollY * 0.05) % (height * 3);
+                    const ly1 =
+                        (line.y1 + m.y * pf - scrollY * 0.05) % (height * 3);
                     const lx2 = line.x2 + m.x * pf;
-                    const ly2 = (line.y2 + m.y * pf - scrollY * 0.05) % (height * 3);
+                    const ly2 =
+                        (line.y2 + m.y * pf - scrollY * 0.05) % (height * 3);
 
-                    if ((ly1 > -50 && ly1 < height + 50) || (ly2 > -50 && ly2 < height + 50)) {
-                        ctx.globalAlpha = Math.max(0, line.alpha * 2.2 + Math.sin(clock * 1.5 + line.x1 * 0.01) * 0.04);
+                    if (
+                        (ly1 > -50 && ly1 < height + 50) ||
+                        (ly2 > -50 && ly2 < height + 50)
+                    ) {
+                        ctx.globalAlpha = Math.max(
+                            0,
+                            line.alpha * 2.2 +
+                                Math.sin(clock * 1.5 + line.x1 * 0.01) * 0.04,
+                        );
                         ctx.beginPath();
                         ctx.moveTo(lx1, ly1);
                         ctx.lineTo(lx2, ly2);
                         ctx.stroke();
                     }
                 }
+
                 ctx.setLineDash([]);
                 ctx.restore();
             }
@@ -827,35 +1056,62 @@ export default function CosmicUniverseBackground() {
             const meteorInterval = isDark ? 4200 : 5500;
             const meteorChance = isDark ? 0.3 : 0.25;
 
-            if (performance.now() - lastMeteorTime > meteorInterval && Math.random() < meteorChance) {
+            if (
+                performance.now() - lastMeteorTime > meteorInterval &&
+                Math.random() < meteorChance
+            ) {
                 spawnMeteor();
                 lastMeteorTime = performance.now();
             }
 
             for (let j = meteors.length - 1; j >= 0; j--) {
                 const met = meteors[j];
-                if (!met.active) { meteors.splice(j, 1); continue; }
+
+                if (!met.active) {
+                    meteors.splice(j, 1);
+                    continue;
+                }
 
                 met.x += Math.cos(met.angle) * met.speed;
                 met.y += Math.sin(met.angle) * met.speed;
                 met.alpha -= isDark ? 0.012 : 0.016;
 
-                if (met.alpha <= 0 || met.x > width + 100 || met.y > height + 100) {
-                    met.active = false; continue;
+                if (
+                    met.alpha <= 0 ||
+                    met.x > width + 100 ||
+                    met.y > height + 100
+                ) {
+                    met.active = false;
+                    continue;
                 }
 
                 const tailX = met.x - Math.cos(met.angle) * met.length;
                 const tailY = met.y - Math.sin(met.angle) * met.length;
 
-                const mGrad = ctx.createLinearGradient(tailX, tailY, met.x, met.y);
+                const mGrad = ctx.createLinearGradient(
+                    tailX,
+                    tailY,
+                    met.x,
+                    met.y,
+                );
+
                 if (isDark) {
                     mGrad.addColorStop(0, 'rgba(168, 85, 247, 0)');
-                    mGrad.addColorStop(0.7, `rgba(34, 211, 238, ${met.alpha * 0.7})`);
+                    mGrad.addColorStop(
+                        0.7,
+                        `rgba(34, 211, 238, ${met.alpha * 0.7})`,
+                    );
                     mGrad.addColorStop(1, `rgba(255, 255, 255, ${met.alpha})`);
                 } else {
                     mGrad.addColorStop(0, 'rgba(129, 140, 248, 0)');
-                    mGrad.addColorStop(0.6, `rgba(139, 92, 246, ${met.alpha * 0.45})`);
-                    mGrad.addColorStop(1, `rgba(2, 132, 199, ${met.alpha * 0.75})`);
+                    mGrad.addColorStop(
+                        0.6,
+                        `rgba(139, 92, 246, ${met.alpha * 0.45})`,
+                    );
+                    mGrad.addColorStop(
+                        1,
+                        `rgba(2, 132, 199, ${met.alpha * 0.75})`,
+                    );
                 }
 
                 ctx.save();
@@ -890,7 +1146,10 @@ export default function CosmicUniverseBackground() {
         return () => {
             isRunning = false;
             cancelAnimationFrame(animationFrameId);
-            document.removeEventListener('visibilitychange', handleVisibilityChange);
+            document.removeEventListener(
+                'visibilitychange',
+                handleVisibilityChange,
+            );
             window.removeEventListener('resize', handleResize);
             window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('scroll', handleScroll);
@@ -901,7 +1160,7 @@ export default function CosmicUniverseBackground() {
         <canvas
             ref={canvasRef}
             aria-hidden="true"
-            className="fixed inset-0 w-full h-full pointer-events-none z-0 transition-opacity duration-700"
+            className="pointer-events-none fixed inset-0 z-0 h-full w-full transition-opacity duration-700"
         />
     );
 }

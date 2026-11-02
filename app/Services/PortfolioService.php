@@ -12,6 +12,7 @@ use App\Contracts\Repositories\ProjectRepositoryInterface;
 use App\Contracts\Repositories\TechnologyCategoryRepositoryInterface;
 use App\Contracts\Repositories\SocialMediaRepositoryInterface;
 use App\Contracts\Repositories\ResumeRepositoryInterface;
+use App\Contracts\Repositories\ExperienceRepositoryInterface;
 use App\Contracts\Services\PortfolioServiceInterface;
 
 class PortfolioService implements PortfolioServiceInterface
@@ -26,7 +27,8 @@ class PortfolioService implements PortfolioServiceInterface
         protected NewsRepositoryInterface $newsRepo,
         protected AnnouncementRepositoryInterface $announcementRepo,
         protected SocialMediaRepositoryInterface $socialMediaRepo,
-        protected ResumeRepositoryInterface $resumeRepo
+        protected ResumeRepositoryInterface $resumeRepo,
+        protected ExperienceRepositoryInterface $experienceRepo
     ) {}
 
     public function getLandingPageData(): array
@@ -38,6 +40,7 @@ class PortfolioService implements PortfolioServiceInterface
             'projects' => $this->projectRepo->getAllWithTechnologies(),
             'skills' => $this->skillRepo->getAll(),
             'certificates' => $this->certRepo->getAll(),
+            'experiences' => $this->experienceRepo->getAllActive(),
             'latestNews' => $this->newsRepo->getLatest(4),
             'announcements' => $this->announcementRepo->getActive(),
             'socialMedia' => $this->socialMediaRepo->getActive(),

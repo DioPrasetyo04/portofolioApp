@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\Certificate;
 use App\Models\Comment;
+use App\Models\Experience;
 use App\Models\LanguageSkill;
 use App\Models\News;
 use App\Models\PortfolioLike;
@@ -35,6 +36,10 @@ class DashboardStatsOverview extends BaseWidget
         $languageCount = LanguageSkill::count();
         $avgProficiency = round(Technology::avg('proficiency') ?: 0);
 
+        $workCount = Experience::where('type', 'work')->count();
+        $eduCount = Experience::where('type', 'education')->count();
+        $totalExp = Experience::count();
+
         return [
             Stat::make('Portfolio Likes', $portfolioLikes)
                 ->description('Audience appreciation & likes')
@@ -47,6 +52,12 @@ class DashboardStatsOverview extends BaseWidget
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->chart([2, 3, 5, 4, 7, 6, 8, 10])
                 ->color('primary'),
+
+            Stat::make('Career & Education', $totalExp)
+                ->description("{$workCount} Work • {$eduCount} Education")
+                ->descriptionIcon('heroicon-m-briefcase')
+                ->chart([1, 2, 3, 4, 5, $totalExp])
+                ->color('violet'),
 
             Stat::make('Articles & News', $newsCount)
                 ->description("{$totalNewsLikes} Likes • {$totalComments} Comments")

@@ -1,7 +1,14 @@
-import React, { useRef } from 'react';
+import {
+    Float,
+    MeshDistortMaterial,
+    Sphere,
+    Torus,
+    Octahedron,
+    Sparkles,
+} from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, MeshDistortMaterial, Sphere, Torus, Octahedron, Sparkles } from '@react-three/drei';
-import * as THREE from 'three';
+import React, { useRef } from 'react';
+import type * as THREE from 'three';
 
 function FloatingMesh() {
     const mainMesh = useRef<THREE.Mesh>(null);
@@ -10,14 +17,17 @@ function FloatingMesh() {
 
     useFrame((state) => {
         const t = state.clock.getElapsedTime();
+
         if (mainMesh.current) {
             mainMesh.current.rotation.x = t * 0.2;
             mainMesh.current.rotation.y = t * 0.3;
         }
+
         if (ringMesh.current) {
             ringMesh.current.rotation.x = t * 0.4;
             ringMesh.current.rotation.y = t * 0.2;
         }
+
         if (octaMesh.current) {
             octaMesh.current.rotation.y = t * 0.5;
             octaMesh.current.rotation.z = t * 0.3;
@@ -28,7 +38,11 @@ function FloatingMesh() {
         <group>
             {/* Core Glowing Sphere */}
             <Float speed={2} rotationIntensity={1.2} floatIntensity={1.5}>
-                <Sphere ref={mainMesh} args={[1.2, 64, 64]} position={[0, 0, 0]}>
+                <Sphere
+                    ref={mainMesh}
+                    args={[1.2, 64, 64]}
+                    position={[0, 0, 0]}
+                >
                     <MeshDistortMaterial
                         color="#8B5CF6"
                         attach="material"
@@ -44,7 +58,11 @@ function FloatingMesh() {
 
             {/* Orbiting Futuristic Torus Ring */}
             <Float speed={3} rotationIntensity={2} floatIntensity={2}>
-                <Torus ref={ringMesh} args={[2.2, 0.06, 32, 100]} position={[0, 0, 0]}>
+                <Torus
+                    ref={ringMesh}
+                    args={[2.2, 0.06, 32, 100]}
+                    position={[0, 0, 0]}
+                >
                     <meshStandardMaterial
                         color="#22D3EE"
                         emissive="#06B6D4"
@@ -57,7 +75,11 @@ function FloatingMesh() {
 
             {/* Orbiting Satellite Geometric Mesh */}
             <Float speed={2.5} rotationIntensity={1.8} floatIntensity={2.2}>
-                <Octahedron ref={octaMesh} args={[0.5]} position={[2.2, 1.4, 0.5]}>
+                <Octahedron
+                    ref={octaMesh}
+                    args={[0.5]}
+                    position={[2.2, 1.4, 0.5]}
+                >
                     <meshStandardMaterial
                         color="#F59E0B"
                         emissive="#D97706"
@@ -69,25 +91,53 @@ function FloatingMesh() {
             </Float>
 
             {/* Ambient Star Particles */}
-            <Sparkles count={80} scale={6} size={3} speed={0.4} color="#22D3EE" />
-            <Sparkles count={50} scale={5} size={4} speed={0.6} color="#8B5CF6" />
+            <Sparkles
+                count={80}
+                scale={6}
+                size={3}
+                speed={0.4}
+                color="#22D3EE"
+            />
+            <Sparkles
+                count={50}
+                scale={5}
+                size={4}
+                speed={0.6}
+                color="#8B5CF6"
+            />
         </group>
     );
 }
 
 export default function ThreeCanvas() {
     return (
-        <div className="w-full h-full min-h-[380px] sm:min-h-[480px] lg:min-h-[560px] relative">
+        <div className="relative h-full min-h-[380px] w-full sm:min-h-[480px] lg:min-h-[560px]">
             <Canvas
                 camera={{ position: [0, 0, 5.5], fov: 45 }}
-                className="w-full h-full cursor-grab active:cursor-grabbing"
+                className="h-full w-full cursor-grab active:cursor-grabbing"
                 gl={{ antialias: true, alpha: true }}
             >
                 <ambientLight intensity={0.7} />
-                <directionalLight position={[10, 10, 5]} intensity={1.5} color="#FFFFFF" />
-                <pointLight position={[-6, -6, -4]} intensity={2.5} color="#8B5CF6" />
-                <pointLight position={[6, 6, 4]} intensity={2.5} color="#22D3EE" />
-                <pointLight position={[0, -4, 2]} intensity={1.5} color="#F59E0B" />
+                <directionalLight
+                    position={[10, 10, 5]}
+                    intensity={1.5}
+                    color="#FFFFFF"
+                />
+                <pointLight
+                    position={[-6, -6, -4]}
+                    intensity={2.5}
+                    color="#8B5CF6"
+                />
+                <pointLight
+                    position={[6, 6, 4]}
+                    intensity={2.5}
+                    color="#22D3EE"
+                />
+                <pointLight
+                    position={[0, -4, 2]}
+                    intensity={1.5}
+                    color="#F59E0B"
+                />
 
                 <FloatingMesh />
             </Canvas>

@@ -16,6 +16,7 @@ use App\Contracts\Repositories\NewsRepositoryInterface;
 use App\Contracts\Repositories\AnnouncementRepositoryInterface;
 use App\Contracts\Repositories\SocialMediaRepositoryInterface;
 use App\Contracts\Repositories\ResumeRepositoryInterface;
+use App\Contracts\Repositories\ExperienceRepositoryInterface;
 
 use App\Contracts\Services\HeroSectionServiceInterface;
 use App\Contracts\Services\AboutMeServiceInterface;
@@ -42,6 +43,7 @@ use App\Repositories\NewsRepository;
 use App\Repositories\AnnouncementRepository;
 use App\Repositories\SocialMediaRepository;
 use App\Repositories\ResumeRepository;
+use App\Repositories\ExperienceRepository;
 
 use App\Services\HeroSectionService;
 use App\Services\AboutMeService;
@@ -76,6 +78,7 @@ class RepositoryServiceProvider extends ServiceProvider
         AnnouncementRepositoryInterface::class => AnnouncementRepository::class,
         SocialMediaRepositoryInterface::class => SocialMediaRepository::class,
         ResumeRepositoryInterface::class => ResumeRepository::class,
+        ExperienceRepositoryInterface::class => ExperienceRepository::class,
 
         // Services
         HeroSectionServiceInterface::class => HeroSectionService::class,

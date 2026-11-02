@@ -1,14 +1,9 @@
-import React, { useState, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Cpu,
     BarChart3,
     LayoutGrid,
-    Sparkles,
-    Zap,
     TrendingUp,
-    CheckCircle2,
     Award,
     Layers,
     ChevronLeft,
@@ -18,6 +13,8 @@ import {
     X,
     RefreshCw,
 } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { getTranslated } from '@/lib/i18n-helper';
 
 interface TechnologyItem {
@@ -51,6 +48,7 @@ function getProficiencyTheme(score: number = 85) {
             dot: 'bg-emerald-500 dark:bg-emerald-400',
         };
     }
+
     if (score >= 85) {
         return {
             tier: 'Advanced Specialist',
@@ -60,6 +58,7 @@ function getProficiencyTheme(score: number = 85) {
             dot: 'bg-cyan-500 dark:bg-cyan-400',
         };
     }
+
     if (score >= 75) {
         return {
             tier: 'Proficient / Working',
@@ -69,6 +68,7 @@ function getProficiencyTheme(score: number = 85) {
             dot: 'bg-purple-500 dark:bg-purple-400',
         };
     }
+
     return {
         tier: 'Intermediate',
         badge: 'bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30 font-bold dark:font-semibold',
@@ -79,68 +79,97 @@ function getProficiencyTheme(score: number = 85) {
 }
 
 /* Helper for Smart Pagination Range with ellipsis */
-function getPaginationRange(current: number, total: number): (number | string)[] {
+function getPaginationRange(
+    current: number,
+    total: number,
+): (number | string)[] {
     if (total <= 7) {
         return Array.from({ length: total }, (_, i) => i + 1);
     }
+
     const delta = 1;
     const range: (number | string)[] = [];
-    for (let i = Math.max(2, current - delta); i <= Math.min(total - 1, current + delta); i++) {
+
+    for (
+        let i = Math.max(2, current - delta);
+        i <= Math.min(total - 1, current + delta);
+        i++
+    ) {
         range.push(i);
     }
+
     if (current - delta > 2) {
         range.unshift('...');
     }
+
     if (current + delta < total - 1) {
         range.push('...');
     }
+
     range.unshift(1);
+
     if (total > 1) {
         range.push(total);
     }
+
     return range;
 }
 
-export default function TechStackSection({ categories = [] }: TechStackSectionProps) {
+export default function TechStackSection({
+    categories = [],
+}: TechStackSectionProps) {
     const { t } = useTranslation();
-    const [selectedCategory, setSelectedCategory] = useState<number | 'all'>('all');
+    const [selectedCategory, setSelectedCategory] = useState<number | 'all'>(
+        'all',
+    );
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [viewMode, setViewMode] = useState<'barchart' | 'grid'>('barchart');
     const [pageSize, setPageSize] = useState<number>(6);
     const [currentPage, setCurrentPage] = useState<number>(1);
 
-    if (!categories || categories.length === 0) return null;
-
     // Collect all technologies with their localized category name
-    const allTechnologies: Array<TechnologyItem & { categoryName?: string }> = useMemo(() => {
-        const list: Array<TechnologyItem & { categoryName?: string }> = [];
-        categories.forEach((cat) => {
-            const catName = getTranslated(cat.name, 'Category');
-            if (cat.technologies) {
-                cat.technologies.forEach((tech) => {
-                    list.push({
-                        ...tech,
-                        categoryName: catName,
+    const allTechnologies: Array<TechnologyItem & { categoryName?: string }> =
+        useMemo(() => {
+            const list: Array<TechnologyItem & { categoryName?: string }> = [];
+            categories.forEach((cat) => {
+                const catName = getTranslated(cat.name, 'Category');
+
+                if (cat.technologies) {
+                    cat.technologies.forEach((tech) => {
+                        list.push({
+                            ...tech,
+                            categoryName: catName,
+                        });
                     });
-                });
-            }
-        });
-        return list;
-    }, [categories]);
+                }
+            });
+
+            return list;
+        }, [categories]);
 
     // Filter displayed technologies by category and search query
     const filteredTechs = useMemo(() => {
         const q = searchQuery.trim().toLowerCase();
+
         return allTechnologies
             .filter((tech) => {
                 const matchCategory =
-                    selectedCategory === 'all' || tech.technology_category_id === selectedCategory;
-                if (!matchCategory) return false;
+                    selectedCategory === 'all' ||
+                    tech.technology_category_id === selectedCategory;
 
-                if (!q) return true;
+                if (!matchCategory) {
+                    return false;
+                }
+
+                if (!q) {
+                    return true;
+                }
 
                 const nameMatch = tech.name.toLowerCase().includes(q);
-                const catMatch = (tech.categoryName ?? '').toLowerCase().includes(q);
+                const catMatch = (tech.categoryName ?? '')
+                    .toLowerCase()
+                    .includes(q);
+
                 return nameMatch || catMatch;
             })
             .sort((a, b) => (b.proficiency ?? 85) - (a.proficiency ?? 85));
@@ -174,40 +203,57 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
 
     const paginatedTechs = useMemo(() => {
         const start = (safeCurrentPage - 1) * pageSize;
+
         return filteredTechs.slice(start, start + pageSize);
     }, [filteredTechs, safeCurrentPage, pageSize]);
 
     // Calculate quick stats
     const stats = useMemo(() => {
         const total = filteredTechs.length;
-        if (total === 0) return { total: 0, average: 0, topSkill: '-' };
+
+        if (total === 0) {
+            return { total: 0, average: 0, topSkill: '-' };
+        }
+
         const avg = Math.round(
-            filteredTechs.reduce((acc, curr) => acc + (curr.proficiency ?? 85), 0) / total
+            filteredTechs.reduce(
+                (acc, curr) => acc + (curr.proficiency ?? 85),
+                0,
+            ) / total,
         );
         const top = filteredTechs[0]?.name ?? '-';
+
         return { total, average: avg, topSkill: top };
     }, [filteredTechs]);
 
-    const startIndex = filteredTechs.length > 0 ? (safeCurrentPage - 1) * pageSize + 1 : 0;
+    const startIndex =
+        filteredTechs.length > 0 ? (safeCurrentPage - 1) * pageSize + 1 : 0;
     const endIndex = Math.min(safeCurrentPage * pageSize, filteredTechs.length);
 
-    return (
-        <section id="skills" className="py-12 sm:py-16 md:py-24 lg:py-28 relative overflow-hidden bg-transparent">
-            {/* Ambient Cosmic Background Glows */}
-            <div className="absolute top-1/3 right-1/4 w-[600px] h-[600px] bg-purple-400/20 dark:bg-purple-600/15 rounded-full blur-3xl pointer-events-none -z-10" />
-            <div className="absolute bottom-10 left-1/4 w-[550px] h-[550px] bg-cyan-300/15 dark:bg-cyan-400/10 rounded-full blur-3xl pointer-events-none -z-10" />
-            <div className="absolute top-10 left-10 w-[450px] h-[450px] bg-rose-200/15 dark:bg-transparent rounded-full blur-3xl pointer-events-none -z-10" />
+    if (!categories || categories.length === 0) {
+        return null;
+    }
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    return (
+        <section
+            id="skills"
+            className="relative overflow-hidden bg-transparent py-12 sm:py-16 md:py-24 lg:py-28"
+        >
+            {/* Ambient Cosmic Background Glows */}
+            <div className="pointer-events-none absolute top-1/3 right-1/4 -z-10 h-[600px] w-[600px] rounded-full bg-purple-400/20 blur-3xl dark:bg-purple-600/15" />
+            <div className="pointer-events-none absolute bottom-10 left-1/4 -z-10 h-[550px] w-[550px] rounded-full bg-cyan-300/15 blur-3xl dark:bg-cyan-400/10" />
+            <div className="pointer-events-none absolute top-10 left-10 -z-10 h-[450px] w-[450px] rounded-full bg-rose-200/15 blur-3xl dark:bg-transparent" />
+
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 {/* ── Section Header ── */}
-                <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 space-y-3">
+                <div className="mx-auto mb-8 max-w-3xl space-y-3 text-center sm:mb-12">
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-cyan-500/40 bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 text-xs font-bold dark:font-semibold shadow-sm"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/40 bg-cyan-500/15 px-3.5 py-1.5 text-xs font-bold text-cyan-700 shadow-sm dark:font-semibold dark:text-cyan-400"
                     >
-                        <Cpu className="w-3.5 h-3.5" />
+                        <Cpu className="h-3.5 w-3.5" />
                         <span>{t('techStack.title')}</span>
                     </motion.div>
                     <motion.h2
@@ -215,58 +261,58 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-tight"
+                        className="text-3xl leading-tight font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
                     >
                         {t('techStack.subtitle')}
                     </motion.h2>
-                    <p className="text-sm text-muted-foreground max-w-xl mx-auto">
-                        Visualisasi tingkat kemahiran, keahlian arsitektur, dan ekosistem teknologi yang digunakan dalam pengembangan produk berskala enterprise.
+                    <p className="mx-auto max-w-xl text-sm text-muted-foreground">
+                        Visualisasi tingkat kemahiran, keahlian arsitektur, dan
+                        ekosistem teknologi yang digunakan dalam pengembangan
+                        produk berskala enterprise.
                     </p>
                 </div>
 
                 {/* ── Top Control & Search Bar ── */}
-                <div className="p-4 sm:p-5 rounded-3xl border border-border/80 bg-card/90 backdrop-blur-sm shadow-xl shadow-purple-950/10 mb-8 space-y-4">
-                    
+                <div className="mb-8 space-y-4 rounded-3xl border border-border/80 bg-card/90 p-4 shadow-xl shadow-purple-950/10 backdrop-blur-sm sm:p-5">
                     {/* Row 1: Search Input & View Mode Switcher */}
-                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-                        
+                    <div className="flex flex-col items-stretch justify-between gap-3 sm:flex-row sm:items-center">
                         {/* Futuristic Search Form (Expanded Full Width) */}
-                        <div className="relative flex-1 w-full">
-                            <Search className="w-4 h-4 text-purple-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <div className="relative w-full flex-1">
+                            <Search className="pointer-events-none absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-purple-400" />
                             <input
                                 type="text"
                                 value={searchQuery}
                                 onChange={handleSearchChange}
                                 placeholder="Cari teknologi, framework, tools..."
-                                className="w-full pl-11 pr-10 py-3 rounded-2xl border border-border bg-background/90 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500/60 transition-all shadow-inner"
+                                className="w-full rounded-2xl border border-border bg-background/90 py-3 pr-10 pl-11 text-xs text-foreground shadow-inner transition-all placeholder:text-muted-foreground focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/40 focus:outline-none sm:text-sm"
                             />
                             {searchQuery && (
                                 <button
                                     type="button"
                                     onClick={handleClearSearch}
-                                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-1 rounded-lg hover:bg-secondary transition-colors"
+                                    className="absolute top-1/2 right-3.5 -translate-y-1/2 rounded-lg p-1 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
                                     title="Hapus pencarian"
                                 >
-                                    <X className="w-4 h-4" />
+                                    <X className="h-4 w-4" />
                                 </button>
                             )}
                         </div>
 
                         {/* View Switcher: Bar Chart vs Grid */}
-                        <div className="flex items-center gap-1 p-1 rounded-xl bg-secondary/80 border border-border flex-shrink-0 self-end sm:self-auto">
+                        <div className="flex flex-shrink-0 items-center gap-1 self-end rounded-xl border border-border bg-secondary/80 p-1 sm:self-auto">
                             <button
                                 type="button"
                                 onClick={() => {
                                     setViewMode('barchart');
                                     setCurrentPage(1);
                                 }}
-                                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                                className={`flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${
                                     viewMode === 'barchart'
-                                        ? 'bg-background text-foreground shadow-sm border border-border/80 text-purple-400'
+                                        ? 'border border-border/80 bg-background text-foreground text-purple-400 shadow-sm'
                                         : 'text-muted-foreground hover:text-foreground'
                                 }`}
                             >
-                                <BarChart3 className="w-3.5 h-3.5" />
+                                <BarChart3 className="h-3.5 w-3.5" />
                                 <span>Statistik Bar Chart</span>
                             </button>
                             <button
@@ -275,34 +321,37 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                                     setViewMode('grid');
                                     setCurrentPage(1);
                                 }}
-                                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                                className={`flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${
                                     viewMode === 'grid'
-                                        ? 'bg-background text-foreground shadow-sm border border-border/80 text-cyan-400'
+                                        ? 'border border-border/80 bg-background text-cyan-400 text-foreground shadow-sm'
                                         : 'text-muted-foreground hover:text-foreground'
                                 }`}
                             >
-                                <LayoutGrid className="w-3.5 h-3.5" />
+                                <LayoutGrid className="h-3.5 w-3.5" />
                                 <span>Grid Cards</span>
                             </button>
                         </div>
                     </div>
 
                     {/* Row 2: Category Filter Tabs */}
-                    <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border/50">
+                    <div className="flex flex-wrap items-center gap-2 border-t border-border/50 pt-2">
                         <button
                             type="button"
                             onClick={() => handleCategoryChange('all')}
-                            className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 ${
+                            className={`rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${
                                 selectedCategory === 'all'
-                                    ? 'bg-gradient-to-r from-purple-600 to-cyan-500 text-white shadow-md shadow-purple-500/25 scale-[1.02]'
-                                    : 'bg-background/80 border border-border text-muted-foreground hover:text-foreground hover:bg-secondary'
+                                    ? 'scale-[1.02] bg-gradient-to-r from-purple-600 to-cyan-500 text-white shadow-md shadow-purple-500/25'
+                                    : 'border border-border bg-background/80 text-muted-foreground hover:bg-secondary hover:text-foreground'
                             }`}
                         >
                             {t('techStack.all')} ({allTechnologies.length})
                         </button>
 
                         {categories.map((category) => {
-                            const name = getTranslated(category.name, 'Category');
+                            const name = getTranslated(
+                                category.name,
+                                'Category',
+                            );
                             const isSelected = selectedCategory === category.id;
                             const count = category.technologies?.length ?? 0;
 
@@ -310,15 +359,19 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                                 <button
                                     key={category.id}
                                     type="button"
-                                    onClick={() => handleCategoryChange(category.id)}
-                                    className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 ${
+                                    onClick={() =>
+                                        handleCategoryChange(category.id)
+                                    }
+                                    className={`flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${
                                         isSelected
-                                            ? 'bg-gradient-to-r from-purple-600 to-cyan-500 text-white shadow-md shadow-purple-500/25 scale-[1.02]'
-                                            : 'bg-background/80 border border-border text-muted-foreground hover:text-foreground hover:bg-secondary'
+                                            ? 'scale-[1.02] bg-gradient-to-r from-purple-600 to-cyan-500 text-white shadow-md shadow-purple-500/25'
+                                            : 'border border-border bg-background/80 text-muted-foreground hover:bg-secondary hover:text-foreground'
                                     }`}
                                 >
                                     <span>{name}</span>
-                                    <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-secondary text-muted-foreground'}`}>
+                                    <span
+                                        className={`py-0.2 rounded-full px-1.5 text-[10px] ${isSelected ? 'bg-white/20 text-white' : 'bg-secondary text-muted-foreground'}`}
+                                    >
                                         {count}
                                     </span>
                                 </button>
@@ -330,48 +383,60 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                             <button
                                 type="button"
                                 onClick={handleResetAll}
-                                className="ml-auto text-xs font-semibold text-purple-400 hover:text-cyan-400 flex items-center gap-1 transition-colors px-2 py-1"
+                                className="ml-auto flex items-center gap-1 px-2 py-1 text-xs font-semibold text-purple-400 transition-colors hover:text-cyan-400"
                             >
-                                <RefreshCw className="w-3 h-3" /> Reset Filter
+                                <RefreshCw className="h-3 w-3" /> Reset Filter
                             </button>
                         )}
                     </div>
                 </div>
 
                 {/* ── Summary Stats Overview Pills ── */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                    <div className="p-4 rounded-2xl border border-border/80 bg-card/90 backdrop-blur-sm flex items-center justify-between shadow-sm">
+                <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                    <div className="flex items-center justify-between rounded-2xl border border-border/80 bg-card/90 p-4 shadow-sm backdrop-blur-sm">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
-                                <Layers className="w-5 h-5" />
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-purple-500/20 bg-purple-500/10 text-purple-400">
+                                <Layers className="h-5 w-5" />
                             </div>
                             <div>
-                                <span className="text-[11px] font-medium text-muted-foreground block">Filtered Stack</span>
-                                <span className="font-mono font-bold text-base text-foreground">{stats.total} Technologies</span>
+                                <span className="block text-[11px] font-medium text-muted-foreground">
+                                    Filtered Stack
+                                </span>
+                                <span className="font-mono text-base font-bold text-foreground">
+                                    {stats.total} Technologies
+                                </span>
                             </div>
                         </div>
                     </div>
 
-                    <div className="p-4 rounded-2xl border border-border/80 bg-card/90 backdrop-blur-sm flex items-center justify-between shadow-sm">
+                    <div className="flex items-center justify-between rounded-2xl border border-border/80 bg-card/90 p-4 shadow-sm backdrop-blur-sm">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
-                                <TrendingUp className="w-5 h-5" />
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400">
+                                <TrendingUp className="h-5 w-5" />
                             </div>
                             <div>
-                                <span className="text-[11px] font-medium text-muted-foreground block">Average Mastery</span>
-                                <span className="font-mono font-bold text-base text-foreground">{stats.average}% Ability</span>
+                                <span className="block text-[11px] font-medium text-muted-foreground">
+                                    Average Mastery
+                                </span>
+                                <span className="font-mono text-base font-bold text-foreground">
+                                    {stats.average}% Ability
+                                </span>
                             </div>
                         </div>
                     </div>
 
-                    <div className="p-4 rounded-2xl border border-border/80 bg-card/90 backdrop-blur-sm flex items-center justify-between shadow-sm">
+                    <div className="flex items-center justify-between rounded-2xl border border-border/80 bg-card/90 p-4 shadow-sm backdrop-blur-sm">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-                                <Award className="w-5 h-5" />
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400">
+                                <Award className="h-5 w-5" />
                             </div>
                             <div>
-                                <span className="text-[11px] font-medium text-muted-foreground block">Top Proficiency</span>
-                                <span className="font-mono font-bold text-base text-foreground truncate max-w-[150px]">{stats.topSkill}</span>
+                                <span className="block text-[11px] font-medium text-muted-foreground">
+                                    Top Proficiency
+                                </span>
+                                <span className="max-w-[150px] truncate font-mono text-base font-bold text-foreground">
+                                    {stats.topSkill}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -386,19 +451,23 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0 }}
-                            className="flex flex-col items-center justify-center py-16 px-4 rounded-3xl border border-border/80 bg-card/90 backdrop-blur-sm text-center gap-3"
+                            className="flex flex-col items-center justify-center gap-3 rounded-3xl border border-border/80 bg-card/90 px-4 py-16 text-center backdrop-blur-sm"
                         >
-                            <div className="w-14 h-14 rounded-2xl border border-border bg-secondary flex items-center justify-center text-purple-400 shadow-inner">
-                                <Search className="w-7 h-7 opacity-70" />
+                            <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-border bg-secondary text-purple-400 shadow-inner">
+                                <Search className="h-7 w-7 opacity-70" />
                             </div>
-                            <h3 className="text-base font-bold text-foreground">Tidak ada teknologi yang cocok</h3>
-                            <p className="text-xs text-muted-foreground max-w-sm">
-                                Tidak ditemukan teknologi dengan kata kunci "{searchQuery}". Coba kata kunci lain atau reset filter.
+                            <h3 className="text-base font-bold text-foreground">
+                                Tidak ada teknologi yang cocok
+                            </h3>
+                            <p className="max-w-sm text-xs text-muted-foreground">
+                                Tidak ditemukan teknologi dengan kata kunci "
+                                {searchQuery}". Coba kata kunci lain atau reset
+                                filter.
                             </p>
                             <button
                                 type="button"
                                 onClick={handleResetAll}
-                                className="mt-2 px-4 py-2 rounded-xl bg-secondary hover:bg-secondary/80 border border-border text-xs font-semibold text-foreground transition-all"
+                                className="mt-2 rounded-xl border border-border bg-secondary px-4 py-2 text-xs font-semibold text-foreground transition-all hover:bg-secondary/80"
                             >
                                 Reset Pencarian & Filter
                             </button>
@@ -411,25 +480,32 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.3 }}
-                            className="p-6 sm:p-8 rounded-3xl border border-border/80 bg-card/90 backdrop-blur-sm shadow-xl shadow-purple-950/10 space-y-6"
+                            className="space-y-6 rounded-3xl border border-border/80 bg-card/90 p-6 shadow-xl shadow-purple-950/10 backdrop-blur-sm sm:p-8"
                         >
                             {/* Bar Chart Header Scale */}
-                            <div className="hidden sm:flex items-center justify-between text-[11px] font-mono text-muted-foreground pb-3 border-b border-border/60">
-                                <span className="w-48 font-bold uppercase tracking-wider text-foreground">Technology / Skill</span>
-                                <div className="flex-1 flex justify-between px-4">
+                            <div className="hidden items-center justify-between border-b border-border/60 pb-3 font-mono text-[11px] text-muted-foreground sm:flex">
+                                <span className="w-48 font-bold tracking-wider text-foreground uppercase">
+                                    Technology / Skill
+                                </span>
+                                <div className="flex flex-1 justify-between px-4">
                                     <span>0%</span>
                                     <span>25% Basic</span>
                                     <span>50% Intermediate</span>
                                     <span>75% Advanced</span>
                                     <span>100% Expert</span>
                                 </div>
-                                <span className="w-28 text-right font-bold uppercase tracking-wider text-foreground">Mastery</span>
+                                <span className="w-28 text-right font-bold tracking-wider text-foreground uppercase">
+                                    Mastery
+                                </span>
                             </div>
 
                             {/* Bar Chart Items List */}
                             <div className="space-y-4">
                                 {paginatedTechs.map((tech, idx) => {
-                                    const score = Math.min(100, Math.max(0, tech.proficiency ?? 85));
+                                    const score = Math.min(
+                                        100,
+                                        Math.max(0, tech.proficiency ?? 85),
+                                    );
                                     const theme = getProficiencyTheme(score);
 
                                     return (
@@ -438,31 +514,33 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                                             initial={{ opacity: 0, x: -10 }}
                                             animate={{ opacity: 1, x: 0 }}
                                             transition={{ delay: idx * 0.04 }}
-                                            className="group flex flex-col sm:flex-row sm:items-center gap-3 p-3.5 rounded-2xl bg-secondary/30 hover:bg-secondary/60 border border-border/60 hover:border-purple-500/30 transition-all"
+                                            className="group flex flex-col gap-3 rounded-2xl border border-border/60 bg-secondary/30 p-3.5 transition-all hover:border-purple-500/30 hover:bg-secondary/60 sm:flex-row sm:items-center"
                                         >
                                             {/* Tech Info (Left) */}
-                                            <div className="w-full sm:w-48 flex items-center gap-3 flex-shrink-0">
-                                                <div className="w-9 h-9 rounded-xl bg-background border border-border/80 flex items-center justify-center text-xs flex-shrink-0 shadow-inner group-hover:scale-110 group-hover:border-purple-500/40 transition-all">
+                                            <div className="flex w-full flex-shrink-0 items-center gap-3 sm:w-48">
+                                                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-border/80 bg-background text-xs shadow-inner transition-all group-hover:scale-110 group-hover:border-purple-500/40">
                                                     {tech.logo ? (
                                                         <img
                                                             src={`/storage/${tech.logo}`}
                                                             alt={tech.name}
                                                             loading="lazy"
                                                             decoding="async"
-                                                            className="w-5 h-5 object-contain"
+                                                            className="h-5 w-5 object-contain"
                                                         />
                                                     ) : (
-                                                        <span className="font-bold font-mono text-[11px] text-purple-400">
-                                                            {tech.name.slice(0, 2).toUpperCase()}
+                                                        <span className="font-mono text-[11px] font-bold text-purple-400">
+                                                            {tech.name
+                                                                .slice(0, 2)
+                                                                .toUpperCase()}
                                                         </span>
                                                     )}
                                                 </div>
                                                 <div className="truncate">
-                                                    <span className="font-bold text-xs text-foreground group-hover:text-purple-300 transition-colors block truncate">
+                                                    <span className="block truncate text-xs font-bold text-foreground transition-colors group-hover:text-purple-300">
                                                         {tech.name}
                                                     </span>
                                                     {tech.categoryName && (
-                                                        <span className="text-[10px] text-muted-foreground font-mono truncate block">
+                                                        <span className="block truncate font-mono text-[10px] text-muted-foreground">
                                                             {tech.categoryName}
                                                         </span>
                                                     )}
@@ -471,28 +549,44 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
 
                                             {/* Bar Progress Track (Center) */}
                                             <div className="flex-1 space-y-1">
-                                                <div className="relative h-3.5 w-full rounded-full bg-background/80 border border-border/80 overflow-hidden p-[2px]">
+                                                <div className="relative h-3.5 w-full overflow-hidden rounded-full border border-border/80 bg-background/80 p-[2px]">
                                                     <motion.div
                                                         initial={{ width: 0 }}
-                                                        whileInView={{ width: `${score}%` }}
-                                                        viewport={{ once: true }}
-                                                        transition={{ duration: 0.8, ease: 'easeOut', delay: idx * 0.04 + 0.1 }}
+                                                        whileInView={{
+                                                            width: `${score}%`,
+                                                        }}
+                                                        viewport={{
+                                                            once: true,
+                                                        }}
+                                                        transition={{
+                                                            duration: 0.8,
+                                                            ease: 'easeOut',
+                                                            delay:
+                                                                idx * 0.04 +
+                                                                0.1,
+                                                        }}
                                                         className={`h-full rounded-full bg-gradient-to-r ${theme.gradient} ${theme.glow} relative`}
                                                     >
                                                         {/* High-tech sheen highlight */}
-                                                        <div className="absolute inset-0 bg-white/20 opacity-30 rounded-full" />
+                                                        <div className="absolute inset-0 rounded-full bg-white/20 opacity-30" />
                                                     </motion.div>
                                                 </div>
                                             </div>
 
                                             {/* Tier Badge & Percentage Pill (Right) */}
-                                            <div className="w-full sm:w-32 flex items-center justify-between sm:justify-end gap-2 flex-shrink-0">
-                                                <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border ${theme.badge} hidden sm:inline`}>
+                                            <div className="flex w-full flex-shrink-0 items-center justify-between gap-2 sm:w-32 sm:justify-end">
+                                                <span
+                                                    className={`rounded-md border px-2 py-0.5 text-[10px] font-semibold ${theme.badge} hidden sm:inline`}
+                                                >
                                                     {theme.tier.split('/')[0]}
                                                 </span>
-                                                <div className="flex items-baseline gap-0.5 px-2.5 py-1 rounded-lg bg-background border border-border font-mono font-bold text-xs text-foreground shadow-sm">
-                                                    <span className="text-cyan-400">{score}</span>
-                                                    <span className="text-[10px] text-muted-foreground">%</span>
+                                                <div className="flex items-baseline gap-0.5 rounded-lg border border-border bg-background px-2.5 py-1 font-mono text-xs font-bold text-foreground shadow-sm">
+                                                    <span className="text-cyan-400">
+                                                        {score}
+                                                    </span>
+                                                    <span className="text-[10px] text-muted-foreground">
+                                                        %
+                                                    </span>
                                                 </div>
                                             </div>
                                         </motion.div>
@@ -508,10 +602,13 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.3 }}
-                            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
+                            className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
                         >
                             {paginatedTechs.map((tech, idx) => {
-                                const score = Math.min(100, Math.max(0, tech.proficiency ?? 85));
+                                const score = Math.min(
+                                    100,
+                                    Math.max(0, tech.proficiency ?? 85),
+                                );
                                 const theme = getProficiencyTheme(score);
 
                                 return (
@@ -520,34 +617,38 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                                         initial={{ opacity: 0, scale: 0.95 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         transition={{ delay: idx * 0.03 }}
-                                        className="group relative p-4 rounded-2xl border border-border/80 bg-card/90 backdrop-blur-sm shadow-md hover:shadow-xl hover:shadow-purple-950/20 hover:border-purple-500/40 flex flex-col justify-between transition-all duration-300 overflow-hidden"
+                                        className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card/90 p-4 shadow-md backdrop-blur-sm transition-all duration-300 hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-950/20"
                                     >
-                                        <div className="flex flex-col items-center justify-center text-center space-y-2">
+                                        <div className="flex flex-col items-center justify-center space-y-2 text-center">
                                             {/* Tech Icon */}
-                                            <div className="relative w-12 h-12 rounded-xl bg-secondary/80 border border-border/80 flex items-center justify-center group-hover:scale-110 group-hover:border-purple-500/40 transition-all duration-300 shadow-inner">
+                                            <div className="relative flex h-12 w-12 items-center justify-center rounded-xl border border-border/80 bg-secondary/80 shadow-inner transition-all duration-300 group-hover:scale-110 group-hover:border-purple-500/40">
                                                 {tech.logo ? (
                                                     <img
                                                         src={`/storage/${tech.logo}`}
                                                         alt={tech.name}
                                                         loading="lazy"
                                                         decoding="async"
-                                                        className="w-7 h-7 object-contain drop-shadow"
+                                                        className="h-7 w-7 object-contain drop-shadow"
                                                     />
                                                 ) : (
-                                                    <span className="font-bold text-sm text-purple-400 font-mono">
-                                                        {tech.name.slice(0, 2).toUpperCase()}
+                                                    <span className="font-mono text-sm font-bold text-purple-400">
+                                                        {tech.name
+                                                            .slice(0, 2)
+                                                            .toUpperCase()}
                                                     </span>
                                                 )}
-                                                <span className={`absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full border-2 border-card ${theme.dot}`} />
+                                                <span
+                                                    className={`absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full border-2 border-card ${theme.dot}`}
+                                                />
                                             </div>
 
                                             {/* Name & Category */}
                                             <div>
-                                                <span className="font-bold text-xs text-foreground group-hover:text-purple-300 transition-colors block truncate">
+                                                <span className="block truncate text-xs font-bold text-foreground transition-colors group-hover:text-purple-300">
                                                     {tech.name}
                                                 </span>
                                                 {tech.categoryName && (
-                                                    <span className="text-[10px] text-muted-foreground font-mono line-clamp-1">
+                                                    <span className="line-clamp-1 font-mono text-[10px] text-muted-foreground">
                                                         {tech.categoryName}
                                                     </span>
                                                 )}
@@ -555,17 +656,26 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                                         </div>
 
                                         {/* Mini Ability Progress Bar at Bottom of Card */}
-                                        <div className="mt-3 pt-2.5 border-t border-border/50 space-y-1">
-                                            <div className="flex items-center justify-between text-[10px] font-mono">
-                                                <span className="text-muted-foreground">Ability</span>
-                                                <span className="font-bold text-cyan-400">{score}%</span>
+                                        <div className="mt-3 space-y-1 border-t border-border/50 pt-2.5">
+                                            <div className="flex items-center justify-between font-mono text-[10px]">
+                                                <span className="text-muted-foreground">
+                                                    Ability
+                                                </span>
+                                                <span className="font-bold text-cyan-400">
+                                                    {score}%
+                                                </span>
                                             </div>
-                                            <div className="h-1.5 w-full rounded-full bg-background/80 overflow-hidden p-[1px]">
+                                            <div className="h-1.5 w-full overflow-hidden rounded-full bg-background/80 p-[1px]">
                                                 <motion.div
                                                     initial={{ width: 0 }}
-                                                    whileInView={{ width: `${score}%` }}
+                                                    whileInView={{
+                                                        width: `${score}%`,
+                                                    }}
                                                     viewport={{ once: true }}
-                                                    transition={{ duration: 0.6, ease: 'easeOut' }}
+                                                    transition={{
+                                                        duration: 0.6,
+                                                        ease: 'easeOut',
+                                                    }}
                                                     className={`h-full rounded-full bg-gradient-to-r ${theme.gradient}`}
                                                 />
                                             </div>
@@ -579,12 +689,11 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
 
                 {/* ════════ FUTURISTIC PAGINATION CONTROLS BAR ════════ */}
                 {filteredTechs.length > 0 && (
-                    <div className="mt-8 p-4 rounded-2xl border border-border/80 bg-card/90 backdrop-blur-sm flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg shadow-purple-950/10">
-                        
+                    <div className="mt-8 flex flex-col items-center justify-between gap-4 rounded-2xl border border-border/80 bg-card/90 p-4 shadow-lg shadow-purple-950/10 backdrop-blur-sm sm:flex-row">
                         {/* Items Per Page Selector */}
                         <div className="flex items-center gap-2.5 text-xs text-muted-foreground">
                             <span className="flex items-center gap-1.5 font-medium">
-                                <SlidersHorizontal className="w-3.5 h-3.5 text-purple-400" />
+                                <SlidersHorizontal className="h-3.5 w-3.5 text-purple-400" />
                                 Tampilkan:
                             </span>
                             <div className="relative">
@@ -594,7 +703,7 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                                         setPageSize(Number(e.target.value));
                                         setCurrentPage(1);
                                     }}
-                                    className="px-3 py-1.5 rounded-xl border border-border bg-background/90 text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-purple-500/40 cursor-pointer shadow-inner"
+                                    className="cursor-pointer rounded-xl border border-border bg-background/90 px-3 py-1.5 text-xs font-semibold text-foreground shadow-inner focus:ring-2 focus:ring-purple-500/40 focus:outline-none"
                                 >
                                     {PAGE_SIZE_OPTIONS.map((opt) => (
                                         <option key={opt} value={opt}>
@@ -603,48 +712,58 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                                     ))}
                                 </select>
                             </div>
-                            <span className="hidden md:inline font-mono text-[11px]">
-                                (Menampilkan {startIndex} - {endIndex} dari {filteredTechs.length} total)
+                            <span className="hidden font-mono text-[11px] md:inline">
+                                (Menampilkan {startIndex} - {endIndex} dari{' '}
+                                {filteredTechs.length} total)
                             </span>
                         </div>
 
                         {/* Numbered Pagination Buttons */}
                         {totalPages > 1 && (
-                            <div className="flex items-center gap-1.5 flex-wrap justify-center">
+                            <div className="flex flex-wrap items-center justify-center gap-1.5">
                                 {/* Prev Button */}
                                 <button
                                     type="button"
-                                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                                    onClick={() =>
+                                        setCurrentPage((p) =>
+                                            Math.max(1, p - 1),
+                                        )
+                                    }
                                     disabled={safeCurrentPage === 1}
-                                    className="w-8 h-8 rounded-lg border border-border bg-background flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary disabled:opacity-40 disabled:cursor-not-allowed hover:border-purple-500/40 active:scale-95 transition-all shadow-sm"
+                                    className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-background text-muted-foreground shadow-sm transition-all hover:border-purple-500/40 hover:bg-secondary hover:text-foreground active:scale-95 disabled:cursor-not-allowed disabled:opacity-40"
                                     aria-label="Previous Page"
                                 >
-                                    <ChevronLeft className="w-4 h-4" />
+                                    <ChevronLeft className="h-4 w-4" />
                                 </button>
 
                                 {/* Page Numbers */}
-                                {getPaginationRange(safeCurrentPage, totalPages).map((item, i) => {
+                                {getPaginationRange(
+                                    safeCurrentPage,
+                                    totalPages,
+                                ).map((item, i) => {
                                     if (item === '...') {
                                         return (
                                             <span
                                                 key={`dots-${i}`}
-                                                className="w-8 h-8 flex items-center justify-center text-xs text-muted-foreground font-bold select-none"
+                                                className="flex h-8 w-8 items-center justify-center text-xs font-bold text-muted-foreground select-none"
                                             >
                                                 ...
                                             </span>
                                         );
                                     }
+
                                     const num = item as number;
                                     const isActive = num === safeCurrentPage;
+
                                     return (
                                         <button
                                             key={num}
                                             type="button"
                                             onClick={() => setCurrentPage(num)}
-                                            className={`w-8 h-8 rounded-lg text-xs font-bold transition-all active:scale-95 ${
+                                            className={`h-8 w-8 rounded-lg text-xs font-bold transition-all active:scale-95 ${
                                                 isActive
-                                                    ? 'bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white shadow-md shadow-purple-600/30 ring-1 ring-cyan-400/40'
-                                                    : 'border border-border bg-background text-muted-foreground hover:text-foreground hover:bg-secondary hover:border-purple-500/40'
+                                                    ? 'bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white shadow-md ring-1 shadow-purple-600/30 ring-cyan-400/40'
+                                                    : 'border border-border bg-background text-muted-foreground hover:border-purple-500/40 hover:bg-secondary hover:text-foreground'
                                             }`}
                                         >
                                             {num}
@@ -655,23 +774,33 @@ export default function TechStackSection({ categories = [] }: TechStackSectionPr
                                 {/* Next Button */}
                                 <button
                                     type="button"
-                                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                                    onClick={() =>
+                                        setCurrentPage((p) =>
+                                            Math.min(totalPages, p + 1),
+                                        )
+                                    }
                                     disabled={safeCurrentPage === totalPages}
-                                    className="w-8 h-8 rounded-lg border border-border bg-background flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary disabled:opacity-40 disabled:cursor-not-allowed hover:border-purple-500/40 active:scale-95 transition-all shadow-sm"
+                                    className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-background text-muted-foreground shadow-sm transition-all hover:border-purple-500/40 hover:bg-secondary hover:text-foreground active:scale-95 disabled:cursor-not-allowed disabled:opacity-40"
                                     aria-label="Next Page"
                                 >
-                                    <ChevronRight className="w-4 h-4" />
+                                    <ChevronRight className="h-4 w-4" />
                                 </button>
                             </div>
                         )}
 
                         {/* Page Position Indicator */}
-                        <div className="text-xs text-muted-foreground font-mono">
-                            Halaman <span className="text-foreground font-bold">{safeCurrentPage}</span> dari <span className="text-foreground font-bold">{totalPages}</span>
+                        <div className="font-mono text-xs text-muted-foreground">
+                            Halaman{' '}
+                            <span className="font-bold text-foreground">
+                                {safeCurrentPage}
+                            </span>{' '}
+                            dari{' '}
+                            <span className="font-bold text-foreground">
+                                {totalPages}
+                            </span>
                         </div>
                     </div>
                 )}
-
             </div>
         </section>
     );

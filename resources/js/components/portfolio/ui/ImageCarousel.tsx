@@ -1,6 +1,6 @@
 import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, EffectFade, Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -12,26 +12,32 @@ interface ImageCarouselProps {
 }
 
 export default function ImageCarousel({ images }: ImageCarouselProps) {
-    if (!images || images.length === 0) return null;
+    if (!images || images.length === 0) {
+        return null;
+    }
 
     return (
-        <div className="w-full rounded-2xl overflow-hidden border border-border bg-card shadow-2xl my-8">
+        <div className="my-8 w-full overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
             <Swiper
                 modules={[Navigation, Pagination, EffectFade, Autoplay]}
                 effect="fade"
                 navigation
                 pagination={{ clickable: true }}
                 autoplay={{ delay: 3000, disableOnInteraction: false }}
-                className="w-full aspect-video cert-swiper"
+                className="cert-swiper aspect-video w-full"
             >
                 {images.map((image, idx) => (
                     <SwiperSlide key={idx}>
-                        <img 
-                            src={image.startsWith('http') ? image : `/storage/${image}`} 
-                            alt={`Gallery image ${idx + 1}`} 
+                        <img
+                            src={
+                                image.startsWith('http')
+                                    ? image
+                                    : `/storage/${image}`
+                            }
+                            alt={`Gallery image ${idx + 1}`}
                             loading="lazy"
                             decoding="async"
-                            className="w-full h-full object-cover"
+                            className="h-full w-full object-cover"
                         />
                     </SwiperSlide>
                 ))}

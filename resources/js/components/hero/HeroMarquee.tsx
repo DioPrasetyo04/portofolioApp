@@ -1,36 +1,40 @@
-"use client";
+'use client';
 
 import React from 'react';
 import { heroConfig } from './hero.config';
 
 export default function HeroMarquee() {
     // Duplicate tech logos array for a seamless 100% infinite loop
-    const logos = [...heroConfig.techLogos, ...heroConfig.techLogos, ...heroConfig.techLogos];
+    const logos = [
+        ...heroConfig.techLogos,
+        ...heroConfig.techLogos,
+        ...heroConfig.techLogos,
+    ];
 
     return (
-        <div className="absolute left-[-10%] right-[-10%] w-[120%] bottom-[20%] sm:bottom-[19%] lg:bottom-[18%] z-[4] pointer-events-none select-none overflow-hidden transform -rotate-3 origin-center">
+        <div className="pointer-events-none absolute right-[-10%] bottom-[20%] left-[-10%] z-[4] w-[120%] origin-center -rotate-3 transform overflow-hidden select-none sm:bottom-[19%] lg:bottom-[18%]">
             {/* The diagonal ribbon band */}
-            <div className="w-full py-3.5 sm:py-4.5 bg-[var(--hero-strip-bg)] border-y border-[var(--hero-strip-border)] backdrop-blur-md shadow-2xl overflow-hidden flex items-center pointer-events-auto">
+            <div className="pointer-events-auto flex w-full items-center overflow-hidden border-y border-[var(--hero-strip-border)] bg-[var(--hero-strip-bg)] py-3.5 shadow-2xl backdrop-blur-md sm:py-4.5">
                 <div className="animate-marquee flex items-center gap-6 sm:gap-9">
                     {logos.map((tech, idx) => (
                         <div
                             key={idx}
-                            className="flex items-center gap-2.5 flex-shrink-0 group"
+                            className="group flex flex-shrink-0 items-center gap-2.5"
                             title={tech.name}
                         >
                             {/* Circular badge with red accent ring matching reference poster */}
-                            <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full bg-black/80 border-2 border-[#C93A32] p-2.5 flex items-center justify-center shadow-[0_0_12px_rgba(201,58,50,0.35)] group-hover:shadow-[0_0_20px_rgba(201,58,50,0.7)] group-hover:scale-110 transition-all duration-300">
+                            <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#C93A32] bg-black/80 p-2.5 shadow-[0_0_12px_rgba(201,58,50,0.35)] transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(201,58,50,0.7)] sm:h-14 sm:w-14 lg:h-16 lg:w-16">
                                 <img
                                     src={tech.src}
                                     alt={tech.name}
                                     width={40}
                                     height={40}
-                                    className="w-full h-full object-contain filter drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]"
+                                    className="h-full w-full object-contain drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] filter"
                                     loading="lazy"
                                     decoding="async"
                                 />
                             </div>
-                            <span className="font-hero-condensed text-xs sm:text-sm tracking-widest text-[var(--hero-fg-muted)] uppercase hidden xl:inline-block">
+                            <span className="font-hero-condensed hidden text-xs tracking-widest text-[var(--hero-fg-muted)] uppercase sm:text-sm xl:inline-block">
                                 {tech.name}
                             </span>
                         </div>

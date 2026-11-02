@@ -10,6 +10,7 @@ class Announcement extends Model
     use HasTranslations;
 
     protected $fillable = ['title', 'description', 'image', 'start_time', 'end_time'];
+
     public $translatable = ['title', 'description'];
 
     protected $casts = [

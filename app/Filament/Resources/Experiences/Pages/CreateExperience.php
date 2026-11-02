@@ -25,4 +25,3 @@ class CreateExperience extends CreateRecord
         return $data;
     }
 }
-

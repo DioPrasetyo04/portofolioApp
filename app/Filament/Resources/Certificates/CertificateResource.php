@@ -7,6 +7,8 @@ use App\Filament\Resources\Certificates\Pages\EditCertificate;
 use App\Filament\Resources\Certificates\Pages\ListCertificates;
 use App\Filament\Resources\Certificates\Schemas\CertificateForm;
 use App\Filament\Resources\Certificates\Tables\CertificatesTable;
+use App\Filament\Resources\Certificates\Widgets\CertificateIssuerChart;
+use App\Filament\Resources\Certificates\Widgets\CertificateStatsWidget;
 use App\Models\Certificate;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -38,8 +40,8 @@ class CertificateResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            \App\Filament\Resources\Certificates\Widgets\CertificateStatsWidget::class,
-            \App\Filament\Resources\Certificates\Widgets\CertificateIssuerChart::class,
+            CertificateStatsWidget::class,
+            CertificateIssuerChart::class,
         ];
     }
 

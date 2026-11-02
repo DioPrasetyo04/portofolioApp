@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\Technologies\Pages;
 
 use App\Filament\Resources\Technologies\TechnologyResource;
+use App\Filament\Resources\Technologies\Widgets\TechnologyProficiencyChart;
+use App\Filament\Resources\Technologies\Widgets\TechnologyStatsWidget;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
@@ -20,8 +22,8 @@ class ListTechnologies extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            \App\Filament\Resources\Technologies\Widgets\TechnologyStatsWidget::class,
-            \App\Filament\Resources\Technologies\Widgets\TechnologyProficiencyChart::class,
+            TechnologyStatsWidget::class,
+            TechnologyProficiencyChart::class,
         ];
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\Projects\Pages;
 
 use App\Filament\Resources\Projects\ProjectResource;
+use App\Filament\Resources\Projects\Widgets\ProjectCategoryChart;
+use App\Filament\Resources\Projects\Widgets\ProjectStatsWidget;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
@@ -20,8 +22,8 @@ class ListProjects extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            \App\Filament\Resources\Projects\Widgets\ProjectStatsWidget::class,
-            \App\Filament\Resources\Projects\Widgets\ProjectCategoryChart::class,
+            ProjectStatsWidget::class,
+            ProjectCategoryChart::class,
         ];
     }
 }

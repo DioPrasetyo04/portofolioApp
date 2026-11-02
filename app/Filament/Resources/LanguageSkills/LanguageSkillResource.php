@@ -7,6 +7,8 @@ use App\Filament\Resources\LanguageSkills\Pages\EditLanguageSkill;
 use App\Filament\Resources\LanguageSkills\Pages\ListLanguageSkills;
 use App\Filament\Resources\LanguageSkills\Schemas\LanguageSkillForm;
 use App\Filament\Resources\LanguageSkills\Tables\LanguageSkillsTable;
+use App\Filament\Resources\LanguageSkills\Widgets\LanguageSkillChart;
+use App\Filament\Resources\LanguageSkills\Widgets\LanguageSkillStatsWidget;
 use App\Models\LanguageSkill;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -38,8 +40,8 @@ class LanguageSkillResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            \App\Filament\Resources\LanguageSkills\Widgets\LanguageSkillStatsWidget::class,
-            \App\Filament\Resources\LanguageSkills\Widgets\LanguageSkillChart::class,
+            LanguageSkillStatsWidget::class,
+            LanguageSkillChart::class,
         ];
     }
 

@@ -34,6 +34,7 @@ class AnnouncementsTable
                         if ($record->end_time && $record->end_time < $now) {
                             return 'Expired';
                         }
+
                         return 'Active Now';
                     })
                     ->badge()

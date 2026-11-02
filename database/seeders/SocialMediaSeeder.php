@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\SocialMedia;
 use Illuminate\Database\Seeder;
 
 class SocialMediaSeeder extends Seeder
@@ -46,7 +46,7 @@ class SocialMediaSeeder extends Seeder
         ];
 
         foreach ($socialMedias as $sm) {
-            \App\Models\SocialMedia::create($sm);
+            SocialMedia::create($sm);
         }
     }
 }

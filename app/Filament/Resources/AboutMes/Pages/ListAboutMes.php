@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\AboutMes\Pages;
 
 use App\Filament\Resources\AboutMes\AboutMeResource;
+use App\Filament\Resources\AboutMes\Widgets\AboutMeSkillChart;
+use App\Filament\Resources\AboutMes\Widgets\AboutMeStatsWidget;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
@@ -20,8 +22,8 @@ class ListAboutMes extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            \App\Filament\Resources\AboutMes\Widgets\AboutMeStatsWidget::class,
-            \App\Filament\Resources\AboutMes\Widgets\AboutMeSkillChart::class,
+            AboutMeStatsWidget::class,
+            AboutMeSkillChart::class,
         ];
     }
 }

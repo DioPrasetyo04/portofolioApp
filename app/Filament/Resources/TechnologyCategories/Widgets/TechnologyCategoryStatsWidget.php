@@ -14,7 +14,7 @@ class TechnologyCategoryStatsWidget extends BaseWidget
         $totalCategories = TechnologyCategory::count();
         $totalTech = Technology::count();
         $avgPerCategory = $totalCategories > 0 ? round($totalTech / $totalCategories, 1) : 0;
-        
+
         $topCategory = TechnologyCategory::withCount('technologies')
             ->orderByDesc('technologies_count')
             ->first();

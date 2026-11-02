@@ -17,25 +17,25 @@ class AboutMeForm
     private static function iconOptions(): array
     {
         return [
-            'Code2'       => '💻 Code2',
-            'Zap'         => '⚡ Zap',
-            'Layers'      => '🗂️ Layers',
-            'Monitor'     => '🖥️ Monitor',
-            'GitBranch'   => '🔀 GitBranch',
-            'Database'    => '🗄️ Database',
-            'Globe'       => '🌐 Globe',
-            'Server'      => '🖧 Server',
-            'Layout'      => '🏗️ Layout',
-            'Sparkles'    => '✨ Sparkles',
-            'Briefcase'   => '💼 Briefcase',
-            'Award'       => '🏆 Award',
-            'Clock'       => '🕐 Clock',
-            'Cpu'         => '⚙️ Cpu',
-            'Flame'       => '🔥 Flame',
-            'Terminal'    => '💻 Terminal',
-            'Star'        => '⭐ Star',
-            'CheckCircle2'=> '✅ CheckCircle2',
-            'Activity'    => '📈 Activity',
+            'Code2' => '💻 Code2',
+            'Zap' => '⚡ Zap',
+            'Layers' => '🗂️ Layers',
+            'Monitor' => '🖥️ Monitor',
+            'GitBranch' => '🔀 GitBranch',
+            'Database' => '🗄️ Database',
+            'Globe' => '🌐 Globe',
+            'Server' => '🖧 Server',
+            'Layout' => '🏗️ Layout',
+            'Sparkles' => '✨ Sparkles',
+            'Briefcase' => '💼 Briefcase',
+            'Award' => '🏆 Award',
+            'Clock' => '🕐 Clock',
+            'Cpu' => '⚙️ Cpu',
+            'Flame' => '🔥 Flame',
+            'Terminal' => '💻 Terminal',
+            'Star' => '⭐ Star',
+            'CheckCircle2' => '✅ CheckCircle2',
+            'Activity' => '📈 Activity',
         ];
     }
 
@@ -123,8 +123,7 @@ class AboutMeForm
                                             $set('items', implode(', ', $state));
                                         }
                                     })
-                                    ->dehydrateStateUsing(fn ($state) =>
-                                        array_map('trim', explode(',', $state ?? ''))
+                                    ->dehydrateStateUsing(fn ($state) => array_map('trim', explode(',', $state ?? ''))
                                     )
                                     ->columnSpanFull(),
                             ])
@@ -132,7 +131,7 @@ class AboutMeForm
                                 ['id' => 'web',          'label' => 'Web Dev',      'icon' => 'Globe',     'items' => ['React.js', 'Next.js', 'Inertia.js', 'TypeScript', 'Vite', 'Tailwind CSS']],
                                 ['id' => 'backend',      'label' => 'Backend',      'icon' => 'Server',    'items' => ['Laravel', 'Node.js', 'REST API', 'MySQL', 'Redis', 'Filament CMS']],
                                 ['id' => 'architecture', 'label' => 'Architecture', 'icon' => 'Layout',    'items' => ['Repository Pattern', 'Service Layer', 'MVC / MVVM', 'SOLID Principles', 'DDD', 'Clean Code']],
-                                ['id' => 'creative',     'label' => '3D / Creative','icon' => 'Sparkles',  'items' => ['Three.js', 'WebGL', 'GLSL Shaders', 'GSAP', 'Framer Motion', 'Blender']],
+                                ['id' => 'creative',     'label' => '3D / Creative', 'icon' => 'Sparkles',  'items' => ['Three.js', 'WebGL', 'GLSL Shaders', 'GSAP', 'Framer Motion', 'Blender']],
                             ])
                             ->addActionLabel('Add Expertise Tab')
                             ->maxItems(6)

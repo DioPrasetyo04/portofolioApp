@@ -10,5 +10,6 @@ class HeroSection extends Model
     use HasTranslations;
 
     protected $fillable = ['title', 'subtitle', 'image'];
+
     public $translatable = ['title', 'subtitle'];
 }

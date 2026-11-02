@@ -7,6 +7,8 @@ use App\Filament\Resources\Announcements\Pages\EditAnnouncement;
 use App\Filament\Resources\Announcements\Pages\ListAnnouncements;
 use App\Filament\Resources\Announcements\Schemas\AnnouncementForm;
 use App\Filament\Resources\Announcements\Tables\AnnouncementsTable;
+use App\Filament\Resources\Announcements\Widgets\AnnouncementStatsWidget;
+use App\Filament\Resources\Announcements\Widgets\AnnouncementTimelineChart;
 use App\Models\Announcement;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -38,8 +40,8 @@ class AnnouncementResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            \App\Filament\Resources\Announcements\Widgets\AnnouncementStatsWidget::class,
-            \App\Filament\Resources\Announcements\Widgets\AnnouncementTimelineChart::class,
+            AnnouncementStatsWidget::class,
+            AnnouncementTimelineChart::class,
         ];
     }
 

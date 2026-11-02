@@ -50,4 +50,3 @@ class EditExperience extends EditRecord
         return $data;
     }
 }
-

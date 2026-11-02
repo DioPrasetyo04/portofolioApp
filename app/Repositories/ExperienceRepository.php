@@ -21,8 +21,8 @@ class ExperienceRepository implements ExperienceRepositoryInterface
         $all = $this->getAllActive();
 
         return [
-            'work'         => $all->where('type', 'work')->values(),
-            'education'    => $all->where('type', 'education')->values(),
+            'work' => $all->where('type', 'work')->values(),
+            'education' => $all->where('type', 'education')->values(),
             'organization' => $all->where('type', 'organization')->values(),
         ];
     }
@@ -51,7 +51,9 @@ class ExperienceRepository implements ExperienceRepositoryInterface
     public function update(int $id, array $data): bool
     {
         $record = $this->findById($id);
-        if (!$record) return false;
+        if (! $record) {
+            return false;
+        }
 
         if (isset($data['media']) && is_array($data['media'])) {
             $data['media'] = Experience::indexUploadedMedia($data['media']);
@@ -63,7 +65,7 @@ class ExperienceRepository implements ExperienceRepositoryInterface
     public function delete(int $id): bool
     {
         $record = $this->findById($id);
+
         return $record ? (bool) $record->delete() : false;
     }
 }
-

@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\Announcements\Pages;
 
 use App\Filament\Resources\Announcements\AnnouncementResource;
+use App\Filament\Resources\Announcements\Widgets\AnnouncementStatsWidget;
+use App\Filament\Resources\Announcements\Widgets\AnnouncementTimelineChart;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
@@ -20,8 +22,8 @@ class ListAnnouncements extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            \App\Filament\Resources\Announcements\Widgets\AnnouncementStatsWidget::class,
-            \App\Filament\Resources\Announcements\Widgets\AnnouncementTimelineChart::class,
+            AnnouncementStatsWidget::class,
+            AnnouncementTimelineChart::class,
         ];
     }
 }

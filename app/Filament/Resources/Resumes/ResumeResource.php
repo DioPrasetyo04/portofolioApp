@@ -7,6 +7,8 @@ use App\Filament\Resources\Resumes\Pages\EditResume;
 use App\Filament\Resources\Resumes\Pages\ListResumes;
 use App\Filament\Resources\Resumes\Schemas\ResumeForm;
 use App\Filament\Resources\Resumes\Tables\ResumesTable;
+use App\Filament\Resources\Resumes\Widgets\ResumeDownloadsChart;
+use App\Filament\Resources\Resumes\Widgets\ResumeStatsWidget;
 use App\Models\Resume;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -42,8 +44,8 @@ class ResumeResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            \App\Filament\Resources\Resumes\Widgets\ResumeStatsWidget::class,
-            \App\Filament\Resources\Resumes\Widgets\ResumeDownloadsChart::class,
+            ResumeStatsWidget::class,
+            ResumeDownloadsChart::class,
         ];
     }
 

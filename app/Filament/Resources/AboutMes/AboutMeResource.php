@@ -7,6 +7,8 @@ use App\Filament\Resources\AboutMes\Pages\EditAboutMe;
 use App\Filament\Resources\AboutMes\Pages\ListAboutMes;
 use App\Filament\Resources\AboutMes\Schemas\AboutMeForm;
 use App\Filament\Resources\AboutMes\Tables\AboutMesTable;
+use App\Filament\Resources\AboutMes\Widgets\AboutMeSkillChart;
+use App\Filament\Resources\AboutMes\Widgets\AboutMeStatsWidget;
 use App\Models\AboutMe;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -38,8 +40,8 @@ class AboutMeResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            \App\Filament\Resources\AboutMes\Widgets\AboutMeStatsWidget::class,
-            \App\Filament\Resources\AboutMes\Widgets\AboutMeSkillChart::class,
+            AboutMeStatsWidget::class,
+            AboutMeSkillChart::class,
         ];
     }
 

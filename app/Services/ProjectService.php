@@ -31,9 +31,10 @@ class ProjectService implements ProjectServiceInterface
     public function create(array $data, array $technologyIds = []): Project
     {
         $project = $this->repository->create($data);
-        if (!empty($technologyIds)) {
+        if (! empty($technologyIds)) {
             $this->repository->syncTechnologies($project, $technologyIds);
         }
+
         return $project;
     }
 
@@ -46,6 +47,7 @@ class ProjectService implements ProjectServiceInterface
                 $this->repository->syncTechnologies($project, $technologyIds);
             }
         }
+
         return $updated;
     }
 

@@ -45,4 +45,3 @@ class ExperienceCategoryChart extends ChartWidget
         ];
     }
 }
-

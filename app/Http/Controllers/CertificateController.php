@@ -16,10 +16,10 @@ class CertificateController extends Controller
     {
         $certificate = $this->certificateRepo->findById($id);
 
-        if (!$certificate) {
+        if (! $certificate) {
             abort(404, 'Certificate not found');
         }
-        
+
         $certificate->load(['comments' => function ($query) {
             $query->latest();
         }])->loadAvg('comments', 'rating');

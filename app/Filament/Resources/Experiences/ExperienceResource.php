@@ -7,6 +7,8 @@ use App\Filament\Resources\Experiences\Pages\EditExperience;
 use App\Filament\Resources\Experiences\Pages\ListExperiences;
 use App\Filament\Resources\Experiences\Schemas\ExperienceForm;
 use App\Filament\Resources\Experiences\Tables\ExperiencesTable;
+use App\Filament\Resources\Experiences\Widgets\ExperienceCategoryChart;
+use App\Filament\Resources\Experiences\Widgets\ExperienceStatsWidget;
 use App\Models\Experience;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -49,8 +51,8 @@ class ExperienceResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            \App\Filament\Resources\Experiences\Widgets\ExperienceStatsWidget::class,
-            \App\Filament\Resources\Experiences\Widgets\ExperienceCategoryChart::class,
+            ExperienceStatsWidget::class,
+            ExperienceCategoryChart::class,
         ];
     }
 
@@ -62,10 +64,9 @@ class ExperienceResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => ListExperiences::route('/'),
+            'index' => ListExperiences::route('/'),
             'create' => CreateExperience::route('/create'),
-            'edit'   => EditExperience::route('/{record}/edit'),
+            'edit' => EditExperience::route('/{record}/edit'),
         ];
     }
 }
-

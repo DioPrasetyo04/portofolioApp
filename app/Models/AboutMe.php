@@ -23,9 +23,9 @@ class AboutMe extends Model
     public $translatable = ['description'];
 
     protected $casts = [
-        'gallery_images'  => 'array',
-        'skill_stats'     => 'array',
-        'features'        => 'array',
-        'expertise_tabs'  => 'array',
+        'gallery_images' => 'array',
+        'skill_stats' => 'array',
+        'features' => 'array',
+        'expertise_tabs' => 'array',
     ];
 }

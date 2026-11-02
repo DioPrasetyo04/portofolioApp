@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\SocialMedia\Pages;
 
 use App\Filament\Resources\SocialMedia\SocialMediaResource;
+use App\Filament\Resources\SocialMedia\Widgets\SocialMediaChart;
+use App\Filament\Resources\SocialMedia\Widgets\SocialMediaStatsWidget;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
@@ -20,8 +22,8 @@ class ListSocialMedia extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            \App\Filament\Resources\SocialMedia\Widgets\SocialMediaStatsWidget::class,
-            \App\Filament\Resources\SocialMedia\Widgets\SocialMediaChart::class,
+            SocialMediaStatsWidget::class,
+            SocialMediaChart::class,
         ];
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\Resumes\Pages;
 
 use App\Filament\Resources\Resumes\ResumeResource;
+use App\Filament\Resources\Resumes\Widgets\ResumeDownloadsChart;
+use App\Filament\Resources\Resumes\Widgets\ResumeStatsWidget;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
@@ -20,8 +22,8 @@ class ListResumes extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            \App\Filament\Resources\Resumes\Widgets\ResumeStatsWidget::class,
-            \App\Filament\Resources\Resumes\Widgets\ResumeDownloadsChart::class,
+            ResumeStatsWidget::class,
+            ResumeDownloadsChart::class,
         ];
     }
 }

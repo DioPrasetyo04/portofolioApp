@@ -7,6 +7,8 @@ use App\Filament\Resources\TechnologyCategories\Pages\EditTechnologyCategory;
 use App\Filament\Resources\TechnologyCategories\Pages\ListTechnologyCategories;
 use App\Filament\Resources\TechnologyCategories\Schemas\TechnologyCategoryForm;
 use App\Filament\Resources\TechnologyCategories\Tables\TechnologyCategoriesTable;
+use App\Filament\Resources\TechnologyCategories\Widgets\TechnologyCategoryChart;
+use App\Filament\Resources\TechnologyCategories\Widgets\TechnologyCategoryStatsWidget;
 use App\Models\TechnologyCategory;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -38,8 +40,8 @@ class TechnologyCategoryResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            \App\Filament\Resources\TechnologyCategories\Widgets\TechnologyCategoryStatsWidget::class,
-            \App\Filament\Resources\TechnologyCategories\Widgets\TechnologyCategoryChart::class,
+            TechnologyCategoryStatsWidget::class,
+            TechnologyCategoryChart::class,
         ];
     }
 

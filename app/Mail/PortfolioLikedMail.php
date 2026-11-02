@@ -4,6 +4,7 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -28,7 +29,7 @@ class PortfolioLikedMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: '💖 Someone Liked Your Portfolio! (Total Likes: ' . $this->totalLikes . ')',
+            subject: '💖 Someone Liked Your Portfolio! (Total Likes: '.$this->totalLikes.')',
         );
     }
 
@@ -45,7 +46,7 @@ class PortfolioLikedMail extends Mailable
     /**
      * Get the attachments for the message.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * @return array<int, Attachment>
      */
     public function attachments(): array
     {

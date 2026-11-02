@@ -25,7 +25,7 @@ class LanguageSkillsTable
                     ->weight('bold'),
                 TextColumn::make('percentage')
                     ->label('Ability Level')
-                    ->formatStateUsing(fn ($state) => ($state ?? 0) . '%')
+                    ->formatStateUsing(fn ($state) => ($state ?? 0).'%')
                     ->badge()
                     ->color(fn ($state) => match (true) {
                         $state >= 90 => 'success',
@@ -44,6 +44,7 @@ class LanguageSkillsTable
                     ->label('Media Items')
                     ->getStateUsing(function ($record) {
                         $count = count($record->media ?? []) + count($record->gallery ?? []) + ($record->video ? 1 : 0);
+
                         return $count > 0 ? "{$count} Media" : 'None';
                     })
                     ->badge()

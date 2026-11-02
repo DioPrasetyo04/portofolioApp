@@ -29,8 +29,8 @@ class ExperienceForm
                             Select::make('type')
                                 ->label('Timeline Category')
                                 ->options([
-                                    'work'         => '💼 Work Experience (Magang / Karier)',
-                                    'education'    => '🎓 Education (Pendidikan / Bootcamp)',
+                                    'work' => '💼 Work Experience (Magang / Karier)',
+                                    'education' => '🎓 Education (Pendidikan / Bootcamp)',
                                     'organization' => '👥 Organization (Organisasi & Kepemimpinan)',
                                 ])
                                 ->required()
@@ -62,11 +62,11 @@ class ExperienceForm
                             Select::make('icon')
                                 ->label('Timeline Icon')
                                 ->options([
-                                    'briefcase'    => 'Briefcase (Kerja)',
-                                    'graduation'   => 'Graduation Cap (Kuliah)',
+                                    'briefcase' => 'Briefcase (Kerja)',
+                                    'graduation' => 'Graduation Cap (Kuliah)',
                                     'organization' => 'Users / Community (Organisasi)',
-                                    'award'        => 'Award (Sertifikasi / Bootcamp)',
-                                    'book'         => 'Book (Sekolah Menengah)',
+                                    'award' => 'Award (Sertifikasi / Bootcamp)',
+                                    'book' => 'Book (Sekolah Menengah)',
                                 ])
                                 ->default('briefcase')
                                 ->native(false),
@@ -225,4 +225,3 @@ class ExperienceForm
             ]);
     }
 }
-

@@ -7,6 +7,8 @@ use App\Filament\Resources\Technologies\Pages\EditTechnology;
 use App\Filament\Resources\Technologies\Pages\ListTechnologies;
 use App\Filament\Resources\Technologies\Schemas\TechnologyForm;
 use App\Filament\Resources\Technologies\Tables\TechnologiesTable;
+use App\Filament\Resources\Technologies\Widgets\TechnologyProficiencyChart;
+use App\Filament\Resources\Technologies\Widgets\TechnologyStatsWidget;
 use App\Models\Technology;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -38,8 +40,8 @@ class TechnologyResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            \App\Filament\Resources\Technologies\Widgets\TechnologyStatsWidget::class,
-            \App\Filament\Resources\Technologies\Widgets\TechnologyProficiencyChart::class,
+            TechnologyStatsWidget::class,
+            TechnologyProficiencyChart::class,
         ];
     }
 

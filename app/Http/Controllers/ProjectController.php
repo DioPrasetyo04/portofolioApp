@@ -16,10 +16,10 @@ class ProjectController extends Controller
     {
         $project = $this->projectRepo->findById($id);
 
-        if (!$project) {
+        if (! $project) {
             abort(404, 'Project not found');
         }
-        
+
         $project->load(['comments' => function ($query) {
             $query->latest();
         }])->loadAvg('comments', 'rating');

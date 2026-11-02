@@ -43,4 +43,3 @@ class ExperienceStatsWidget extends BaseWidget
         ];
     }
 }
-

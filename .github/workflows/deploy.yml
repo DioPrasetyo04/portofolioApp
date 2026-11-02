@@ -107,8 +107,8 @@ jobs:
             -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o BatchMode=yes -o StrictHostKeyChecking=yes" \
             ./ "$SSH_USER@$SSH_HOST:/home/iyelstor/diostack.my.id/portofolioApp/"
 
-      # Run database migrations, initial seeders, and Laravel optimizations on the server
-      - name: Run database migrations and optimization caches
+      # Clears Laravel caches only. Does not run database migrations.
+      - name: Clear Laravel optimization caches
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
@@ -120,4 +120,4 @@ jobs:
             -o BatchMode=yes \
             -o StrictHostKeyChecking=yes \
             "$SSH_USER@$SSH_HOST" \
-            'cd /home/iyelstor/diostack.my.id/portofolioApp && (php artisan storage:link || true) && php artisan migrate --force && php artisan db:seed --class=ExperienceSeeder --force && php artisan optimize:clear && php artisan optimize'
+            'cd /home/iyelstor/diostack.my.id/portofolioApp && php artisan optimize:clear'

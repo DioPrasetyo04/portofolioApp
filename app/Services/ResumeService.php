@@ -59,7 +59,7 @@ class ResumeService implements ResumeServiceInterface
 
         return response()->file($resolvedPath, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="' . $fileName . '"',
+            'Content-Disposition' => 'inline; filename="'.$fileName.'"',
         ]);
     }
 
@@ -79,13 +79,13 @@ class ResumeService implements ResumeServiceInterface
         }
 
         // Check storage/app/public relative path directly
-        $storageAppPublic = storage_path('app/public/' . ltrim($filePath, '/\\'));
+        $storageAppPublic = storage_path('app/public/'.ltrim($filePath, '/\\'));
         if (file_exists($storageAppPublic)) {
             return $storageAppPublic;
         }
 
         // Check public/storage/ relative path
-        $publicStorage = public_path('storage/' . ltrim($filePath, '/\\'));
+        $publicStorage = public_path('storage/'.ltrim($filePath, '/\\'));
         if (file_exists($publicStorage)) {
             return $publicStorage;
         }
@@ -97,7 +97,7 @@ class ResumeService implements ResumeServiceInterface
         }
 
         // Check fallback public/resumes/<basename>
-        $publicResumes = public_path('resumes/' . basename($filePath));
+        $publicResumes = public_path('resumes/'.basename($filePath));
         if (file_exists($publicResumes)) {
             return $publicResumes;
         }

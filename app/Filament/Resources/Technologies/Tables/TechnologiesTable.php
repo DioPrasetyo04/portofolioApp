@@ -27,7 +27,10 @@ class TechnologiesTable
                     ->label('Category')
                     ->getStateUsing(function ($record) {
                         $cat = $record->category;
-                        if (!$cat) return '-';
+                        if (! $cat) {
+                            return '-';
+                        }
+
                         return is_array($cat->name) ? ($cat->name['en'] ?? reset($cat->name)) : $cat->name;
                     })
                     ->badge()
@@ -35,7 +38,7 @@ class TechnologiesTable
                     ->sortable(),
                 TextColumn::make('proficiency')
                     ->label('Proficiency (%)')
-                    ->formatStateUsing(fn ($state) => ($state ?? 0) . '%')
+                    ->formatStateUsing(fn ($state) => ($state ?? 0).'%')
                     ->badge()
                     ->color(fn ($state) => match (true) {
                         $state >= 90 => 'success',

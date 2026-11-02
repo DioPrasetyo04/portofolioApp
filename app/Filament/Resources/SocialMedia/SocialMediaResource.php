@@ -7,6 +7,8 @@ use App\Filament\Resources\SocialMedia\Pages\EditSocialMedia;
 use App\Filament\Resources\SocialMedia\Pages\ListSocialMedia;
 use App\Filament\Resources\SocialMedia\Schemas\SocialMediaForm;
 use App\Filament\Resources\SocialMedia\Tables\SocialMediaTable;
+use App\Filament\Resources\SocialMedia\Widgets\SocialMediaChart;
+use App\Filament\Resources\SocialMedia\Widgets\SocialMediaStatsWidget;
 use App\Models\SocialMedia;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -35,8 +37,8 @@ class SocialMediaResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            \App\Filament\Resources\SocialMedia\Widgets\SocialMediaStatsWidget::class,
-            \App\Filament\Resources\SocialMedia\Widgets\SocialMediaChart::class,
+            SocialMediaStatsWidget::class,
+            SocialMediaChart::class,
         ];
     }
 

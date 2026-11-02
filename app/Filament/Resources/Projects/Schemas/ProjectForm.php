@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Projects\Schemas;
 
-use App\Models\Technology;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
@@ -62,13 +61,13 @@ class ProjectForm
                             Select::make('category')
                                 ->label('Category / Type')
                                 ->options([
-                                    'web'       => '🌐 Web Application',
-                                    'mobile'    => '📱 Mobile App',
-                                    'api'       => '⚡ API / Backend',
+                                    'web' => '🌐 Web Application',
+                                    'mobile' => '📱 Mobile App',
+                                    'api' => '⚡ API / Backend',
                                     'fullstack' => '🔧 Fullstack',
-                                    '3d'        => '✨ 3D / Creative',
-                                    'tool'      => '🛠️ Dev Tool',
-                                    'other'     => '🔹 Other',
+                                    '3d' => '✨ 3D / Creative',
+                                    'tool' => '🛠️ Dev Tool',
+                                    'other' => '🔹 Other',
                                 ])
                                 ->searchable()
                                 ->placeholder('Select category'),
@@ -81,9 +80,9 @@ class ProjectForm
                             Select::make('status')
                                 ->label('Project Status')
                                 ->options([
-                                    'completed'   => '✅ Completed',
+                                    'completed' => '✅ Completed',
                                     'in_progress' => '🔄 In Progress',
-                                    'archived'    => '📦 Archived',
+                                    'archived' => '📦 Archived',
                                 ])
                                 ->default('completed'),
 

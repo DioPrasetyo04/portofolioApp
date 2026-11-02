@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\HeroSections\Pages;
 
 use App\Filament\Resources\HeroSections\HeroSectionResource;
+use App\Filament\Resources\HeroSections\Widgets\HeroSectionCompletenessChart;
+use App\Filament\Resources\HeroSections\Widgets\HeroSectionStatsWidget;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
@@ -20,8 +22,8 @@ class ListHeroSections extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            \App\Filament\Resources\HeroSections\Widgets\HeroSectionStatsWidget::class,
-            \App\Filament\Resources\HeroSections\Widgets\HeroSectionCompletenessChart::class,
+            HeroSectionStatsWidget::class,
+            HeroSectionCompletenessChart::class,
         ];
     }
 }

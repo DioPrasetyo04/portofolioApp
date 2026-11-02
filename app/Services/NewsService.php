@@ -37,10 +37,11 @@ class NewsService implements NewsServiceInterface
 
     public function create(array $data): News
     {
-        if (empty($data['slug']) && !empty($data['title'])) {
+        if (empty($data['slug']) && ! empty($data['title'])) {
             $title = is_array($data['title']) ? ($data['title']['en'] ?? reset($data['title'])) : $data['title'];
-            $data['slug'] = Str::slug($title) . '-' . Str::random(5);
+            $data['slug'] = Str::slug($title).'-'.Str::random(5);
         }
+
         return $this->repository->create($data);
     }
 

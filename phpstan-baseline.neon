@@ -1,0 +1,1399 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method App\\Contracts\\Repositories\\AboutMeRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/AboutMeRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\AboutMeRepositoryInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/AboutMeRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\AboutMeRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/AboutMeRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\AnnouncementRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/AnnouncementRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\AnnouncementRepositoryInterface\:\:getActive\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/AnnouncementRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\AnnouncementRepositoryInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/AnnouncementRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\AnnouncementRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/AnnouncementRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\CertificateRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/CertificateRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\CertificateRepositoryInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/CertificateRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\CertificateRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/CertificateRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\ExperienceRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/ExperienceRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\ExperienceRepositoryInterface\:\:getActiveGrouped\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/ExperienceRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\ExperienceRepositoryInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/ExperienceRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\ExperienceRepositoryInterface\:\:getAllActive\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/ExperienceRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\ExperienceRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/ExperienceRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\HeroSectionRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/HeroSectionRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\HeroSectionRepositoryInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/HeroSectionRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\HeroSectionRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/HeroSectionRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\LanguageSkillRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/LanguageSkillRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\LanguageSkillRepositoryInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/LanguageSkillRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\LanguageSkillRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/LanguageSkillRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\NewsRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/NewsRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\NewsRepositoryInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/NewsRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\NewsRepositoryInterface\:\:getLatest\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/NewsRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\NewsRepositoryInterface\:\:getPaginated\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/NewsRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\NewsRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/NewsRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\ProjectRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/ProjectRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\ProjectRepositoryInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/ProjectRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\ProjectRepositoryInterface\:\:getAllWithTechnologies\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/ProjectRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\ProjectRepositoryInterface\:\:getFeatured\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/ProjectRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\ProjectRepositoryInterface\:\:syncTechnologies\(\) has parameter \$technologyIds with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/ProjectRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\ProjectRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/ProjectRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\ResumeRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/ResumeRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\ResumeRepositoryInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/ResumeRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\ResumeRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/ResumeRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\SocialMediaRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/SocialMediaRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\SocialMediaRepositoryInterface\:\:getActive\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/SocialMediaRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\SocialMediaRepositoryInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/SocialMediaRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\SocialMediaRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/SocialMediaRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\TechnologyCategoryRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/TechnologyCategoryRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\TechnologyCategoryRepositoryInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/TechnologyCategoryRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\TechnologyCategoryRepositoryInterface\:\:getAllWithTechnologies\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/TechnologyCategoryRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\TechnologyCategoryRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/TechnologyCategoryRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\TechnologyRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/TechnologyRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\TechnologyRepositoryInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/TechnologyRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\TechnologyRepositoryInterface\:\:getByCategoryId\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Repositories/TechnologyRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Repositories\\TechnologyRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Repositories/TechnologyRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\AboutMeServiceInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/AboutMeServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\AboutMeServiceInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/AboutMeServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\AboutMeServiceInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/AboutMeServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\AnnouncementServiceInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/AnnouncementServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\AnnouncementServiceInterface\:\:getActiveAnnouncements\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/AnnouncementServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\AnnouncementServiceInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/AnnouncementServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\AnnouncementServiceInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/AnnouncementServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\CertificateServiceInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/CertificateServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\CertificateServiceInterface\:\:getAllCertificates\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/CertificateServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\CertificateServiceInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/CertificateServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\HeroSectionServiceInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/HeroSectionServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\HeroSectionServiceInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/HeroSectionServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\HeroSectionServiceInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/HeroSectionServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\LanguageSkillServiceInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/LanguageSkillServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\LanguageSkillServiceInterface\:\:getAllSkills\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/LanguageSkillServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\LanguageSkillServiceInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/LanguageSkillServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\NewsServiceInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/NewsServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\NewsServiceInterface\:\:getLatestNews\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/NewsServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\NewsServiceInterface\:\:getPaginatedNews\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/NewsServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\NewsServiceInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/NewsServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\PortfolioServiceInterface\:\:getLandingPageData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/PortfolioServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\ProjectServiceInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/ProjectServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\ProjectServiceInterface\:\:create\(\) has parameter \$technologyIds with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/ProjectServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\ProjectServiceInterface\:\:getAllProjects\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/ProjectServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\ProjectServiceInterface\:\:getFeaturedProjects\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/ProjectServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\ProjectServiceInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/ProjectServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\ProjectServiceInterface\:\:update\(\) has parameter \$technologyIds with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/ProjectServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\ResumeServiceInterface\:\:getAllResumes\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/ResumeServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\SocialMediaServiceInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/SocialMediaServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\SocialMediaServiceInterface\:\:getActiveSocialMedia\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/SocialMediaServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\SocialMediaServiceInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/SocialMediaServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\SocialMediaServiceInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/SocialMediaServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\TechnologyCategoryServiceInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/TechnologyCategoryServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\TechnologyCategoryServiceInterface\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/TechnologyCategoryServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\TechnologyCategoryServiceInterface\:\:getCategoriesWithTechnologies\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/TechnologyCategoryServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\TechnologyCategoryServiceInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/TechnologyCategoryServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\TechnologyServiceInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/TechnologyServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\TechnologyServiceInterface\:\:getAllTechnologies\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/TechnologyServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\TechnologyServiceInterface\:\:getTechnologiesByCategory\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Contracts/Services/TechnologyServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\Services\\TechnologyServiceInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Contracts/Services/TechnologyServiceInterface.php
+
+		-
+			message: '#^Method App\\Filament\\Resources\\AboutMes\\Schemas\\AboutMeForm\:\:iconOptions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Filament/Resources/AboutMes/Schemas/AboutMeForm.php
+
+		-
+			message: '#^Offset ''en'' on string in isset\(\) does not exist\.$#'
+			identifier: isset.offset
+			count: 1
+			path: app/Filament/Resources/HeroSections/Widgets/HeroSectionCompletenessChart.php
+
+		-
+			message: '#^Offset ''id'' on string in isset\(\) does not exist\.$#'
+			identifier: isset.offset
+			count: 1
+			path: app/Filament/Resources/HeroSections/Widgets/HeroSectionCompletenessChart.php
+
+		-
+			message: '#^Offset ''zh'' on string in isset\(\) does not exist\.$#'
+			identifier: isset.offset
+			count: 1
+			path: app/Filament/Resources/HeroSections/Widgets/HeroSectionCompletenessChart.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 6
+			path: app/Filament/Resources/HeroSections/Widgets/HeroSectionCompletenessChart.php
+
+		-
+			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Filament/Resources/HeroSections/Widgets/HeroSectionStatsWidget.php
+
+		-
+			message: '#^Call to function is_array\(\) with string\|null will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Filament/Resources/HeroSections/Widgets/HeroSectionStatsWidget.php
+
+		-
+			message: '#^Parameter \#1 \$array \(\*NEVER\*\) to function array_filter contains falsy values only, the result will always be an empty array\.$#'
+			identifier: arrayFilter.alwaysEmpty
+			count: 2
+			path: app/Filament/Resources/HeroSections/Widgets/HeroSectionStatsWidget.php
+
+		-
+			message: '#^Anonymous function never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: app/Filament/Resources/LanguageSkills/Schemas/LanguageSkillForm.php
+
+		-
+			message: '#^Parameter \#1 \$num of function round expects float\|int, float\|int\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Filament/Resources/LanguageSkills/Widgets/LanguageSkillStatsWidget.php
+
+		-
+			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Filament/Resources/News/Widgets/NewsEngagementChart.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: app/Filament/Resources/News/Widgets/NewsEngagementChart.php
+
+		-
+			message: '#^Cannot access property \$id on Illuminate\\Database\\Eloquent\\Model\|int\|string\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Filament/Resources/Resumes/Pages/EditResume.php
+
+		-
+			message: '#^Call to function is_array\(\) with string\|null will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Filament/Resources/Resumes/Widgets/ResumeDownloadsChart.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: app/Filament/Resources/Resumes/Widgets/ResumeDownloadsChart.php
+
+		-
+			message: '#^Call to function is_array\(\) with string\|null will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Filament/Resources/Resumes/Widgets/ResumeStatsWidget.php
+
+		-
+			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Filament/Resources/Technologies/Schemas/TechnologyForm.php
+
+		-
+			message: '#^Parameter \#1 \$num of function round expects float\|int, float\|int\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Filament/Resources/Technologies/Widgets/TechnologyStatsWidget.php
+
+		-
+			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Filament/Resources/TechnologyCategories/Widgets/TechnologyCategoryChart.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: app/Filament/Resources/TechnologyCategories/Widgets/TechnologyCategoryChart.php
+
+		-
+			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Filament/Resources/TechnologyCategories/Widgets/TechnologyCategoryStatsWidget.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: app/Filament/Resources/TechnologyCategories/Widgets/TechnologyCategoryStatsWidget.php
+
+		-
+			message: '#^Parameter \#1 \$num of function round expects float\|int, float\|int\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Filament/Widgets/DashboardStatsOverview.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Certificate\|App\\Models\\News\|App\\Models\\Project\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Certificate\>\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\News\>\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Project\>\:\:\$likes_count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/InteractionController.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Certificate\|App\\Models\\News\|App\\Models\\Project\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Certificate\>\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\News\>\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Project\>\:\:comments\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/InteractionController.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Certificate\|App\\Models\\News\|App\\Models\\Project\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Certificate\>\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\News\>\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Project\>\:\:increment\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/InteractionController.php
+
+		-
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 2
+			path: app/Http/Controllers/InteractionController.php
+
+		-
+			message: '#^Match expression does not handle remaining value\: mixed$#'
+			identifier: match.unhandled
+			count: 2
+			path: app/Http/Controllers/InteractionController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InteractionController\:\:getPortfolioLikes\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InteractionController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InteractionController\:\:incrementLike\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InteractionController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InteractionController\:\:incrementPortfolioLike\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InteractionController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InteractionController\:\:storeComment\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/InteractionController.php
+
+		-
+			message: '#^Parameter \#1 \$resume of method App\\Contracts\\Services\\ResumeServiceInterface\:\:downloadResume\(\) expects App\\Models\\Resume, App\\Models\\Resume\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Resume\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/ResumeController.php
+
+		-
+			message: '#^Parameter \#1 \$resume of method App\\Contracts\\Services\\ResumeServiceInterface\:\:previewResume\(\) expects App\\Models\\Resume, App\\Models\\Resume\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Resume\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/ResumeController.php
+
+		-
+			message: '#^Property App\\Models\\AboutMe\:\:\$translatable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Models/AboutMe.php
+
+		-
+			message: '#^Property App\\Models\\Announcement\:\:\$translatable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Models/Announcement.php
+
+		-
+			message: '#^Method App\\Models\\Certificate\:\:comments\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\MorphMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Certificate.php
+
+		-
+			message: '#^Property App\\Models\\Certificate\:\:\$translatable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Models/Certificate.php
+
+		-
+			message: '#^Method App\\Models\\Comment\:\:commentable\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\MorphTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Comment.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: app/Models/Experience.php
+
+		-
+			message: '#^Method App\\Models\\Experience\:\:getOptimizedMediaAttribute\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/Experience.php
+
+		-
+			message: '#^Method App\\Models\\Experience\:\:indexUploadedMedia\(\) has parameter \$filePaths with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/Experience.php
+
+		-
+			message: '#^Method App\\Models\\Experience\:\:indexUploadedMedia\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/Experience.php
+
+		-
+			message: '#^Property App\\Models\\Experience\:\:\$translatable type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/Experience.php
+
+		-
+			message: '#^Property App\\Models\\HeroSection\:\:\$translatable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Models/HeroSection.php
+
+		-
+			message: '#^Property App\\Models\\LanguageSkill\:\:\$translatable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Models/LanguageSkill.php
+
+		-
+			message: '#^Method App\\Models\\News\:\:comments\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\MorphMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/News.php
+
+		-
+			message: '#^Property App\\Models\\News\:\:\$translatable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Models/News.php
+
+		-
+			message: '#^Class App\\Models\\PortfolioLike uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PortfolioLike.php
+
+		-
+			message: '#^Method App\\Models\\Project\:\:comments\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\MorphMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Project.php
+
+		-
+			message: '#^Method App\\Models\\Project\:\:technologies\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany does not specify its types\: TRelatedModel, TDeclaringModel, TPivotModel, TAccessor \(2\-4 required\)$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Project.php
+
+		-
+			message: '#^Property App\\Models\\Project\:\:\$translatable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Models/Project.php
+
+		-
+			message: '#^Property App\\Models\\Resume\:\:\$translatable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Models/Resume.php
+
+		-
+			message: '#^Method App\\Models\\Technology\:\:category\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Technology.php
+
+		-
+			message: '#^Method App\\Models\\Technology\:\:projects\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany does not specify its types\: TRelatedModel, TDeclaringModel, TPivotModel, TAccessor \(2\-4 required\)$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Technology.php
+
+		-
+			message: '#^Method App\\Models\\TechnologyCategory\:\:technologies\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/TechnologyCategory.php
+
+		-
+			message: '#^Property App\\Models\\TechnologyCategory\:\:\$translatable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Models/TechnologyCategory.php
+
+		-
+			message: '#^Method App\\Repositories\\AboutMeRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/AboutMeRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\AboutMeRepository\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/AboutMeRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\AboutMeRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/AboutMeRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\AnnouncementRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/AnnouncementRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\AnnouncementRepository\:\:getActive\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/AnnouncementRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\AnnouncementRepository\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/AnnouncementRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\AnnouncementRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/AnnouncementRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\CertificateRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/CertificateRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\CertificateRepository\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/CertificateRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\CertificateRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/CertificateRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ExperienceRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/ExperienceRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ExperienceRepository\:\:getActiveGrouped\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/ExperienceRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ExperienceRepository\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/ExperienceRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ExperienceRepository\:\:getAllActive\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/ExperienceRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ExperienceRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/ExperienceRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\HeroSectionRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/HeroSectionRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\HeroSectionRepository\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/HeroSectionRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\HeroSectionRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/HeroSectionRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\LanguageSkillRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/LanguageSkillRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\LanguageSkillRepository\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/LanguageSkillRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\LanguageSkillRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/LanguageSkillRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\NewsRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/NewsRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\NewsRepository\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/NewsRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\NewsRepository\:\:getLatest\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/NewsRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\NewsRepository\:\:getPaginated\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/NewsRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\NewsRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/NewsRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ProjectRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/ProjectRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ProjectRepository\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/ProjectRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ProjectRepository\:\:getAllWithTechnologies\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/ProjectRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ProjectRepository\:\:getFeatured\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/ProjectRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ProjectRepository\:\:syncTechnologies\(\) has parameter \$technologyIds with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/ProjectRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ProjectRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/ProjectRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ResumeRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/ResumeRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ResumeRepository\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/ResumeRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ResumeRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/ResumeRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\SocialMediaRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/SocialMediaRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\SocialMediaRepository\:\:getActive\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/SocialMediaRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\SocialMediaRepository\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/SocialMediaRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\SocialMediaRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/SocialMediaRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TechnologyCategoryRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/TechnologyCategoryRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TechnologyCategoryRepository\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/TechnologyCategoryRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TechnologyCategoryRepository\:\:getAllWithTechnologies\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/TechnologyCategoryRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TechnologyCategoryRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/TechnologyCategoryRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TechnologyRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/TechnologyRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TechnologyRepository\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/TechnologyRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TechnologyRepository\:\:getByCategoryId\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Repositories/TechnologyRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TechnologyRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Repositories/TechnologyRepository.php
+
+		-
+			message: '#^Method App\\Services\\AboutMeService\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/AboutMeService.php
+
+		-
+			message: '#^Method App\\Services\\AboutMeService\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/AboutMeService.php
+
+		-
+			message: '#^Method App\\Services\\AboutMeService\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/AboutMeService.php
+
+		-
+			message: '#^Method App\\Services\\AnnouncementService\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/AnnouncementService.php
+
+		-
+			message: '#^Method App\\Services\\AnnouncementService\:\:getActiveAnnouncements\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/AnnouncementService.php
+
+		-
+			message: '#^Method App\\Services\\AnnouncementService\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/AnnouncementService.php
+
+		-
+			message: '#^Method App\\Services\\AnnouncementService\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/AnnouncementService.php
+
+		-
+			message: '#^Method App\\Services\\CertificateService\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CertificateService.php
+
+		-
+			message: '#^Method App\\Services\\CertificateService\:\:getAllCertificates\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/CertificateService.php
+
+		-
+			message: '#^Method App\\Services\\CertificateService\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/CertificateService.php
+
+		-
+			message: '#^Method App\\Services\\HeroSectionService\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/HeroSectionService.php
+
+		-
+			message: '#^Method App\\Services\\HeroSectionService\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/HeroSectionService.php
+
+		-
+			message: '#^Method App\\Services\\HeroSectionService\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/HeroSectionService.php
+
+		-
+			message: '#^Method App\\Services\\LanguageSkillService\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/LanguageSkillService.php
+
+		-
+			message: '#^Method App\\Services\\LanguageSkillService\:\:getAllSkills\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/LanguageSkillService.php
+
+		-
+			message: '#^Method App\\Services\\LanguageSkillService\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/LanguageSkillService.php
+
+		-
+			message: '#^Method App\\Services\\NewsService\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/NewsService.php
+
+		-
+			message: '#^Method App\\Services\\NewsService\:\:getLatestNews\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/NewsService.php
+
+		-
+			message: '#^Method App\\Services\\NewsService\:\:getPaginatedNews\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/NewsService.php
+
+		-
+			message: '#^Method App\\Services\\NewsService\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/NewsService.php
+
+		-
+			message: '#^Method App\\Services\\PortfolioService\:\:getLandingPageData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/PortfolioService.php
+
+		-
+			message: '#^Method App\\Services\\ProjectService\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/ProjectService.php
+
+		-
+			message: '#^Method App\\Services\\ProjectService\:\:create\(\) has parameter \$technologyIds with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/ProjectService.php
+
+		-
+			message: '#^Method App\\Services\\ProjectService\:\:getAllProjects\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/ProjectService.php
+
+		-
+			message: '#^Method App\\Services\\ProjectService\:\:getFeaturedProjects\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/ProjectService.php
+
+		-
+			message: '#^Method App\\Services\\ProjectService\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/ProjectService.php
+
+		-
+			message: '#^Method App\\Services\\ProjectService\:\:update\(\) has parameter \$technologyIds with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/ProjectService.php
+
+		-
+			message: '#^Method App\\Services\\ResumeService\:\:getAllResumes\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/ResumeService.php
+
+		-
+			message: '#^Method App\\Services\\SocialMediaService\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/SocialMediaService.php
+
+		-
+			message: '#^Method App\\Services\\SocialMediaService\:\:getActiveSocialMedia\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/SocialMediaService.php
+
+		-
+			message: '#^Method App\\Services\\SocialMediaService\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/SocialMediaService.php
+
+		-
+			message: '#^Method App\\Services\\SocialMediaService\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/SocialMediaService.php
+
+		-
+			message: '#^Method App\\Services\\TechnologyCategoryService\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/TechnologyCategoryService.php
+
+		-
+			message: '#^Method App\\Services\\TechnologyCategoryService\:\:getAll\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/TechnologyCategoryService.php
+
+		-
+			message: '#^Method App\\Services\\TechnologyCategoryService\:\:getCategoriesWithTechnologies\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/TechnologyCategoryService.php
+
+		-
+			message: '#^Method App\\Services\\TechnologyCategoryService\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/TechnologyCategoryService.php
+
+		-
+			message: '#^Method App\\Services\\TechnologyService\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/TechnologyService.php
+
+		-
+			message: '#^Method App\\Services\\TechnologyService\:\:getAllTechnologies\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/TechnologyService.php
+
+		-
+			message: '#^Method App\\Services\\TechnologyService\:\:getTechnologiesByCategory\(\) return type with generic class Illuminate\\Database\\Eloquent\\Collection does not specify its types\: TKey, TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/TechnologyService.php
+
+		-
+			message: '#^Method App\\Services\\TechnologyService\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/TechnologyService.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\{name\: ''AWS'', proficiency\: 78\}\|array\{name\: ''Docker'', proficiency\: 80\}\|array\{name\: ''Filament CMS''\|''PHP'', proficiency\: 94\}\|array\{name\: ''Framer Motion''\|''Inertia\.js''\|''REST API / GraphQL''\|''TypeScript'', proficiency\: 92\}\|array\{name\: ''Git''\|''JavaScript''\|''React\.js'', proficiency\: 95\}\|array\{name\: ''Laravel'', proficiency\: 96\}\|array\{name\: ''MySQL''\|''Next\.js''\|''Vercel''\|''Vite'', proficiency\: 90\}\|array\{name\: ''PostgreSQL'', proficiency\: 85\}\|array\{name\: ''Python''\|''Redis'', proficiency\: 82\}\|array\{name\: ''SQL''\|''Three\.js / R3F'', proficiency\: 88\}\|array\{name\: ''Tailwind CSS'', proficiency\: 98\} will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: database/seeders/DatabaseSeeder.php
+
+		-
+			message: '#^Offset ''proficiency'' on array\{name\: ''AWS'', proficiency\: 78\}\|array\{name\: ''Docker'', proficiency\: 80\}\|array\{name\: ''Filament CMS''\|''PHP'', proficiency\: 94\}\|array\{name\: ''Framer Motion''\|''Inertia\.js''\|''REST API / GraphQL''\|''TypeScript'', proficiency\: 92\}\|array\{name\: ''Git''\|''JavaScript''\|''React\.js'', proficiency\: 95\}\|array\{name\: ''Laravel'', proficiency\: 96\}\|array\{name\: ''MySQL''\|''Next\.js''\|''Vercel''\|''Vite'', proficiency\: 90\}\|array\{name\: ''PostgreSQL'', proficiency\: 85\}\|array\{name\: ''Python''\|''Redis'', proficiency\: 82\}\|array\{name\: ''SQL''\|''Three\.js / R3F'', proficiency\: 88\}\|array\{name\: ''Tailwind CSS'', proficiency\: 98\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: database/seeders/DatabaseSeeder.php

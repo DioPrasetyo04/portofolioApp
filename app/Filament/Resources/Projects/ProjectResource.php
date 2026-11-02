@@ -7,6 +7,8 @@ use App\Filament\Resources\Projects\Pages\EditProject;
 use App\Filament\Resources\Projects\Pages\ListProjects;
 use App\Filament\Resources\Projects\Schemas\ProjectForm;
 use App\Filament\Resources\Projects\Tables\ProjectsTable;
+use App\Filament\Resources\Projects\Widgets\ProjectCategoryChart;
+use App\Filament\Resources\Projects\Widgets\ProjectStatsWidget;
 use App\Models\Project;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -38,8 +40,8 @@ class ProjectResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            \App\Filament\Resources\Projects\Widgets\ProjectStatsWidget::class,
-            \App\Filament\Resources\Projects\Widgets\ProjectCategoryChart::class,
+            ProjectStatsWidget::class,
+            ProjectCategoryChart::class,
         ];
     }
 

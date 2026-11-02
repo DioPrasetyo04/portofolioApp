@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Spatie\Translatable\HasTranslations;
 
 class Project extends Model
 {
@@ -14,18 +15,19 @@ class Project extends Model
         'name', 'description', 'image', 'demo_url', 'repo_url',
         'is_featured', 'priority_order', 'status', 'likes_count', 'highlights', 'gallery', 'category', 'year',
     ];
+
     public $translatable = ['name', 'description'];
 
-    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    public function comments(): MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
 
     protected $casts = [
-        'is_featured'   => 'boolean',
-        'priority_order'=> 'integer',
-        'highlights'    => 'array',
-        'gallery'       => 'array',
+        'is_featured' => 'boolean',
+        'priority_order' => 'integer',
+        'highlights' => 'array',
+        'gallery' => 'array',
     ];
 
     public function technologies(): BelongsToMany

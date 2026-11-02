@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\Experiences\Pages;
 
 use App\Filament\Resources\Experiences\ExperienceResource;
+use App\Filament\Resources\Experiences\Widgets\ExperienceCategoryChart;
+use App\Filament\Resources\Experiences\Widgets\ExperienceStatsWidget;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
@@ -20,9 +22,8 @@ class ListExperiences extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            \App\Filament\Resources\Experiences\Widgets\ExperienceStatsWidget::class,
-            \App\Filament\Resources\Experiences\Widgets\ExperienceCategoryChart::class,
+            ExperienceStatsWidget::class,
+            ExperienceCategoryChart::class,
         ];
     }
 }
-

@@ -27,15 +27,15 @@ class ExperiencesTable
                     ->label('Category')
                     ->badge()
                     ->colors([
-                        'danger'  => 'work',
+                        'danger' => 'work',
                         'primary' => 'education',
                         'warning' => 'organization',
                     ])
                     ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'work'         => '💼 Work',
-                        'education'    => '🎓 Education',
+                        'work' => '💼 Work',
+                        'education' => '🎓 Education',
                         'organization' => '👥 Organization',
-                        default        => ucfirst($state),
+                        default => ucfirst($state),
                     })
                     ->sortable(),
 
@@ -79,8 +79,8 @@ class ExperiencesTable
                 SelectFilter::make('type')
                     ->label('Kategori Timeline')
                     ->options([
-                        'work'         => '💼 Work Experience (Magang / Karier)',
-                        'education'    => '🎓 Education History (Pendidikan)',
+                        'work' => '💼 Work Experience (Magang / Karier)',
+                        'education' => '🎓 Education History (Pendidikan)',
                         'organization' => '👥 Organization (Organisasi)',
                     ]),
 
@@ -100,4 +100,3 @@ class ExperiencesTable
             ]);
     }
 }
-

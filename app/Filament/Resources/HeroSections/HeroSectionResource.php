@@ -7,6 +7,8 @@ use App\Filament\Resources\HeroSections\Pages\EditHeroSection;
 use App\Filament\Resources\HeroSections\Pages\ListHeroSections;
 use App\Filament\Resources\HeroSections\Schemas\HeroSectionForm;
 use App\Filament\Resources\HeroSections\Tables\HeroSectionsTable;
+use App\Filament\Resources\HeroSections\Widgets\HeroSectionCompletenessChart;
+use App\Filament\Resources\HeroSections\Widgets\HeroSectionStatsWidget;
 use App\Models\HeroSection;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -38,8 +40,8 @@ class HeroSectionResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            \App\Filament\Resources\HeroSections\Widgets\HeroSectionStatsWidget::class,
-            \App\Filament\Resources\HeroSections\Widgets\HeroSectionCompletenessChart::class,
+            HeroSectionStatsWidget::class,
+            HeroSectionCompletenessChart::class,
         ];
     }
 

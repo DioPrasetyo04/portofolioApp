@@ -45,10 +45,10 @@ class Experience extends Model
     ];
 
     protected $casts = [
-        'points'         => 'array',
-        'skills'         => 'array',
-        'media'          => 'array',
-        'is_active'      => 'boolean',
+        'points' => 'array',
+        'skills' => 'array',
+        'media' => 'array',
+        'is_active' => 'boolean',
         'priority_order' => 'integer',
     ];
 
@@ -58,7 +58,7 @@ class Experience extends Model
     public function getOptimizedMediaAttribute(): array
     {
         $rawMedia = $this->media;
-        if (empty($rawMedia) || !is_array($rawMedia)) {
+        if (empty($rawMedia) || ! is_array($rawMedia)) {
             return [];
         }
 
@@ -70,12 +70,12 @@ class Experience extends Model
                 $isVideo = in_array($extension, ['mp4', 'webm', 'ogg', 'mov', 'quicktime']);
 
                 $items[] = [
-                    'path'       => $path,
-                    'url'        => str_starts_with($path, 'http') ? $path : Storage::disk('public')->url($path),
-                    'type'       => $isVideo ? 'video' : 'image',
-                    'extension'  => $extension,
-                    'size_kb'    => null,
-                    'thumbnail'  => null,
+                    'path' => $path,
+                    'url' => str_starts_with($path, 'http') ? $path : Storage::disk('public')->url($path),
+                    'type' => $isVideo ? 'video' : 'image',
+                    'extension' => $extension,
+                    'size_kb' => null,
+                    'thumbnail' => null,
                 ];
             } elseif (is_array($item) && isset($item['path'])) {
                 $path = $item['path'];
@@ -83,13 +83,13 @@ class Experience extends Model
                 $url = $item['url'] ?? (str_starts_with($path, 'http') ? $path : Storage::disk('public')->url($path));
 
                 $items[] = [
-                    'path'      => $path,
-                    'url'       => $url,
-                    'type'      => $isVideo ? 'video' : 'image',
+                    'path' => $path,
+                    'url' => $url,
+                    'type' => $isVideo ? 'video' : 'image',
                     'extension' => $item['extension'] ?? strtolower(pathinfo($path, PATHINFO_EXTENSION)),
-                    'size_kb'   => $item['size_kb'] ?? null,
-                    'width'     => $item['width'] ?? null,
-                    'height'    => $item['height'] ?? null,
+                    'size_kb' => $item['size_kb'] ?? null,
+                    'width' => $item['width'] ?? null,
+                    'height' => $item['height'] ?? null,
                     'thumbnail' => $item['thumbnail'] ?? null,
                 ];
             }
@@ -113,14 +113,18 @@ class Experience extends Model
         $totalStorageKb = 0;
 
         foreach ($filePaths as $filePath) {
-            if (empty($filePath)) continue;
+            if (empty($filePath)) {
+                continue;
+            }
 
             // If already indexed array
             if (is_array($filePath) && isset($filePath['path'])) {
                 $filePath = $filePath['path'];
             }
 
-            if (!is_string($filePath)) continue;
+            if (! is_string($filePath)) {
+                continue;
+            }
 
             $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
             $isVideo = in_array($extension, ['mp4', 'webm', 'ogg', 'mov', 'quicktime']);
@@ -136,7 +140,7 @@ class Experience extends Model
                 $mime = $disk->mimeType($filePath);
 
                 // For images, index dimensions to prevent layout shifts
-                if (!$isVideo) {
+                if (! $isVideo) {
                     $fullPath = $disk->path($filePath);
                     if (file_exists($fullPath)) {
                         $imageInfo = @getimagesize($fullPath);
@@ -149,14 +153,14 @@ class Experience extends Model
             }
 
             $indexed[] = [
-                'path'      => $filePath,
-                'url'       => $disk->url($filePath),
-                'type'      => $isVideo ? 'video' : 'image',
+                'path' => $filePath,
+                'url' => $disk->url($filePath),
+                'type' => $isVideo ? 'video' : 'image',
                 'extension' => $extension,
-                'mime'      => $mime,
-                'size_kb'   => $sizeKb,
-                'width'     => $width,
-                'height'    => $height,
+                'mime' => $mime,
+                'size_kb' => $sizeKb,
+                'width' => $width,
+                'height' => $height,
             ];
         }
 
@@ -168,4 +172,3 @@ class Experience extends Model
      */
     protected $appends = ['optimized_media'];
 }
-

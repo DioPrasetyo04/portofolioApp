@@ -21,12 +21,13 @@ class SocialMediaTable
                     ->disk('public')
                     ->square()
                     ->getStateUsing(function ($record) {
-                        if (!$record->icon) {
+                        if (! $record->icon) {
                             return null;
                         }
                         if (str_contains($record->icon, '/') || preg_match('/\.(png|jpe?g|svg|webp)$/i', $record->icon)) {
                             return $record->icon;
                         }
+
                         return null;
                     }),
                 TextColumn::make('name')
@@ -63,4 +64,3 @@ class SocialMediaTable
             ]);
     }
 }
-

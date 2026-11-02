@@ -53,6 +53,7 @@ class ResumeRepository implements ResumeRepositoryInterface
     public function delete(int $id): bool
     {
         $resume = $this->findById($id);
+
         return $resume ? (bool) $resume->delete() : false;
     }
 

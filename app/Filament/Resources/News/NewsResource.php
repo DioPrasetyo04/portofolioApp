@@ -7,6 +7,8 @@ use App\Filament\Resources\News\Pages\EditNews;
 use App\Filament\Resources\News\Pages\ListNews;
 use App\Filament\Resources\News\Schemas\NewsForm;
 use App\Filament\Resources\News\Tables\NewsTable;
+use App\Filament\Resources\News\Widgets\NewsEngagementChart;
+use App\Filament\Resources\News\Widgets\NewsStatsWidget;
 use App\Models\News;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -38,8 +40,8 @@ class NewsResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            \App\Filament\Resources\News\Widgets\NewsStatsWidget::class,
-            \App\Filament\Resources\News\Widgets\NewsEngagementChart::class,
+            NewsStatsWidget::class,
+            NewsEngagementChart::class,
         ];
     }
 

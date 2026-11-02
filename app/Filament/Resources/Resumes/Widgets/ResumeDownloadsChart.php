@@ -42,7 +42,7 @@ class ResumeDownloadsChart extends ChartWidget
                 ? ($resume->title[app()->getLocale()] ?? reset($resume->title) ?? 'Resume')
                 : ($resume->title ?: 'Resume');
 
-            $labels[] = "{$version} - " . Str::limit((string) $title, 18);
+            $labels[] = "{$version} - ".Str::limit((string) $title, 18);
             $data[] = (int) $resume->download_count;
         }
 

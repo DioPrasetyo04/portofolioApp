@@ -23,6 +23,7 @@ class TechnologyForm
                             ->options(function () {
                                 return TechnologyCategory::all()->mapWithKeys(function ($cat) {
                                     $name = is_array($cat->name) ? ($cat->name['en'] ?? reset($cat->name)) : $cat->name;
+
                                     return [$cat->id => $name];
                                 });
                             })

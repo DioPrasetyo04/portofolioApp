@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PortfolioLikedMail;
+use App\Models\Certificate;
+use App\Models\News;
+use App\Models\PortfolioLike;
+use App\Models\Project;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class InteractionController extends Controller
 {
@@ -18,9 +25,9 @@ class InteractionController extends Controller
         ]);
 
         $modelClass = match ($validated['type']) {
-            'project' => \App\Models\Project::class,
-            'certificate' => \App\Models\Certificate::class,
-            'news' => \App\Models\News::class,
+            'project' => Project::class,
+            'certificate' => Certificate::class,
+            'news' => News::class,
         };
 
         $model = $modelClass::findOrFail($validated['id']);
@@ -33,7 +40,7 @@ class InteractionController extends Controller
 
         return response()->json([
             'message' => 'Comment successfully posted',
-            'comment' => $comment
+            'comment' => $comment,
         ]);
     }
 
@@ -45,18 +52,18 @@ class InteractionController extends Controller
         ]);
 
         $modelClass = match ($validated['type']) {
-            'project' => \App\Models\Project::class,
-            'certificate' => \App\Models\Certificate::class,
-            'news' => \App\Models\News::class,
+            'project' => Project::class,
+            'certificate' => Certificate::class,
+            'news' => News::class,
         };
 
         $model = $modelClass::findOrFail($validated['id']);
-        
+
         $model->increment('likes_count');
 
         return response()->json([
             'message' => 'Like added',
-            'likes_count' => $model->likes_count
+            'likes_count' => $model->likes_count,
         ]);
     }
 
@@ -66,8 +73,8 @@ class InteractionController extends Controller
     public function getPortfolioLikes(Request $request)
     {
         $ip = $request->ip();
-        $alreadyLiked = \App\Models\PortfolioLike::where('ip_address', $ip)->exists();
-        $totalLikes = \App\Models\PortfolioLike::count();
+        $alreadyLiked = PortfolioLike::where('ip_address', $ip)->exists();
+        $totalLikes = PortfolioLike::count();
 
         return response()->json([
             'total_likes' => $totalLikes,
@@ -84,30 +91,30 @@ class InteractionController extends Controller
         $userAgent = $request->userAgent();
 
         // 1. Anti-spam check: prevent duplicate like from same IP
-        $exists = \App\Models\PortfolioLike::where('ip_address', $ip)->exists();
+        $exists = PortfolioLike::where('ip_address', $ip)->exists();
         if ($exists) {
             return response()->json([
                 'message' => 'You have already liked this portfolio.',
                 'already_liked' => true,
-                'total_likes' => \App\Models\PortfolioLike::count(),
+                'total_likes' => PortfolioLike::count(),
             ], 409);
         }
 
         // 2. Persist new unique like record
         try {
-            \App\Models\PortfolioLike::create([
+            PortfolioLike::create([
                 'ip_address' => $ip,
                 'user_agent' => $userAgent,
             ]);
-        } catch (\Illuminate\Database\UniqueConstraintViolationException $e) {
+        } catch (UniqueConstraintViolationException $e) {
             return response()->json([
                 'message' => 'You have already liked this portfolio.',
                 'already_liked' => true,
-                'total_likes' => \App\Models\PortfolioLike::count(),
+                'total_likes' => PortfolioLike::count(),
             ], 409);
         }
 
-        $totalLikes = \App\Models\PortfolioLike::count();
+        $totalLikes = PortfolioLike::count();
 
         // 3. Dispatch Email Notification gracefully
         try {
@@ -115,8 +122,8 @@ class InteractionController extends Controller
                 ?: env('MAIL_USERNAME')
                 ?: (config('mail.from.address') ?: 'admin@portfolio.test');
 
-            \Illuminate\Support\Facades\Mail::to($recipient)->send(
-                new \App\Mail\PortfolioLikedMail(
+            Mail::to($recipient)->send(
+                new PortfolioLikedMail(
                     ipAddress: $ip,
                     userAgent: $userAgent,
                     totalLikes: $totalLikes,
@@ -124,7 +131,7 @@ class InteractionController extends Controller
                 )
             );
         } catch (\Throwable $e) {
-            Log::warning('Failed to dispatch portfolio liked email: ' . $e->getMessage());
+            Log::warning('Failed to dispatch portfolio liked email: '.$e->getMessage());
         }
 
         return response()->json([
@@ -134,4 +141,3 @@ class InteractionController extends Controller
         ]);
     }
 }
-

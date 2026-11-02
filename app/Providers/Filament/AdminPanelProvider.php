@@ -2,6 +2,12 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\AccountWidget;
+use App\Filament\Widgets\DashboardCertificatesTimelineChart;
+use App\Filament\Widgets\DashboardEngagementChart;
+use App\Filament\Widgets\DashboardProjectsCategoryChart;
+use App\Filament\Widgets\DashboardStatsOverview;
+use App\Filament\Widgets\DashboardTechProficiencyChart;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -10,8 +16,6 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use App\Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -42,11 +46,11 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 AccountWidget::class,
-                \App\Filament\Widgets\DashboardStatsOverview::class,
-                \App\Filament\Widgets\DashboardProjectsCategoryChart::class,
-                \App\Filament\Widgets\DashboardTechProficiencyChart::class,
-                \App\Filament\Widgets\DashboardEngagementChart::class,
-                \App\Filament\Widgets\DashboardCertificatesTimelineChart::class,
+                DashboardStatsOverview::class,
+                DashboardProjectsCategoryChart::class,
+                DashboardTechProficiencyChart::class,
+                DashboardEngagementChart::class,
+                DashboardCertificatesTimelineChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Resumes\Tables;
 use App\Models\Resume;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
@@ -79,6 +80,7 @@ class ResumesTable
                     }),
 
                 EditAction::make(),
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

@@ -51,7 +51,7 @@ jobs:
 
       - name: Build frontend assets
         run: npm run build
-
+        
       # Remove cached dev package manifests and reinstall production dependencies without dev packages.
       - name: Prepare production PHP dependencies
         run: |
